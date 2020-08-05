@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
-    "build": "rm -rf ./build/* && tsc --build tsconfig.json && webpack --config src/webpack.config.js",
+    "build": "rm -rf ./build/* && tsc --build tsconfig.json && webpack --config src/webpack.config.js --mode=\"production\"",
     "start": "node build/index.js",
     "es-lint": "eslint . -c src/.eslintrc.js --ext \"tsx,ts\"",
     "style-lint": "stylelint --ignore-pattern src/client/tests --config src/.stylelintrc src/client/*",
