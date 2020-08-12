@@ -2,7 +2,10 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/client/main.tsx',
+    entry: {
+        main: './src/client/main.tsx',
+        admin: './src/client/admin.tsx'
+    },
     devtool: 'source-map',
     module: {
         rules: [
@@ -28,7 +31,7 @@ module.exports = {
         extensions: [ '.tsx', '.ts', '.js' ],
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'public'),
     },
 };
