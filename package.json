@@ -75,7 +75,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn es-lint && yarn style-lint && yarn test"
+      "pre-commit": "yarn es-lint && yarn style-lint && yarn test",
+      "pre-push": "./venv/bin/pytest tests"
     }
   }
 }
