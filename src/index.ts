@@ -39,9 +39,14 @@ const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
     }
 });
 
-app.use("*", (req, res) => {
+app.use("/admin", (req, res) => {
+    res.render("admin");
+});
+
+app.use("/", (req, res) => {
     res.render("index");
 });
+
 
 app.listen(PORT, async () => {
     try {
