@@ -18,12 +18,10 @@ class App extends React.Component {
                         <Navbar.Brand>Home</Navbar.Brand>
                     </LinkContainer>
                 </Navbar>
-                <Container className="p-3">
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/login' component={Login}/>
-                    </Switch>
-                </Container>
+                <Switch>
+                    <Route exact path='/' component={Home}/>
+                    <Route path='/login' component={Login}/>
+                </Switch>
             </div>
         );
 
