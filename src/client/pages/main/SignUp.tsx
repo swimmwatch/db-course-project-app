@@ -4,12 +4,16 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
-export default class Login extends React.Component {
+export default class SignUp extends React.Component {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render() {
         return (
             <Container className="p-3">
                 <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
                     <Form.Group controlId="formBasicLogin">
                         <Form.Label>Login</Form.Label>
                         <Form.Control type="text" placeholder="Enter login" />
