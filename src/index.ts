@@ -7,9 +7,11 @@ import * as bodyParser from "body-parser";
 import * as serveFavicon from "serve-favicon";
 import { Sequelize } from "sequelize";
 
+// setup environment
 import * as dotenv from "dotenv";
-
 dotenv.config({ path: path.join(process.cwd(), "/util", ".env") });
+
+import config from "../util/config";
 
 const app = express();
 
@@ -32,12 +34,9 @@ app.use(serveFavicon(path.join(process.cwd(), '/src', '/public', 'favicon.ico'))
 
 const PORT = process.env.PORT || 3000;
 
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
-    dialect: 'postgres',
-    dialectOptions: {
-        ssl: { rejectUnauthorized: false }
-    }
-});
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore.
+const sequelize = new Sequelize(process.env.DATABASE_URL as string, config.db.options);
 
 app.use("/admin", (req, res) => {
     res.render("admin");
@@ -51,6 +50,8 @@ app.use("/", (req, res) => {
 app.listen(PORT, async () => {
     try {
         await sequelize.authenticate();
+        await sequelize.sync({ force: true });
+
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
