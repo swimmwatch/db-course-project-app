@@ -1,4 +1,5 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
+import * as bcrypt from "bcrypt";
 
 import config from "../../util/config";
 
@@ -28,6 +29,12 @@ User.init(
         password: {
             type: new DataTypes.STRING(128),
             allowNull: false,
+            async set(value) {
+                const salt = await bcrypt.genSalt(10);
+                const hash = await bcrypt.hash(value, salt);
+
+                this.setDataValue("password", hash);
+            }
         },
         email: {
             type: new DataTypes.STRING(128),
