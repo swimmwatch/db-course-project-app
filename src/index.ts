@@ -3,7 +3,6 @@ import * as path from "path";
 import * as exphbs from "express-handlebars";
 import * as compression from "compression";
 import * as morgan from "morgan";
-import * as bodyParser from "body-parser";
 import * as serveFavicon from "serve-favicon";
 import { Sequelize } from "sequelize";
 
@@ -27,7 +26,9 @@ app.use(compression());
 // set logger
 app.use(morgan("common"));
 // serve json requests
-app.use(bodyParser.json());
+app.use(express.json());
+// serve form requests
+app.use(express.urlencoded({ extended: true }));
 // serve favicon
 app.use(serveFavicon(path.join(process.cwd(), '/src', '/public', 'favicon.ico')))
 
