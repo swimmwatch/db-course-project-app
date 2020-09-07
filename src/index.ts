@@ -10,7 +10,6 @@ import { Sequelize } from "sequelize";
 // setup environment
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.join(process.cwd(), "/util", ".env") });
-
 import config from "../util/config";
 
 const app = express();
