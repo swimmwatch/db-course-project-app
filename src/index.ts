@@ -38,7 +38,11 @@ const PORT = process.env.PORT || 3000;
 // @ts-ignore.
 const sequelize = new Sequelize(process.env.DATABASE_URL as string, config.db.options);
 
-app.use("/admin", (req, res) => {
+app.get("/", (req, res) => {
+    res.render("index");
+});
+
+app.get("/admin", (req, res) => {
     res.render("admin");
 });
 
