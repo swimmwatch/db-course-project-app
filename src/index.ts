@@ -11,6 +11,10 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: path.join(process.cwd(), "/util", ".env") });
 import config from "../util/config";
 
+import authErrorHandler from "./controllers/authErrorHandler";
+
+import authRouter from "./routes/auth";
+
 const app = express();
 
 // set static path
@@ -46,10 +50,9 @@ app.get("/admin", (req, res) => {
     res.render("admin");
 });
 
-app.use("/", (req, res) => {
-    res.render("index");
-});
+app.use("/api", authRouter);
 
+app.use(authErrorHandler);
 
 app.listen(PORT, async () => {
     try {
