@@ -31,11 +31,17 @@ const User = sequelize.define("user", {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-User.hashPassword = async function(value: string) {
+User.hashPassword = async (value: string) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(value, salt);
 
     return hash;
-}
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+User.comparePasswords = async (password: string, passwordHash: string) => {
+    return await bcrypt.compare(password, passwordHash);
+};
 
 export default User;

@@ -3,7 +3,6 @@ import {
     Response,
     NextFunction
 } from "express";
-import * as bcrypt from "bcrypt";
 import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
 
 import User from "../models/User";
@@ -56,7 +55,7 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
     } else {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const isRight = await bcrypt.compare(credentials.password, user.password);
+        const isRight = await User.comparePasswords(credentials.password, user.password);
 
         res.send(isRight);
     }
