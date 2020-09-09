@@ -12,11 +12,11 @@ export default class Login extends React.Component {
                 <Form>
                     <Form.Group controlId="formBasicLogin">
                         <Form.Label>Login</Form.Label>
-                        <Form.Control type="text" placeholder="Enter login" />
+                        <Form.Control type="text" placeholder="Enter login" name="login"/>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control type="password" placeholder="Password" name="password"/>
                     </Form.Group>
                     <Button variant="primary" type="submit">Submit</Button>
                 </Form>
