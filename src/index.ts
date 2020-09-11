@@ -14,6 +14,7 @@ import config from "../util/config";
 import authErrorHandler from "./controllers/authErrorHandler";
 
 import authRouter from "./routes/auth";
+import checkToken from "./middlewares/checkToken";
 
 const app = express();
 
@@ -48,6 +49,10 @@ app.get("/", (req, res) => {
 
 app.get("/admin", (req, res) => {
     res.render("admin");
+});
+
+app.get("/test_token", checkToken, (req, res) => {
+    res.send("hello! you can read this secure resource.");
 });
 
 app.use("/api", authRouter);
