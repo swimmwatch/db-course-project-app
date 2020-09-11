@@ -11,7 +11,7 @@ import * as dotenv from "dotenv";
 dotenv.config({ path: path.join(process.cwd(), "/util", ".env") });
 import config from "../util/config";
 
-import authErrorHandler from "./controllers/authErrorHandler";
+import authErrorHandler from "./middlewares/authErrorHandler";
 
 import authRouter from "./routes/auth";
 import checkToken from "./middlewares/checkToken";
