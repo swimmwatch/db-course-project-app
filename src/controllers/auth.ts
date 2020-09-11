@@ -4,6 +4,7 @@ import {
     NextFunction
 } from "express";
 import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
+import * as jwt from "jsonwebtoken";
 
 import User from "../models/User";
 
@@ -55,8 +56,21 @@ export const signin = async (req: Request, res: Response, next: NextFunction) =>
     } else {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        const isRight = await User.comparePasswords(credentials.password, user.password);
+        const isRightPassword = await User.comparePasswords(credentials.password, user.password);
 
-        res.send(isRight);
+        if (isRightPassword) {
+            const token = jwt.sign({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+                userId: user.id as string,
+                role: ['user'] }, process.env.JWT_SECRET as string);
+
+            res.send(token);
+        } else {
+            next({
+                status: BAD_REQUEST,
+                message: "Login or password is invalid"
+            });
+        }
     }
 };
