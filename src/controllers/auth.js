@@ -47,7 +47,7 @@ export const signin = async (req, res, next) => {
             message: "User with such name not found"
         });
     } else {
-        const isRightPassword = await User.comparePasswords(credentials.password, user.password);
+        const isRightPassword = await user.comparePasswords(credentials.password);
 
         if (isRightPassword) {
             const token = jwt.sign({
