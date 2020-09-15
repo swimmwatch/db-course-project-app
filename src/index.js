@@ -6,9 +6,6 @@ import * as morgan from "morgan";
 import * as serveFavicon from "serve-favicon";
 import { Sequelize } from "sequelize";
 
-// setup environment
-import * as dotenv from "dotenv";
-dotenv.config({ path: path.join(process.cwd(), "/util", ".env") });
 import config from "../util/config";
 
 import authErrorHandler from "./middlewares/authErrorHandler";
