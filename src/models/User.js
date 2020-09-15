@@ -1,11 +1,9 @@
 import { Sequelize, DataTypes } from "sequelize";
 import * as bcrypt from "bcrypt";
 
-import config from "../../util/config";
+import config from "../config";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, config.db.options);
+const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
 const User = sequelize.define("user", {
         id: {
@@ -14,7 +12,7 @@ const User = sequelize.define("user", {
             primaryKey: true,
         },
         login: {
-            type: new DataTypes.STRING(128),
+            type: new DataTypes.STRING,
             allowNull: false,
             unique: true
         },
@@ -29,18 +27,14 @@ const User = sequelize.define("user", {
     }
 );
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-User.hashPassword = async (value: string) => {
+User.hashPassword = async (value) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(value, salt);
 
     return hash;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-User.comparePasswords = async (password: string, passwordHash: string) => {
+User.comparePasswords = async (password, passwordHash) => {
     return await bcrypt.compare(password, passwordHash);
 };
 

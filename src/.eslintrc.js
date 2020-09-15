@@ -1,15 +1,15 @@
 module.exports = {
     "env": {
         "browser": true,
+        "es2020": true,
         "node": true,
-        "es2020": true
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:jest/recommended"
     ],
-    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -19,14 +19,8 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "jest"
     ],
     "rules": {
-        "@typescript-eslint/no-var-requires": 0
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
     }
 };

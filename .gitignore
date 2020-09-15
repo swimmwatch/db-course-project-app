@@ -181,7 +181,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-util/.env
+.env
 .venv
 env/
 venv/
@@ -314,7 +314,7 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-util/.env
+.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -370,4 +370,4 @@ dist
 !/src/public/android-chrome-192x192.png
 !/src/public/mstile-150x150.png
 
-/util/config.ts
+/src/config.js

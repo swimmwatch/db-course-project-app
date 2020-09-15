@@ -1,6 +1,6 @@
 {
   "watch": ["src"],
-  "ext": "ts",
+  "ext": "js",
   "ignore": ["src/public"],
-  "exec": "ts-node src/index.ts"
+  "exec": "babel-node -r dotenv/config src/index.js"
 }

@@ -1,10 +1,8 @@
 import { Sequelize, DataTypes } from "sequelize";
 
-import config from "../../util/config";
+import config from "../config";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, config.db.options);
+const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
 const Role = sequelize.define("role", {
     id: {

@@ -5,8 +5,7 @@ import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 
-// eslint-disable-next-line react/display-name,@typescript-eslint/explicit-module-boundary-types
-export default () => {
+const Home = () => {
     return (
         <Container className="p-3">
             <Jumbotron>
@@ -24,3 +23,5 @@ export default () => {
         </Container>
     );
 }
+
+export default Home;

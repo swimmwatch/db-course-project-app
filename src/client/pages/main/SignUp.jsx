@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 export default class SignUp extends React.Component {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render() {
         return (
             <Container className="p-3">
