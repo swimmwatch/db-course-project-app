@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 import * as bcrypt from "bcrypt";
 
 import config from "../config";
@@ -7,35 +7,36 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
 const User = sequelize.define("user", {
         id: {
-            type: DataTypes.INTEGER.UNSIGNED,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         login: {
-            type: new DataTypes.STRING,
+            type: Sequelize.STRING(128),
             allowNull: false,
             unique: true
         },
         password: {
-            type: new DataTypes.STRING(128),
+            type: Sequelize.STRING(128),
             allowNull: false,
         },
         email: {
-            type: new DataTypes.STRING(128),
+            type: Sequelize.STRING(128),
             allowNull: false,
         },
+    }, {
+        classMethods: {
+            async hashPassword(value) {
+                const salt = await bcrypt.genSalt(10);
+
+                return await bcrypt.hash(value, salt);
+            }
+        }, instanceMethods: {
+            async comparePasswords(password, passwordHash) {
+                return await bcrypt.compare(password, passwordHash);
+            }
+        }
     }
 );
-
-User.hashPassword = async (value) => {
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(value, salt);
-
-    return hash;
-};
-
-User.comparePasswords = async (password, passwordHash) => {
-    return await bcrypt.compare(password, passwordHash);
-};
 
 export default User;
