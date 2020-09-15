@@ -8,7 +8,7 @@ import * as jwt from "jsonwebtoken";
 
 import User from "../models/User";
 
-export const signup = async (req: Request, res: Response, next: NextFunction) => {
+export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { login, ...credentials } = req.body;
 
     let user;
@@ -36,7 +36,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     }
 };
 
-export const signin = async (req: Request, res: Response, next: NextFunction) => {
+export const signin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { login, ...credentials } = req.body;
 
     let user;
