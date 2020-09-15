@@ -1,14 +1,9 @@
-import {
-    Request,
-    Response,
-    NextFunction
-} from "express";
 import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
 import * as jwt from "jsonwebtoken";
 
 import User from "../models/User";
 
-export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const signup = async (req, res, next) => {
     const { login, ...credentials } = req.body;
 
     let user;
@@ -26,8 +21,6 @@ export const signup = async (req: Request, res: Response, next: NextFunction): P
             message: "User with such name already exists"
         });
     } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         const password = await User.hashPassword(credentials.password);
 
         await User.create({ ...credentials, password, login });
@@ -36,7 +29,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction): P
     }
 };
 
-export const signin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const signin = async (req, res, next) => {
     const { login, ...credentials } = req.body;
 
     let user;
@@ -54,16 +47,12 @@ export const signin = async (req: Request, res: Response, next: NextFunction): P
             message: "User with such name not found"
         });
     } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         const isRightPassword = await User.comparePasswords(credentials.password, user.password);
 
         if (isRightPassword) {
             const token = jwt.sign({
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-                userId: user.id as string,
-                role: ['user'] }, process.env.JWT_SECRET as string);
+                userId: user.id,
+                role: ['user'] }, process.env.JWT_SECRET);
 
             res.send(token);
         } else {

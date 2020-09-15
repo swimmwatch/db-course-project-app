@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 export default class Login extends React.Component {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render() {
         return (
             <Form>

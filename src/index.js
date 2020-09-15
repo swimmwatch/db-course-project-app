@@ -1,9 +1,9 @@
-import * as express from "express";
 import * as path from "path";
-import * as exphbs from "express-handlebars";
-import * as compression from "compression";
-import * as morgan from "morgan";
-import * as serveFavicon from "serve-favicon";
+import express from "express";
+import exphbs from "express-handlebars";
+import compression from "compression";
+import morgan from "morgan";
+import serveFavicon from "serve-favicon";
 import { Sequelize } from "sequelize";
 
 import config from "../util/config";
@@ -36,9 +36,7 @@ app.use(serveFavicon(path.join(process.cwd(), '/src', '/public', 'favicon.ico'))
 
 const PORT = process.env.PORT || 3000;
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore.
-const sequelize = new Sequelize(process.env.DATABASE_URL as string, config.db.options);
+const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
 app.get("/", (req, res) => {
     res.render("index");

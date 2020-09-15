@@ -10,7 +10,6 @@ import Home from "./Home"
 import SignUp from "./SignUp";
 
 class App extends React.Component {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render() {
         const App = () => (
             <div>

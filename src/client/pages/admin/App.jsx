@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Login from "./Login";
 
 class App extends React.Component {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     render() {
         const App = () => (
             <div>
