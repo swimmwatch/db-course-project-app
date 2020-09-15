@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from "sequelize";
 import * as bcrypt from "bcrypt";
 
-import config from "../../util/config";
+import config from "../config";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 

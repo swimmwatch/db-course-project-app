@@ -1,6 +1,6 @@
 import { Sequelize, DataTypes } from "sequelize";
 
-import config from "../../util/config";
+import config from "../config";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 

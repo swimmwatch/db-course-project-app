@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-import config from "../../util/config";
+import config from "../config";
 
 import User from "./User";
 import Role from "./Role";

@@ -6,7 +6,7 @@ import morgan from "morgan";
 import serveFavicon from "serve-favicon";
 import { Sequelize } from "sequelize";
 
-import config from "../util/config";
+import config from "./config";
 
 import authErrorHandler from "./middlewares/authErrorHandler";
 
