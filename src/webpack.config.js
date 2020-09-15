@@ -3,15 +3,15 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        main: './src/client/main.tsx',
-        admin: './src/client/admin.tsx'
+        main: './src/client/main.jsx',
+        admin: './src/client/admin.jsx'
     },
     devtool: 'source-map',
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
+                test: /\.jsx?$/,
+                use: 'babel-loader',
                 exclude: /node_modules/,
             },
             {
@@ -28,7 +28,7 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ],
+        extensions: [ '.jsx', '.js' ],
     },
     output: {
         filename: '[name].bundle.js',
