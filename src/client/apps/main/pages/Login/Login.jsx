@@ -10,13 +10,13 @@ const Login = () => {
             <h2>Login form</h2>
             <Form>
                 <Form.Group controlId="main-form-login">
-                    <Form.Label>Login</Form.Label>
+                    <Form.Label>Login:</Form.Label>
                     <Form.Control type="text"
                                   placeholder="Enter login"
                                   name="login"/>
                 </Form.Group>
                 <Form.Group controlId="main-form-password">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Password:</Form.Label>
                     <Form.Control type="password"
                                   placeholder="Enter password"
                                   name="password"/>
