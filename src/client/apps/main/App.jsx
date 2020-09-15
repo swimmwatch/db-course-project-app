@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Login from "./Login";
+import Login from "./pages/Login";
 import Home from "./Home"
 import SignUp from "./SignUp";
 
