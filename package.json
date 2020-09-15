@@ -8,7 +8,7 @@
     "test": "jest",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
     "build": "rm -rf ./build/* && tsc --build tsconfig.json && webpack --config src/webpack.config.js --mode=\"production\"",
-    "start": "node build/index.js",
+    "start": "node -r dotenv/config build/index.js",
     "es-lint": "eslint . -c src/.eslintrc.js --ext \"jsx,js\"",
     "style-lint": "stylelint --ignore-pattern src/client/tests --config src/.stylelintrc src/client/*",
     "watch": "webpack --config src/webpack.config.js --watch"
@@ -37,8 +37,10 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@types/compression": "^1.7.0",
