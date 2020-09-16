@@ -7,7 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import Login from "./pages/Login";
 import Home from "./Home"
-import SignUp from "./SignUp";
+import SignUp from "./pages/SignUp";
 
 class App extends React.Component {
     render() {
