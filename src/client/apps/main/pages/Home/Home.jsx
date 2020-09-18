@@ -5,6 +5,8 @@ import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Container from "react-bootstrap/Container";
 
+import "./style.scss";
+
 const Home = () => {
     return (
         <Container className="p-3">
