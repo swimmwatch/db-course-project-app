@@ -13,13 +13,16 @@ class App extends React.Component {
     render() {
         const App = () => (
             <div>
-                <Navbar bg="light">
+                <Navbar bg="dark" variant="dark">
                     <LinkContainer to="/">
-                        <Navbar.Brand>Home</Navbar.Brand>
+                        <Navbar.Brand>PassQuiz</Navbar.Brand>
                     </LinkContainer>
                     <Nav>
                         <LinkContainer to="/signup">
                             <Nav.Link>Sign Up</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/login">
+                            <Nav.Link>Login</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Navbar>
