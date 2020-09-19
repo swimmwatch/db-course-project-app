@@ -5,9 +5,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { LinkContainer } from 'react-router-bootstrap';
 
+import Container from "react-bootstrap/Container";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
+
+import Footer from "./components/Footer";
 
 class App extends React.Component {
     render() {
@@ -26,11 +30,16 @@ class App extends React.Component {
                         </LinkContainer>
                     </Nav>
                 </Navbar>
+
                 <Switch>
                     <Route exact path='/' component={Home} />
                     <Route path='/login' component={Login} />
                     <Route path='/signup' component={SignUp} />
                 </Switch>
+
+                <Container className="p-3">
+                    <Footer />
+                </Container>
             </div>
         );
 
