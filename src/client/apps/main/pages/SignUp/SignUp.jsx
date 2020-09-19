@@ -32,6 +32,12 @@ export default class SignUp extends React.Component {
                                           placeholder="Enter password"
                                           name="password" />
                         </Form.Group>
+                        <Form.Group controlId="main-signup-form__repassword">
+                            <Form.Label className="main-signup-form__label">Repeat password:</Form.Label>
+                            <Form.Control type="password"
+                                          placeholder="Enter password"
+                                          name="repassword" />
+                        </Form.Group>
                         <Button variant="primary"
                                 type="submit"
                                 block>Submit</Button>
