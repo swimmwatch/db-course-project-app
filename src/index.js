@@ -8,8 +8,6 @@ import { Sequelize } from "sequelize";
 
 import config from "./config";
 
-import authErrorHandler from "./middlewares/authErrorHandler";
-
 import authRouter from "./routes/auth";
 import checkToken from "./middlewares/checkToken";
 
@@ -51,8 +49,6 @@ app.get("/test_token", checkToken, (req, res) => {
 });
 
 app.use("/api", authRouter);
-
-app.use(authErrorHandler);
 
 app.listen(PORT, async () => {
     try {
