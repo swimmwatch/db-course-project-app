@@ -3,7 +3,7 @@ import * as jwt from "jsonwebtoken";
 
 import User from "../models/User";
 
-export const signup = async (req, res, next) => {
+export const signup = async (req, res) => {
     const { login, ...credentials } = req.body;
 
     let user;
@@ -16,7 +16,7 @@ export const signup = async (req, res, next) => {
     }
 
     if (user !== null) {
-        next({
+        res.send(BAD_REQUEST).json({
             status: BAD_REQUEST,
             message: "User with such name already exists"
         });
@@ -29,7 +29,7 @@ export const signup = async (req, res, next) => {
     }
 };
 
-export const signin = async (req, res, next) => {
+export const signin = async (req, res) => {
     const { login, ...credentials } = req.body;
 
     let user;
@@ -42,7 +42,7 @@ export const signin = async (req, res, next) => {
     }
 
     if (!user) {
-        next({
+        res.send(BAD_REQUEST).json({
             status: BAD_REQUEST,
             message: "User with such name not found"
         });
@@ -56,7 +56,7 @@ export const signin = async (req, res, next) => {
 
             res.send(token);
         } else {
-            next({
+            res.send(BAD_REQUEST).json({
                 status: BAD_REQUEST,
                 message: "Login or password is invalid"
             });
