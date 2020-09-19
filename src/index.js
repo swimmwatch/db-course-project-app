@@ -8,6 +8,7 @@ import { Sequelize } from "sequelize";
 
 import config from "./config";
 
+import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
 import checkToken from "./middlewares/checkToken";
 
@@ -46,9 +47,7 @@ app.get("/test_token", checkToken, (req, res) => {
 
 app.use("/api", authRouter);
 
-app.get("*", (req, res) => {
-    res.render("index");
-});
+app.use("*", mainRouter);
 
 app.listen(PORT, async () => {
     try {
