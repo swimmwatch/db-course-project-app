@@ -1,0 +1,15 @@
+.main-login-form {
+  &__forgot-password {
+    display: block;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__label {
+    font-weight: bold;
+  }
+}

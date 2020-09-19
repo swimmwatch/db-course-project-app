@@ -5,28 +5,31 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { LinkContainer } from 'react-router-bootstrap';
 
-import Login from "./Login";
-import Home from "./Home"
-import SignUp from "./SignUp";
+import Login from "./pages/Login";
+import Home from "./pages/Home"
+import SignUp from "./pages/SignUp";
 
 class App extends React.Component {
     render() {
         const App = () => (
             <div>
-                <Navbar bg="light">
+                <Navbar bg="dark" variant="dark">
                     <LinkContainer to="/">
-                        <Navbar.Brand>Home</Navbar.Brand>
+                        <Navbar.Brand>PassQuiz</Navbar.Brand>
                     </LinkContainer>
                     <Nav>
                         <LinkContainer to="/signup">
                             <Nav.Link>Sign Up</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer to="/login">
+                            <Nav.Link>Login</Nav.Link>
+                        </LinkContainer>
                     </Nav>
                 </Navbar>
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/signup' component={SignUp}/>
+                    <Route exact path='/' component={Home} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/signup' component={SignUp} />
                 </Switch>
             </div>
         );
