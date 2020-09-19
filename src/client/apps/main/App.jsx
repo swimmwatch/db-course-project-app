@@ -27,9 +27,9 @@ class App extends React.Component {
                     </Nav>
                 </Navbar>
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/signup' component={SignUp}/>
+                    <Route exact path='/' component={Home} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/signup' component={SignUp} />
                 </Switch>
             </div>
         );
