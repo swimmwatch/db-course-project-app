@@ -18,6 +18,9 @@ const Header = () => {
                 <LinkContainer to="/login">
                     <Nav.Link>Login</Nav.Link>
                 </LinkContainer>
+                <LinkContainer to="/profile">
+                    <Nav.Link>Profile</Nav.Link>
+                </LinkContainer>
             </Nav>
         </Navbar>
     );
