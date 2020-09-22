@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
 import ListTestCards from "../../components/ListTestCards";
 import ProfileSettings from "../ProfileSettings";
+import ProfileAttempts from "../ProfileAttempts";
 
 import "./style.scss";
 
@@ -24,6 +25,8 @@ const lorem = new LoremIpsum({
     }
 });
 
+
+// TODO: Delete mock
 const tests = [];
 
 for (let i = 0; i < 7; i++) {
@@ -49,6 +52,11 @@ const Profile = () => (
                         </LinkContainer>
                     </Nav.Item>
                     <Nav.Item>
+                        <LinkContainer to="/profile/attempts">
+                            <Nav.Link eventKey="attempts">My attempts</Nav.Link>
+                        </LinkContainer>
+                    </Nav.Item>
+                    <Nav.Item>
                         <LinkContainer to="/profile/settings">
                             <Nav.Link eventKey="settings">Settings</Nav.Link>
                         </LinkContainer>
@@ -58,6 +66,7 @@ const Profile = () => (
                 <Switch>
                     <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
                     <Route path="/profile/settings" component={ProfileSettings} />
+                    <Route path="/profile/attempts" component={ProfileAttempts} />
                 </Switch>
             </Col>
         </Row>
