@@ -1,0 +1,11 @@
+.test-card {
+  margin: 10px 5px;
+  max-height: 300px;
+  min-height: 300px;
+  position: relative;
+
+  &__pass-btn {
+    bottom: 1.25rem;
+    position: absolute;
+  }
+}

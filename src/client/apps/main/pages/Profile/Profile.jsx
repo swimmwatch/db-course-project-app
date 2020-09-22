@@ -1,3 +1,5 @@
+import { LoremIpsum } from "lorem-ipsum";
+import { random } from "lodash";
 import * as React from "react";
 
 import { Switch, Route } from 'react-router-dom';
@@ -6,29 +8,30 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+
+import TestCard from "../../components/TestCard";
 
 import "./style.scss";
 import Form from "react-bootstrap/Form";
+
+const lorem = new LoremIpsum({
+    sentencesPerParagraph: {
+        max: 8,
+        min: 4
+    },
+    wordsPerSentence: {
+        max: 16,
+        min: 4
+    }
+});
 
 const Tests = () => (
     <Container className="p-3">
         <Row>
             {['React', 'JavaScript', 'Redux', 'HTML'].map((title, i) => (
                 <Col lg={4} key={i}>
-                    <Card style={{margin: '10px'}}>
-                        <Card.Img variant="top"
-                                  src="https://via.placeholder.com/260x180" />
-                        <Card.Body>
-                            <Card.Title>{title}</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the cards content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
+                    <TestCard title={title} description={lorem.generateWords(random(10, 30))} />
                 </Col>
             )
             )}
