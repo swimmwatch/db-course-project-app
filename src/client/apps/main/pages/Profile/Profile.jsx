@@ -8,9 +8,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import ListTestCards from "../../components/ListTestCards";
+import ProfileSettings from "../ProfileSettings";
 
 import "./style.scss";
 
@@ -33,40 +32,6 @@ for (let i = 0; i < 7; i++) {
         description: lorem.generateWords(random(10, 50))
     });
 }
-
-const Settings = () => (
-    <Container className="p-3">
-        <Form>
-            <Form.Group controlId="main-signup-form__email">
-                <Form.Label className="main-signup-form__label">Email address:</Form.Label>
-                <Form.Control type="email"
-                              placeholder="Enter email"
-                              name="email" />
-            </Form.Group>
-            <Form.Group controlId="main-signup-form__login">
-                <Form.Label className="main-signup-form__label">Login:</Form.Label>
-                <Form.Control type="text"
-                              placeholder="Enter login"
-                              name="login" />
-            </Form.Group>
-            <Form.Group controlId="main-signup-form__password">
-                <Form.Label className="main-signup-form__label">Password:</Form.Label>
-                <Form.Control type="password"
-                              placeholder="Enter password"
-                              name="password" />
-            </Form.Group>
-            <Form.Group controlId="main-signup-form__repassword">
-                <Form.Label className="main-signup-form__label">Repeat password:</Form.Label>
-                <Form.Control type="password"
-                              placeholder="Enter password"
-                              name="repassword" />
-            </Form.Group>
-            <Button variant="primary"
-                    type="submit"
-                    block>Submit</Button>
-        </Form>
-    </Container>
-);
 
 const Profile = () => (
     <Container className="p-3">
@@ -92,7 +57,7 @@ const Profile = () => (
 
                 <Switch>
                     <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
-                    <Route path="/profile/settings" component={Settings} />
+                    <Route path="/profile/settings" component={ProfileSettings} />
                 </Switch>
             </Col>
         </Row>
