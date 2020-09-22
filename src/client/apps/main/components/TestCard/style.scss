@@ -1,5 +1,5 @@
 .test-card {
-  margin: 10px 5px;
+  margin: 15px 0;
   max-height: 300px;
   min-height: 300px;
   position: relative;
@@ -7,5 +7,14 @@
   &__pass-btn {
     bottom: 1.25rem;
     position: absolute;
+  }
+
+  &__description {
+    max-height: 170px;
+    overflow-y: scroll;
+  }
+
+  &__title {
+    font-size: 1.1rem;
   }
 }

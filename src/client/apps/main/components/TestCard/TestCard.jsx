@@ -9,8 +9,8 @@ const TestCard = ({ title, description }) => {
     return (
         <Card className="test-card">
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text>{description}</Card.Text>
+                <Card.Title className="test-card__title">{title}</Card.Title>
+                <Card.Text className="test-card__description">{description}</Card.Text>
                 <Button className="test-card__pass-btn"
                         variant="primary">Pass test</Button>
             </Card.Body>
