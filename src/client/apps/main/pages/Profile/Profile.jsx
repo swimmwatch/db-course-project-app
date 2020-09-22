@@ -9,11 +9,10 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-
-import TestCard from "../../components/TestCard";
+import Form from "react-bootstrap/Form";
+import ListTestCards from "../../components/ListTestCards";
 
 import "./style.scss";
-import Form from "react-bootstrap/Form";
 
 const lorem = new LoremIpsum({
     sentencesPerParagraph: {
@@ -26,18 +25,14 @@ const lorem = new LoremIpsum({
     }
 });
 
-const Tests = () => (
-    <Container className="p-3">
-        <Row>
-            {['React', 'JavaScript', 'Redux', 'HTML'].map((title, i) => (
-                <Col lg={4} key={i}>
-                    <TestCard title={title} description={lorem.generateWords(random(10, 30))} />
-                </Col>
-            )
-            )}
-        </Row>
-    </Container>
-);
+const tests = [];
+
+for (let i = 0; i < 7; i++) {
+    tests.push({
+        title: lorem.generateWords(random(1, 10)),
+        description: lorem.generateWords(random(10, 50))
+    });
+}
 
 const Settings = () => (
     <Container className="p-3">
@@ -96,7 +91,7 @@ const Profile = () => (
                 </Nav>
 
                 <Switch>
-                    <Route path="/profile/tests" component={Tests} />
+                    <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
                     <Route path="/profile/settings" component={Settings} />
                 </Switch>
             </Col>
