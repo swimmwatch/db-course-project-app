@@ -21,7 +21,7 @@ const TestCard = ({ title, description }) => {
                     <Dropdown.Menu>
                         <Dropdown.Item as="button">Edit</Dropdown.Item>
                         <Dropdown.Item as="button">Delete</Dropdown.Item>
-                        <Dropdown.Item as="button">Something else</Dropdown.Item>
+                        <Dropdown.Item as="button">Share</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
             </Card.Body>
