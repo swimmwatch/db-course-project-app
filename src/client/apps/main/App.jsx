@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Profile from "./pages/Profile";
 
 class App extends React.Component {
     render() {
@@ -20,6 +21,7 @@ class App extends React.Component {
                     <Route exact path='/' component={Home}/>
                     <Route path='/login' component={Login}/>
                     <Route path='/signup' component={SignUp}/>
+                    <Route path='/profile' component={Profile}/>
                 </Switch>
 
                 <Container className="p-3">

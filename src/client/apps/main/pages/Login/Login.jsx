@@ -11,7 +11,7 @@ import "./style.scss";
 const Login = () => {
     return (
         <Container className="p-3">
-            <Col lg={{offset: 4, span: 4}}>
+            <Col lg={{offset: 3, span: 6}}>
                 <h2 className="main-login-form__title">Login form</h2>
                 <Form>
                     <Form.Group controlId="main-login-form__login">
