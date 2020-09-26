@@ -32,7 +32,8 @@ const tests = [];
 for (let i = 0; i < 7; i++) {
     tests.push({
         title: lorem.generateWords(random(1, 10)),
-        description: lorem.generateWords(random(10, 50))
+        description: lorem.generateWords(random(10, 50)),
+        author: "Dmitry"
     });
 }
 

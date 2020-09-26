@@ -3,14 +3,22 @@ import PropType from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
+import { LinkContainer } from "react-router-bootstrap";
 
 import "./style.scss";
 
-const TestCard = ({ title, description }) => {
+const TestCard = ({ title, description, author }) => {
     return (
         <Card className="test-card">
             <Card.Body>
                 <Card.Title className="test-card__title">{title}</Card.Title>
+
+                <p className="test-card__author">
+                    Author: <LinkContainer to="#">
+                                <a className="test-card__author-name">{author}</a>
+                            </LinkContainer>
+                </p>
+
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
                 <Button className="test-card__pass-btn"
@@ -31,7 +39,8 @@ const TestCard = ({ title, description }) => {
 
 TestCard.propTypes = {
     title: PropType.string,
-    description: PropType.string
+    description: PropType.string,
+    author: PropType.string
 };
 
 export default TestCard;

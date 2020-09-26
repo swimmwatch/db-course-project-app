@@ -12,11 +12,11 @@ const ListTestCards = ({ tests }) => {
             <Row>
                 {
                     tests.map((el, i) => {
-                        const { title, description } = el;
+                        const { title, description, author } = el;
 
                         return (
                             <Col lg={4} key={i}>
-                                <TestCard title={title} description={description} />
+                                <TestCard title={title} description={description} author={author} />
                             </Col>
                         );
                     })
