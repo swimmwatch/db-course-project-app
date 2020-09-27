@@ -5,5 +5,8 @@ export default {
 
     // Login
     MIN_LOGIN_LENGTH: 6,
-    MAX_LOGIN_LENGTH: 128
+    MAX_LOGIN_LENGTH: 128,
+
+    // Email
+    MAX_EMAIL_LENGTH: 320
 };

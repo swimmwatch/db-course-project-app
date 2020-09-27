@@ -8,7 +8,8 @@ const {
     MIN_PASSWORD_LENGTH,
     MAX_PASSWORD_LENGTH,
     MIN_LOGIN_LENGTH,
-    MAX_LOGIN_LENGTH
+    MAX_LOGIN_LENGTH,
+    MAX_EMAIL_LENGTH
 } = userConstraints;
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
@@ -37,9 +38,9 @@ const User = sequelize.define("user", {
             ]
         },
         email: {
-            type: Sequelize.STRING(128),
+            type: Sequelize.STRING(MAX_EMAIL_LENGTH),
             allowNull: false,
-
+            isEmail: true
         },
     }
 );
