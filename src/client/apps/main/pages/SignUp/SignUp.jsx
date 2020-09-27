@@ -19,6 +19,7 @@ export default class SignUp extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -27,6 +28,28 @@ export default class SignUp extends React.Component {
         console.log(name);
 
         this.setState({ [name]: value });
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('login', this.state.login);
+        formData.append('email', this.state.email);
+        formData.append('password', this.state.password);
+
+        const response = await fetch("/api/signup", {
+            method: "POST",
+            body: formData
+        });
+
+        const responseJson = await response.json();
+        if (response.ok) {
+            console.log(responseJson);
+        } else {
+            console.error(responseJson);
+        }
     }
 
     render() {
@@ -65,7 +88,8 @@ export default class SignUp extends React.Component {
                         </Form.Group>
                         <Button variant="primary"
                                 type="submit"
-                                block>Submit</Button>
+                                block
+                                onClick={this.handleFormSubmit}>Submit</Button>
                     </Form>
                 </Col>
             </Container>
