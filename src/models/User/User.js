@@ -69,4 +69,8 @@ User.prototype.comparePasswords = async function(password) {
     return await bcrypt.compare(password, this.password);
 };
 
+User.beforeCreate(async user => {
+    user.password = await User.hashPassword(user.password);
+});
+
 export default User;
