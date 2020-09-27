@@ -24,23 +24,37 @@ const User = sequelize.define("user", {
             type: Sequelize.STRING(MAX_LOGIN_LENGTH),
             allowNull: false,
             unique: true,
-            len: [
-                MIN_LOGIN_LENGTH,
-                MAX_LOGIN_LENGTH
-            ]
+            validate: {
+                len: {
+                    msg: `Invalid login. It must has length between ${MIN_LOGIN_LENGTH} and ${MAX_LOGIN_LENGTH}.`,
+                    args: [
+                        MIN_LOGIN_LENGTH,
+                        MAX_LOGIN_LENGTH
+                    ]
+                }
+            }
         },
         password: {
             type: Sequelize.STRING(MAX_PASSWORD_LENGTH),
             allowNull: false,
-            len: [
-                MIN_PASSWORD_LENGTH,
-                MAX_PASSWORD_LENGTH
-            ]
+            validate: {
+                len: {
+                    msg: `Invalid password. It must has length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}.`,
+                    args: [
+                        MIN_PASSWORD_LENGTH,
+                        MAX_PASSWORD_LENGTH
+                    ]
+                }
+            }
         },
         email: {
             type: Sequelize.STRING(MAX_EMAIL_LENGTH),
             allowNull: false,
-            isEmail: true
+            validate: {
+                isEmail: {
+                    msg: 'Invalid email address.'
+                }
+            }
         },
     }
 );
