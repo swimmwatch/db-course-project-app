@@ -1,51 +1,59 @@
-import {BAD_REQUEST, FORBIDDEN, OK} from "http-status-codes";
+import {
+    INTERNAL_SERVER_ERROR,
+    BAD_REQUEST,
+    OK
+} from "http-status-codes";
+import FormListErrors from "../helpers/FormListErrors";
 import * as jwt from "jsonwebtoken";
-
 import User from "../models/User";
 
 export const signup = async (req, res) => {
     const { login, ...credentials } = req.body;
+    const formListErrors = new FormListErrors();
 
     let user;
     try {
         user = await User.findOne({ where: { login } });
     } catch (error) {
-        console.error(error);
+        formListErrors.addDefault();
 
-        res.sendStatus(FORBIDDEN);
+        res.status(INTERNAL_SERVER_ERROR).json(formListErrors.data);
     }
 
     if (user !== null) {
-        res.sendStatus(BAD_REQUEST).json({
-            status: BAD_REQUEST,
-            message: "User with such name already exists"
-        });
+        formListErrors.add("User with such name already exists.");
+
+        res.status(BAD_REQUEST).json(formListErrors.data);
     } else {
-        const password = await User.hashPassword(credentials.password);
+        try {
+            await User.create({ ...credentials, login });
+        } catch (ex) {
+            formListErrors.addFromModelErrors(ex.errors);
 
-        await User.create({ ...credentials, password, login });
+            res.status(BAD_REQUEST).json(formListErrors.data);
+        }
 
-        res.sendStatus(OK);
+        res.status(OK);
     }
 };
 
 export const signin = async (req, res) => {
     const { login, ...credentials } = req.body;
+    const formListErrors = new FormListErrors();
 
     let user;
     try {
         user = await User.findOne({ where: { login } });
     } catch (error) {
-        console.error(error);
+        formListErrors.addDefault();
 
-        res.sendStatus(FORBIDDEN);
+        res.status(INTERNAL_SERVER_ERROR).json(formListErrors.data);
     }
 
     if (!user) {
-        res.sendStatus(BAD_REQUEST).json({
-            status: BAD_REQUEST,
-            message: "User with such name not found"
-        });
+        formListErrors.add("User with such name not found.");
+
+        res.sendStatus(BAD_REQUEST).json(formListErrors.data);
     } else {
         const isRightPassword = await user.comparePasswords(credentials.password);
 
@@ -56,10 +64,9 @@ export const signin = async (req, res) => {
 
             res.send(token);
         } else {
-            res.status(BAD_REQUEST).json({
-                status: BAD_REQUEST,
-                message: "Login or password is invalid"
-            });
+            formListErrors.add("Login or password is invalid");
+
+            res.status(BAD_REQUEST).json(formListErrors.data);
         }
     }
 };
