@@ -56,7 +56,7 @@ export const signin = async (req, res) => {
 
             res.send(token);
         } else {
-            res.sendStatus(BAD_REQUEST).json({
+            res.status(BAD_REQUEST).json({
                 status: BAD_REQUEST,
                 message: "Login or password is invalid"
             });
