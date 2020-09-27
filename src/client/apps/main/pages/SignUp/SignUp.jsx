@@ -13,7 +13,8 @@ const {
     MIN_PASSWORD_LENGTH,
     MAX_PASSWORD_LENGTH,
     MIN_LOGIN_LENGTH,
-    MAX_LOGIN_LENGTH
+    MAX_LOGIN_LENGTH,
+    MAX_EMAIL_LENGTH
 } = userConstraints;
 
 export default class SignUp extends React.Component {
@@ -72,6 +73,7 @@ export default class SignUp extends React.Component {
                             <Form.Control type="email"
                                           placeholder="Enter email"
                                           name="email"
+                                          maxLength={MAX_EMAIL_LENGTH}
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__login">
