@@ -97,6 +97,8 @@ export default class SignUp extends React.Component {
                             <Form.Control type="password"
                                           placeholder="Enter password"
                                           name="repeatPassword"
+                                          minLength={MIN_PASSWORD_LENGTH}
+                                          maxLength={MAX_PASSWORD_LENGTH}
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Button variant="primary"
