@@ -20,6 +20,7 @@ export default class Login extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     handleInputChange(event) {
@@ -32,6 +33,27 @@ export default class Login extends React.Component {
         const { name, checked } = event.target;
 
         this.setState({ [name]: checked });
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        formData.append('login', this.state.login);
+        formData.append('password', this.state.password);
+
+        const response = await fetch("/api/signin", {
+            method: "POST",
+            body: formData
+        });
+
+        const responseJson = await response.json();
+        if (response.ok) {
+            console.log(responseJson);
+        } else {
+            console.error(responseJson);
+        }
     }
 
     render() {
@@ -62,7 +84,7 @@ export default class Login extends React.Component {
                         </Form.Group>
                         <Button variant="primary"
                                 type="submit"
-                                block>Submit</Button>
+                                block onClick={this.handleFormSubmit}>Submit</Button>
                         <LinkContainer to="#">
                             <a className="main-login-form__forgot-password">Forgot password?</a>
                         </LinkContainer>
