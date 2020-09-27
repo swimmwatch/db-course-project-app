@@ -1,4 +1,4 @@
-import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
+import {BAD_REQUEST, FORBIDDEN, OK} from "http-status-codes";
 import * as jwt from "jsonwebtoken";
 
 import User from "../models/User";
@@ -12,11 +12,11 @@ export const signup = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(FORBIDDEN);
+        res.sendStatus(FORBIDDEN);
     }
 
     if (user !== null) {
-        res.send(BAD_REQUEST).json({
+        res.sendStatus(BAD_REQUEST).json({
             status: BAD_REQUEST,
             message: "User with such name already exists"
         });
@@ -25,7 +25,7 @@ export const signup = async (req, res) => {
 
         await User.create({ ...credentials, password, login });
 
-        res.json("success");
+        res.sendStatus(OK);
     }
 };
 
@@ -38,11 +38,11 @@ export const signin = async (req, res) => {
     } catch (error) {
         console.error(error);
 
-        res.status(FORBIDDEN);
+        res.sendStatus(FORBIDDEN);
     }
 
     if (!user) {
-        res.send(BAD_REQUEST).json({
+        res.sendStatus(BAD_REQUEST).json({
             status: BAD_REQUEST,
             message: "User with such name not found"
         });
@@ -56,7 +56,7 @@ export const signin = async (req, res) => {
 
             res.send(token);
         } else {
-            res.send(BAD_REQUEST).json({
+            res.sendStatus(BAD_REQUEST).json({
                 status: BAD_REQUEST,
                 message: "Login or password is invalid"
             });
