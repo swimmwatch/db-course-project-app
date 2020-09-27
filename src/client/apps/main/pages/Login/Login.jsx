@@ -6,7 +6,16 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
 
+import userConstraints from "../../../../../models/User/constraints";
+
 import "./style.scss";
+
+const {
+    MIN_PASSWORD_LENGTH,
+    MAX_PASSWORD_LENGTH,
+    MIN_LOGIN_LENGTH,
+    MAX_LOGIN_LENGTH
+} = userConstraints;
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -67,6 +76,8 @@ export default class Login extends React.Component {
                             <Form.Control type="text"
                                           placeholder="Enter login"
                                           name="login"
+                                          minLength={MIN_LOGIN_LENGTH}
+                                          maxLength={MAX_LOGIN_LENGTH}
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-login-form__password">
@@ -74,6 +85,8 @@ export default class Login extends React.Component {
                             <Form.Control type="password"
                                           placeholder="Enter password"
                                           name="password"
+                                          minLength={MIN_PASSWORD_LENGTH}
+                                          maxLength={MAX_PASSWORD_LENGTH}
                                           onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group controlId="main-login-form__checkbox">
