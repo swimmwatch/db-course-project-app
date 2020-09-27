@@ -2,6 +2,14 @@ import { Sequelize } from "sequelize";
 import * as bcrypt from "bcrypt";
 
 import config from "../../config";
+import userConstraints from "./constraints";
+
+const {
+    MIN_PASSWORD_LENGTH,
+    MAX_PASSWORD_LENGTH,
+    MIN_LOGIN_LENGTH,
+    MAX_LOGIN_LENGTH
+} = userConstraints;
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
@@ -12,17 +20,26 @@ const User = sequelize.define("user", {
             primaryKey: true,
         },
         login: {
-            type: Sequelize.STRING(128),
+            type: Sequelize.STRING(MAX_LOGIN_LENGTH),
             allowNull: false,
-            unique: true
+            unique: true,
+            len: [
+                MIN_LOGIN_LENGTH,
+                MAX_LOGIN_LENGTH
+            ]
         },
         password: {
-            type: Sequelize.STRING(128),
+            type: Sequelize.STRING(MAX_PASSWORD_LENGTH),
             allowNull: false,
+            len: [
+                MIN_PASSWORD_LENGTH,
+                MAX_PASSWORD_LENGTH
+            ]
         },
         email: {
             type: Sequelize.STRING(128),
             allowNull: false,
+
         },
     }
 );
