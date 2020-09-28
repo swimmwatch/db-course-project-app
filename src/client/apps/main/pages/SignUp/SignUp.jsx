@@ -78,13 +78,15 @@ export default class SignUp extends React.Component {
     }
 
     render() {
+        const { listErrors } = this.state;
+
         return (
             <Container className="p-3">
                 <Col lg={{ offset: 3, span: 6 }}>
                     <h2 className="main-signup-form__title">Sign Up form</h2>
                     <Form>
-                        <ErrorFormAlert listErrors={this.state.listErrors}
-                                        show={this.state.listErrors.length !== 0}
+                        <ErrorFormAlert listErrors={listErrors}
+                                        show={listErrors.length !== 0}
                                         onHide={this.hideErrorAlert} />
                         <Form.Group controlId="main-signup-form__email">
                             <Form.Label className="main-signup-form__label">Email address:</Form.Label>
