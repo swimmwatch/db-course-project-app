@@ -6,7 +6,7 @@ const upload = multer();
 
 const router = new Router();
 
-router.post('/signup', upload.none(), authController.signup);
-router.post('/signin', upload.none(), authController.signin);
+router.post('/signup', upload.none(), authController.signUp);
+router.post('/signin', upload.none(), authController.signIn);
 
 export default router;

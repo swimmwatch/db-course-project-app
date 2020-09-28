@@ -7,8 +7,13 @@ import FormListErrors from "../helpers/FormListErrors";
 import * as jwt from "jsonwebtoken";
 import User from "../models/User";
 
-export const signup = async (req, res) => {
-    const { login, ...credentials } = req.body;
+export const signUp = async (req, res) => {
+    const {
+        login,
+        repeatPassword,
+        password,
+        email,
+    } = req.body;
     const formListErrors = new FormListErrors();
 
     let user;
@@ -27,8 +32,8 @@ export const signup = async (req, res) => {
     } else {
         try {
             await User.create(
-                { ...credentials, login },
-                { repeatPassword: credentials.repeatPassword });
+                { email, login, password },
+                { repeatPassword });
         } catch (ex) {
             formListErrors.addFromModelErrors(ex.errors);
 
@@ -39,8 +44,11 @@ export const signup = async (req, res) => {
     }
 };
 
-export const signin = async (req, res) => {
-    const { login, ...credentials } = req.body;
+export const signIn = async (req, res) => {
+    const {
+        login,
+        password,
+    } = req.body;
     const formListErrors = new FormListErrors();
 
     let user;
@@ -57,7 +65,7 @@ export const signin = async (req, res) => {
 
         res.sendStatus(BAD_REQUEST).json(formListErrors.data);
     } else {
-        const isRightPassword = await user.comparePasswords(credentials.password);
+        const isRightPassword = await user.comparePasswords(password);
 
         if (isRightPassword) {
             const token = jwt.sign({
