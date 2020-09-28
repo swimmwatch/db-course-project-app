@@ -4,7 +4,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
-import Alert from "react-bootstrap/Alert";
+
+import ErrorFormAlert from "../../components/ErrorFormAlert";
 
 import userConstraints from "../../../../../models/User/constraints";
 
@@ -82,19 +83,9 @@ export default class SignUp extends React.Component {
                 <Col lg={{ offset: 3, span: 6 }}>
                     <h2 className="main-signup-form__title">Sign Up form</h2>
                     <Form>
-                        <Alert variant="danger" show={this.state.listErrors.length !== 0}>
-                            <Alert.Heading>You got an error!</Alert.Heading>
-                            <ul>
-                                {
-                                    this.state.listErrors.map((el, i) => <li key={i}>{el.message}</li>)
-                                }
-                            </ul>
-                            <hr/>
-                            <div className="d-flex justify-content-end">
-                                <Button variant="outline-danger"
-                                        onClick={this.hideErrorAlert}>Ok</Button>
-                            </div>
-                        </Alert>
+                        <ErrorFormAlert listErrors={this.state.listErrors}
+                                        show={this.state.listErrors.length !== 0}
+                                        onHide={this.hideErrorAlert} />
                         <Form.Group controlId="main-signup-form__email">
                             <Form.Label className="main-signup-form__label">Email address:</Form.Label>
                             <Form.Control type="email"
