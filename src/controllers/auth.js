@@ -26,7 +26,9 @@ export const signup = async (req, res) => {
         res.status(BAD_REQUEST).json(formListErrors.data);
     } else {
         try {
-            await User.create({ ...credentials, login });
+            await User.create(
+                { ...credentials, login },
+                { repeatPassword: credentials.repeatPassword });
         } catch (ex) {
             formListErrors.addFromModelErrors(ex.errors);
 
