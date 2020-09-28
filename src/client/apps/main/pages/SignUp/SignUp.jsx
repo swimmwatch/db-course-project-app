@@ -29,12 +29,15 @@ export default class SignUp extends React.Component {
             password: '',
             repeatPassword: '',
 
-            listErrors: []
+            listErrors: [],
+
+            isLoading: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.hideErrorAlert = this.hideErrorAlert.bind(this);
+        this.toggleLoadingState = this.toggleLoadingState.bind(this);
     }
 
     handleInputChange(event) {
@@ -43,6 +46,14 @@ export default class SignUp extends React.Component {
         console.log(name);
 
         this.setState({ [name]: value });
+    }
+
+    toggleLoadingState() {
+        this.setState(prev => {
+            return {
+                isLoading: !prev.isLoading
+            }
+        });
     }
 
     async handleFormSubmit(event) {
@@ -54,6 +65,8 @@ export default class SignUp extends React.Component {
         formData.append('email', this.state.email);
         formData.append('password', this.state.password);
         formData.append('repeatPassword', this.state.repeatPassword);
+
+        this.toggleLoadingState();
 
         const response = await fetch("/api/signup", {
             method: "POST",
@@ -69,6 +82,8 @@ export default class SignUp extends React.Component {
                 listErrors: responseJson.errors
             });
         }
+
+        this.toggleLoadingState();
     }
 
     hideErrorAlert() {
@@ -78,7 +93,7 @@ export default class SignUp extends React.Component {
     }
 
     render() {
-        const { listErrors } = this.state;
+        const { listErrors, isLoading } = this.state;
 
         return (
             <Container className="p-3">
@@ -126,7 +141,10 @@ export default class SignUp extends React.Component {
                         <Button variant="primary"
                                 type="submit"
                                 block
-                                onClick={this.handleFormSubmit}>Submit</Button>
+                                disabled={isLoading}
+                                onClick={this.handleFormSubmit}>
+                            { isLoading ? 'Loading...' : 'Submit' }
+                        </Button>
                     </Form>
                 </Col>
             </Container>
