@@ -52,6 +52,7 @@ export default class SignUp extends React.Component {
         formData.append('login', this.state.login);
         formData.append('email', this.state.email);
         formData.append('password', this.state.password);
+        formData.append('repeatPassword', this.state.repeatPassword);
 
         const response = await fetch("/api/signup", {
             method: "POST",
