@@ -30,7 +30,7 @@ const User = sequelize.define("user", {
             unique: true,
             validate: {
                 len: {
-                    msg: `Invalid login. It must has length between ${MIN_LOGIN_LENGTH} and ${MAX_LOGIN_LENGTH}.`,
+                    msg: `login must has length between ${MIN_LOGIN_LENGTH} and ${MAX_LOGIN_LENGTH}.`,
                     args: [
                         MIN_LOGIN_LENGTH,
                         MAX_LOGIN_LENGTH
@@ -43,7 +43,7 @@ const User = sequelize.define("user", {
             allowNull: false,
             validate: {
                 len: {
-                    msg: `Invalid password. It must has length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}.`,
+                    msg: `password must has length between ${MIN_PASSWORD_LENGTH} and ${MAX_PASSWORD_LENGTH}.`,
                     args: [
                         MIN_PASSWORD_LENGTH,
                         MAX_PASSWORD_LENGTH
@@ -53,10 +53,11 @@ const User = sequelize.define("user", {
         },
         email: {
             type: Sequelize.STRING(MAX_EMAIL_LENGTH),
+            unique: true,
             allowNull: false,
             validate: {
                 isEmail: {
-                    msg: 'Invalid email address.'
+                    msg: 'invalid email address.'
                 }
             }
         },
@@ -77,12 +78,12 @@ User.beforeCreate(async (user, options) => {
     const { repeatPassword } = options;
 
     if (repeatPassword !== user.password) {
-        const err = new ValidationError();
-        const errItem = new ValidationErrorItem("Passwords doesn't equal.")
+        const validErr = new ValidationError();
+        const validItemErr = new ValidationErrorItem("passwords doesn't equal.")
 
-        err.errors.push(errItem);
+        validErr.errors.push(validItemErr);
 
-        throw err;
+        throw validErr;
     }
 
     user.password = await User.hashPassword(user.password);
