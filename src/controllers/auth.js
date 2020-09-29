@@ -3,8 +3,8 @@ import {
     BAD_REQUEST,
     OK
 } from "http-status-codes";
-import FormListErrors from "../helpers/FormListErrors";
 import * as jwt from "jsonwebtoken";
+import FormListErrors from "../helpers/FormListErrors";
 import User from "../models/User";
 
 export const signUp = async (req, res) => {
@@ -46,7 +46,7 @@ export const signIn = async (req, res) => {
     }
 
     if (!user) {
-        formListErrors.add("User with such name not found.");
+        formListErrors.add("user with such name not found.");
 
         res.sendStatus(BAD_REQUEST).json(formListErrors.data);
     } else {
@@ -59,7 +59,7 @@ export const signIn = async (req, res) => {
 
             res.send(token);
         } else {
-            formListErrors.add("Login or password is invalid");
+            formListErrors.add("password is invalid");
 
             res.status(BAD_REQUEST).json(formListErrors.data);
         }
