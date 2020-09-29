@@ -16,32 +16,17 @@ export const signUp = async (req, res) => {
     } = req.body;
     const formListErrors = new FormListErrors();
 
-    let user;
     try {
-        user = await User.findOne({ where: { login } });
-    } catch (error) {
-        formListErrors.addDefault();
-
-        res.status(INTERNAL_SERVER_ERROR).json(formListErrors.data);
-    }
-
-    if (user !== null) {
-        formListErrors.add("User with such name already exists.");
+        await User.create(
+            { email, login, password },
+            { repeatPassword });
+    } catch (ex) {
+        formListErrors.addFromModelErrors(ex.errors);
 
         res.status(BAD_REQUEST).json(formListErrors.data);
-    } else {
-        try {
-            await User.create(
-                { email, login, password },
-                { repeatPassword });
-        } catch (ex) {
-            formListErrors.addFromModelErrors(ex.errors);
-
-            res.status(BAD_REQUEST).json(formListErrors.data);
-        }
-
-        res.status(OK);
     }
+
+    res.status(OK);
 };
 
 export const signIn = async (req, res) => {
