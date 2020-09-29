@@ -74,7 +74,7 @@ export default class SignUp extends React.Component {
         });
 
         if (response.ok) {
-            console.log("Ok!");
+            this.hideErrorAlert();
         } else {
             const responseJson = await response.json();
 

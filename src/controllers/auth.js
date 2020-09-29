@@ -26,7 +26,7 @@ export const signUp = async (req, res) => {
         res.status(BAD_REQUEST).json(formListErrors.data);
     }
 
-    res.status(OK);
+    res.sendStatus(OK);
 };
 
 export const signIn = async (req, res) => {
@@ -48,7 +48,7 @@ export const signIn = async (req, res) => {
     if (!user) {
         formListErrors.add("user with such name not found.");
 
-        res.sendStatus(BAD_REQUEST).json(formListErrors.data);
+        res.status(BAD_REQUEST).json(formListErrors.data);
     } else {
         const isRightPassword = await user.comparePasswords(password);
 
