@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
+import ErrorFormAlert from "../../components/ErrorFormAlert";
 
 import userConstraints from "../../../../../models/User/constraints";
 
@@ -24,12 +25,17 @@ export default class Login extends React.Component {
         this.state = {
             login: '',
             password: '',
-            readMeChecked: false
+            readMeChecked: false,
+
+            listErrors: [],
+
+            isLoading: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.hideErrorAlert = this.hideErrorAlert.bind(this);
     }
 
     handleInputChange(event) {
@@ -52,25 +58,51 @@ export default class Login extends React.Component {
         formData.append('login', this.state.login);
         formData.append('password', this.state.password);
 
+        this.toggleLoadingState();
+
         const response = await fetch("/api/signin", {
             method: "POST",
             body: formData
         });
 
-        const responseJson = await response.json();
         if (response.ok) {
-            console.log(responseJson);
+            this.hideErrorAlert();
         } else {
-            console.error(responseJson);
+            const responseJson = await response.json();
+
+            this.setState({
+                listErrors: responseJson.errors
+            });
         }
+
+        this.toggleLoadingState();
+    }
+
+    hideErrorAlert() {
+        this.setState({
+            listErrors: []
+        });
+    }
+
+    toggleLoadingState() {
+        this.setState(prev => {
+            return {
+                isLoading: !prev.isLoading
+            }
+        });
     }
 
     render() {
+        const { listErrors, isLoading } = this.state;
+
         return (
             <Container className="p-3">
                 <Col lg={{offset: 3, span: 6}}>
                     <h2 className="main-login-form__title">Login form</h2>
                     <Form>
+                        <ErrorFormAlert listErrors={listErrors}
+                                        show={listErrors.length !== 0}
+                                        onHide={this.hideErrorAlert} />
                         <Form.Group controlId="main-login-form__login">
                             <Form.Label className="main-login-form__label">Login:</Form.Label>
                             <Form.Control type="text"
@@ -97,7 +129,11 @@ export default class Login extends React.Component {
                         </Form.Group>
                         <Button variant="primary"
                                 type="submit"
-                                block onClick={this.handleFormSubmit}>Submit</Button>
+                                block
+                                disabled={isLoading}
+                                onClick={this.handleFormSubmit}>
+                            { isLoading ? 'Loading...' : 'Submit' }
+                        </Button>
                         <LinkContainer to="#">
                             <a className="main-login-form__forgot-password">Forgot password?</a>
                         </LinkContainer>
