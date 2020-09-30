@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
+import authService from "../../../../services/auth";
 
 import ErrorFormAlert from "../../components/ErrorFormAlert";
 
@@ -43,8 +44,6 @@ export default class SignUp extends React.Component {
     handleInputChange(event) {
         const { name, value } = event.target;
 
-        console.log(name);
-
         this.setState({ [name]: value });
     }
 
@@ -56,30 +55,31 @@ export default class SignUp extends React.Component {
         });
     }
 
-    async handleFormSubmit(event) {
-        event.preventDefault();
-
+    _generateFormData() {
         const formData = new FormData();
 
         formData.append('login', this.state.login);
-        formData.append('email', this.state.email);
         formData.append('password', this.state.password);
+        formData.append('email', this.state.email);
         formData.append('repeatPassword', this.state.repeatPassword);
+
+        return formData;
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+
+        const formData = this._generateFormData();
 
         this.toggleLoadingState();
 
-        const response = await fetch("/api/signup", {
-            method: "POST",
-            body: formData
-        });
+        try {
+            await authService.signUp(formData);
 
-        if (response.ok) {
             this.hideErrorAlert();
-        } else {
-            const responseJson = await response.json();
-
+        } catch ({ errors }) {
             this.setState({
-                listErrors: responseJson.errors
+                listErrors: errors
             });
         }
 
