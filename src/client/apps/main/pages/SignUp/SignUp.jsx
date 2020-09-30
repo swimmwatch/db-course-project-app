@@ -109,6 +109,7 @@ export default class SignUp extends React.Component {
                                           placeholder="Enter email"
                                           name="email"
                                           maxLength={MAX_EMAIL_LENGTH}
+                                          required
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__login">
@@ -118,6 +119,7 @@ export default class SignUp extends React.Component {
                                           name="login"
                                           minLength={MIN_LOGIN_LENGTH}
                                           maxLength={MAX_LOGIN_LENGTH}
+                                          required
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__password">
@@ -127,6 +129,7 @@ export default class SignUp extends React.Component {
                                           name="password"
                                           minLength={MIN_PASSWORD_LENGTH}
                                           maxLength={MAX_PASSWORD_LENGTH}
+                                          required
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__repeat-password">
@@ -136,6 +139,7 @@ export default class SignUp extends React.Component {
                                           name="repeatPassword"
                                           minLength={MIN_PASSWORD_LENGTH}
                                           maxLength={MAX_PASSWORD_LENGTH}
+                                          required
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Button variant="primary"

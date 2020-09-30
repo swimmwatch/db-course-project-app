@@ -112,6 +112,7 @@ export default class Login extends React.Component {
                                           name="login"
                                           minLength={MIN_LOGIN_LENGTH}
                                           maxLength={MAX_LOGIN_LENGTH}
+                                          required
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-login-form__password">
@@ -121,6 +122,7 @@ export default class Login extends React.Component {
                                           name="password"
                                           minLength={MIN_PASSWORD_LENGTH}
                                           maxLength={MAX_PASSWORD_LENGTH}
+                                          required
                                           onChange={this.handleInputChange}/>
                         </Form.Group>
                         <Form.Group controlId="main-login-form__checkbox">
