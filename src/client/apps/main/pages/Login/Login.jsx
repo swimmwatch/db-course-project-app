@@ -10,6 +10,7 @@ import ErrorFormAlert from "../../components/ErrorFormAlert";
 import userConstraints from "../../../../../models/User/constraints";
 
 import "./style.scss";
+import authService from "../../../../services/auth";
 
 const {
     MIN_PASSWORD_LENGTH,
@@ -50,28 +51,29 @@ export default class Login extends React.Component {
         this.setState({ [name]: checked });
     }
 
-    async handleFormSubmit(event) {
-        event.preventDefault();
-
+    _generateFormData() {
         const formData = new FormData();
 
         formData.append('login', this.state.login);
         formData.append('password', this.state.password);
 
+        return formData;
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+
+        const formData = this._generateFormData();
+
         this.toggleLoadingState();
 
-        const response = await fetch("/api/signin", {
-            method: "POST",
-            body: formData
-        });
+        try {
+            await authService.signIn(formData);
 
-        if (response.ok) {
             this.hideErrorAlert();
-        } else {
-            const responseJson = await response.json();
-
+        } catch ({ errors }) {
             this.setState({
-                listErrors: responseJson.errors
+                listErrors: errors
             });
         }
 
