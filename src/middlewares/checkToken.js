@@ -3,9 +3,14 @@ import * as jwt from "jsonwebtoken";
 export default async (req, res, next) => {
     const token = req.headers["authorization"];
 
-    const tokenObj = await jwt.verify(token, process.env.JWT_SECRET);
+    let tokenObj = null;
+    try {
+        tokenObj = await jwt.verify(token, process.env.JWT_SECRET);
+    } catch (err) {
+        console.error(err);
+    }
 
-    console.log(tokenObj);
+    req.user_id = tokenObj.sub;
 
     next();
 };
