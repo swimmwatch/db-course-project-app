@@ -13,6 +13,7 @@ import ProfileSettings from "../ProfileSettings";
 import ProfileAttempts from "../ProfileAttempts";
 
 import "./style.scss";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
 
 const lorem = new LoremIpsum({
     sentencesPerParagraph: {
@@ -65,9 +66,11 @@ const Profile = () => (
                 </Nav>
 
                 <Switch>
+                    <Route exact path="/profile" render={() => <ListTestCards tests={tests} />} />
                     <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
-                    <Route path="/profile/settings" component={ProfileSettings} />
                     <Route path="/profile/attempts" component={ProfileAttempts} />
+                    <Route path="/profile/settings" component={ProfileSettings} />
+                    <Route component={() => <HttpErrorInfo status={404} />} />
                 </Switch>
             </Col>
         </Row>
