@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactRouterPropTypes from "react-router-prop-types";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -19,7 +20,7 @@ const {
     MAX_LOGIN_LENGTH
 } = userConstraints;
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
 
@@ -147,3 +148,9 @@ export default class Login extends React.Component {
         );
     }
 }
+
+Login.propTypes = {
+    location: ReactRouterPropTypes.location
+};
+
+export default Login;
