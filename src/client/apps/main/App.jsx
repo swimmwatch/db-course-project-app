@@ -15,7 +15,7 @@ import {NOT_FOUND} from "http-status-codes";
 
 class App extends React.Component {
     render() {
-        const App = () => (
+        return (
             <div>
                 <Header />
 
@@ -31,12 +31,6 @@ class App extends React.Component {
                     <Footer/>
                 </Container>
             </div>
-        );
-
-        return (
-            <Switch>
-                <App/>
-            </Switch>
         );
     }
 }
