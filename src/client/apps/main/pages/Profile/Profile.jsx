@@ -1,6 +1,7 @@
 import { LoremIpsum } from "lorem-ipsum";
 import { random } from "lodash";
 import * as React from "react";
+import {NOT_FOUND} from "http-status-codes";
 
 import { Switch, Route } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
@@ -70,7 +71,7 @@ const Profile = () => (
                     <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
                     <Route path="/profile/attempts" component={ProfileAttempts} />
                     <Route path="/profile/settings" component={ProfileSettings} />
-                    <Route component={() => <HttpErrorInfo status={404} />} />
+                    <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
             </Col>
         </Row>

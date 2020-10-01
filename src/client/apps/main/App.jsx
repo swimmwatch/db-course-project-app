@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import HttpErrorInfo from "./components/HttpErrorInfo";
+import {NOT_FOUND} from "http-status-codes";
 
 class App extends React.Component {
     render() {
@@ -23,7 +24,7 @@ class App extends React.Component {
                     <Route path='/login' component={Login}/>
                     <Route path='/signup' component={SignUp}/>
                     <Route path='/profile' component={Profile}/>
-                    <Route component={() => <HttpErrorInfo status={404} />} />
+                    <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
                 <Container className="p-3">
