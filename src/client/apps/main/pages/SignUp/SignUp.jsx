@@ -1,4 +1,6 @@
 import * as React from "react";
+import ReactRouterPropTypes from "react-router-prop-types";
+import { withRouter } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -20,7 +22,7 @@ const {
     MAX_EMAIL_LENGTH
 } = userConstraints;
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
     constructor(props) {
         super(props);
 
@@ -69,6 +71,7 @@ export default class SignUp extends React.Component {
     async handleFormSubmit(event) {
         event.preventDefault();
 
+        const { history } = this.props;
         const formData = this._generateFormData();
 
         this.toggleLoadingState();
@@ -76,7 +79,7 @@ export default class SignUp extends React.Component {
         try {
             await authService.signUp(formData);
 
-            this.hideErrorAlert();
+            history.push('/login');
         } catch ({ errors }) {
             this.setState({
                 listErrors: errors
@@ -155,3 +158,9 @@ export default class SignUp extends React.Component {
         );
     }
 }
+
+SignUp.propTypes = {
+    history: ReactRouterPropTypes.history
+};
+
+export default withRouter(SignUp);
