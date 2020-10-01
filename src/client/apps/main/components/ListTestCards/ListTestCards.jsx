@@ -15,7 +15,7 @@ const ListTestCards = ({ tests }) => {
                         const { title, description, author } = el;
 
                         return (
-                            <Col lg={4} key={i}>
+                            <Col lg={12} key={i}>
                                 <TestCard title={title} description={description} author={author} />
                             </Col>
                         );

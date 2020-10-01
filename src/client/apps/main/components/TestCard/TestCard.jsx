@@ -21,17 +21,19 @@ const TestCard = ({ title, description, author }) => {
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
-                <Button className="test-card__pass-btn"
-                        variant="primary">Pass test</Button>
+                <div className="test-card__control">
+                    <Button className="test-card__pass-btn"
+                            variant="primary">Pass test</Button>
 
-                <Dropdown className="test-card__dropdown-menu">
-                    <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item as="button">Edit</Dropdown.Item>
-                        <Dropdown.Item as="button">Delete</Dropdown.Item>
-                        <Dropdown.Item as="button">Share</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+                    <Dropdown className="test-card__dropdown-menu">
+                        <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item as="button">Edit</Dropdown.Item>
+                            <Dropdown.Item as="button">Delete</Dropdown.Item>
+                            <Dropdown.Item as="button">Share</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </Card.Body>
         </Card>
     );
