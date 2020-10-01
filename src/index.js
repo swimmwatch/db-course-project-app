@@ -11,7 +11,7 @@ import config from "./config";
 import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
 import checkToken from "./middlewares/checkToken";
-import userModify from "./routes/userModify";
+import profileModify from "./routes/profileModify";
 
 const app = express();
 
@@ -47,7 +47,7 @@ app.get("/test_token", checkToken, (req, res) => {
 });
 
 app.use("/api", authRouter);
-app.use("/api/user", userModify);
+app.use("/api/profile", profileModify);
 
 app.use("*", mainRouter);
 
