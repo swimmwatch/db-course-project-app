@@ -1,3 +1,11 @@
 .http-error-info {
-  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 360px;
+
+  &__box {
+    margin: auto;
+    text-align: center;
+  }
 }
