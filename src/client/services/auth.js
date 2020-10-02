@@ -20,7 +20,7 @@ async function signIn(formData) {
     const responseJson = await response.json();
 
     if (response.ok) {
-        return Promise.resolve(responseJson)
+        return Promise.resolve(responseJson);
     } else {
         throw responseJson;
     }
