@@ -1,5 +1,7 @@
 import * as React from "react";
 import ReactRouterPropTypes from "react-router-prop-types";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -8,10 +10,11 @@ import Col from "react-bootstrap/Col";
 import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
 import ErrorFormAlert from "../../components/ErrorFormAlert";
 
+import authService from "../../../../services/auth";
+import * as authActions from "../../../../actions/auth";
 import userConstraints from "../../../../../models/User/constraints";
 
 import "./style.scss";
-import authService from "../../../../services/auth";
 
 const {
     MIN_PASSWORD_LENGTH,
@@ -64,18 +67,21 @@ class Login extends React.Component {
     async handleFormSubmit(event) {
         event.preventDefault();
 
+        const { history, dispatch } = this.props;
         const formData = this._generateFormData();
 
         this.toggleLoadingState();
 
         try {
-            await authService.signIn(formData);
+            const { token, user } = await authService.signIn(formData);
 
-            this.hideErrorAlert();
+            localStorage.setItem('TOKEN', token);
+
+            dispatch(authActions.success(user));
+
+            history.push('/');
         } catch ({ errors }) {
-            this.setState({
-                listErrors: errors
-            });
+            this.setState({ listErrors: errors });
         }
 
         this.toggleLoadingState();
@@ -150,7 +156,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-    location: ReactRouterPropTypes.location
+    location: ReactRouterPropTypes.location,
+    history: ReactRouterPropTypes.history,
+    dispatch: PropTypes.func
 };
 
-export default Login;
+const connectedLogin = connect()(Login);
+
+export { connectedLogin as Login };
