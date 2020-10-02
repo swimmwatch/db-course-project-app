@@ -1,4 +1,6 @@
 import * as React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -10,7 +12,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import "./style.scss";
 
-const Header = () => {
+const Header = ({ isLoggedIn, user }) => {
     const [modalShow, setModalShow] = React.useState(false);
 
     const showModal = () => setModalShow(true);
@@ -23,21 +25,26 @@ const Header = () => {
                 <Navbar.Brand>PassQuiz</Navbar.Brand>
             </LinkContainer>
             <Nav>
-                <LinkContainer to="/signup">
-                    <Nav.Link>Sign Up</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/login">
-                    <Nav.Link>Login</Nav.Link>
-                </LinkContainer>
-                <NavDropdown title="username" id="user-nav-dropdown">
-                    <LinkContainer to="/profile">
-                        <NavDropdown.Item>My profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Divider />
-                    <LinkContainer to="#">
-                        <NavDropdown.Item onClick={showModal}>Logout</NavDropdown.Item>
-                    </LinkContainer>
-                </NavDropdown>
+                { !isLoggedIn ? (
+                    <>
+                        <LinkContainer to="/signup">
+                            <Nav.Link>Sign Up</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/login">
+                            <Nav.Link>Login</Nav.Link>
+                        </LinkContainer>
+                    </>
+                ) : (
+                    <NavDropdown title={ user.login } id="user-nav-dropdown">
+                        <LinkContainer to="/profile">
+                            <NavDropdown.Item>My profile</NavDropdown.Item>
+                        </LinkContainer>
+                        <NavDropdown.Divider />
+                        <LinkContainer to="#">
+                            <NavDropdown.Item onClick={showModal}>Logout</NavDropdown.Item>
+                        </LinkContainer>
+                    </NavDropdown>
+                ) }
             </Nav>
 
             <Modal
@@ -61,4 +68,19 @@ const Header = () => {
     );
 }
 
-export default Header;
+Header.propTypes = {
+    isLoggedIn: PropTypes.bool,
+    user: PropTypes.shape({
+        login: PropTypes.string
+    })
+};
+
+function mapStateToProps(state) {
+    const { isLoggedIn, user } = state.auth;
+
+    return { isLoggedIn, user };
+}
+
+const connectedHeader = connect(mapStateToProps)(Header);
+
+export { connectedHeader as Header };
