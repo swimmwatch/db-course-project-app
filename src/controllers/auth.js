@@ -53,9 +53,7 @@ export const signIn = async (req, res) => {
         const isRightPassword = await user.comparePasswords(password);
 
         if (isRightPassword) {
-            const token = jwt.sign({
-                userId: user.id,
-                role: ['user'] }, process.env.JWT_SECRET);
+            const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET);
 
             res.json({
                 user: { login: user.login },
@@ -67,4 +65,10 @@ export const signIn = async (req, res) => {
             res.status(BAD_REQUEST).json(formListErrors.data);
         }
     }
+};
+
+export const initAuth = async (req, res) => {
+    const user = await User.findOne({ where: { id: req.user_id } });
+
+    res.json({ user: { login: user.login } });
 };
