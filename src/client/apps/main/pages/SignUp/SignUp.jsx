@@ -81,18 +81,14 @@ class SignUp extends React.Component {
 
             history.push('/login');
         } catch ({ errors }) {
-            this.setState({
-                listErrors: errors
-            });
+            this.setState({ listErrors: errors });
         }
 
         this.toggleLoadingState();
     }
 
     hideErrorAlert() {
-        this.setState({
-            listErrors: []
-        });
+        this.setState({ listErrors: [] });
     }
 
     render() {
