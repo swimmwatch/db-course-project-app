@@ -57,7 +57,10 @@ export const signIn = async (req, res) => {
                 userId: user.id,
                 role: ['user'] }, process.env.JWT_SECRET);
 
-            res.send(token);
+            res.json({
+                user: { login: user.login },
+                token
+            });
         } else {
             formListErrors.add("password is invalid");
 
