@@ -5,13 +5,18 @@ import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/scss/bootstrap.scss";
 
-import App, { store } from "./apps/main/App";
+import App from "./apps/main/App";
+import { store, initAuthStore } from "./store";
 
-ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById("root")
-);
+initAuthStore(store).then(() => {
+    // TODO: Close loader
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>,
+        document.getElementById("root")
+    );
+});

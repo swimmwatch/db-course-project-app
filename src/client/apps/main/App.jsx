@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { createStore } from "redux";
 import { Switch, Route } from 'react-router-dom';
-
-import rootReducer from "../../reducers";
 
 import Container from "react-bootstrap/Container";
 
@@ -15,8 +12,6 @@ import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import HttpErrorInfo from "./components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
-
-export const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 class App extends React.Component {
     render() {
