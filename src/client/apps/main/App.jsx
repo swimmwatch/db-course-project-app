@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from "../../hoc/PrivateRoute";
+import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 
 import Container from "react-bootstrap/Container";
 
@@ -22,8 +23,8 @@ class App extends React.Component {
 
                 <Switch>
                     <Route exact path='/' component={Home}/>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/signup' component={SignUp}/>
+                    <NotIsLoggedInRoute path='/login' component={Login}/>
+                    <NotIsLoggedInRoute path='/signup' component={SignUp}/>
                     <PrivateRoute path='/profile' component={Profile}/>
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
