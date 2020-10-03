@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from "../../hoc/PrivateRoute";
 
 import Container from "react-bootstrap/Container";
 
@@ -23,7 +24,7 @@ class App extends React.Component {
                     <Route exact path='/' component={Home}/>
                     <Route path='/login' component={Login}/>
                     <Route path='/signup' component={SignUp}/>
-                    <Route path='/profile' component={Profile}/>
+                    <PrivateRoute path='/profile' component={Profile}/>
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
