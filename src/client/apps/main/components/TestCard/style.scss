@@ -1,28 +1,18 @@
 .test-card {
   margin: 15px 0;
-  max-height: 377px;
-  min-height: 377px;
   position: relative;
-
-  &__pass-btn {
-    bottom: 1.25rem;
-    position: absolute;
-  }
 
   &__description {
     max-height: 170px;
-    overflow-y: scroll;
   }
 
   &__title {
     font-size: 1.1rem;
     max-height: 60px;
-    overflow-y: scroll;
   }
 
-  &__dropdown-menu {
-    bottom: 1.25rem;
-    position: absolute;
-    right: 1.25rem;
+  &__control {
+    display: flex;
+    justify-content: space-between;
   }
 }

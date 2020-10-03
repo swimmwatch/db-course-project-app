@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from "../../hoc/PrivateRoute";
+import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 
 import Container from "react-bootstrap/Container";
 
@@ -10,30 +12,27 @@ import SignUp from "./pages/SignUp";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
+import HttpErrorInfo from "./components/HttpErrorInfo";
+import {NOT_FOUND} from "http-status-codes";
 
 class App extends React.Component {
     render() {
-        const App = () => (
+        return (
             <div>
                 <Header />
 
                 <Switch>
                     <Route exact path='/' component={Home}/>
-                    <Route path='/login' component={Login}/>
-                    <Route path='/signup' component={SignUp}/>
-                    <Route path='/profile' component={Profile}/>
+                    <NotIsLoggedInRoute path='/login' component={Login}/>
+                    <NotIsLoggedInRoute path='/signup' component={SignUp}/>
+                    <PrivateRoute path='/profile' component={Profile}/>
+                    <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
                 <Container className="p-3">
                     <Footer/>
                 </Container>
             </div>
-        );
-
-        return (
-            <Switch>
-                <App/>
-            </Switch>
         );
     }
 }
