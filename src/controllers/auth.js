@@ -1,65 +1,74 @@
-import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
+import {
+    INTERNAL_SERVER_ERROR,
+    BAD_REQUEST,
+    OK
+} from "http-status-codes";
 import * as jwt from "jsonwebtoken";
-
+import FormListErrors from "../helpers/FormListErrors";
 import User from "../models/User";
 
-export const signup = async (req, res, next) => {
-    const { login, ...credentials } = req.body;
+export const signUp = async (req, res) => {
+    const {
+        login,
+        repeatPassword,
+        password,
+        email,
+    } = req.body;
+    const formListErrors = new FormListErrors();
 
-    let user;
     try {
-        user = await User.findOne({ where: { login } });
-    } catch (error) {
-        console.error(error);
+        await User.create(
+            { email, login, password },
+            { repeatPassword });
+    } catch (ex) {
+        formListErrors.addFromModelErrors(ex.errors);
 
-        res.status(FORBIDDEN);
+        res.status(BAD_REQUEST).json(formListErrors.data);
     }
 
-    if (user !== null) {
-        next({
-            status: BAD_REQUEST,
-            message: "User with such name already exists"
-        });
-    } else {
-        const password = await User.hashPassword(credentials.password);
-
-        await User.create({ ...credentials, password, login });
-
-        res.json("success");
-    }
+    res.sendStatus(OK);
 };
 
-export const signin = async (req, res, next) => {
-    const { login, ...credentials } = req.body;
+export const signIn = async (req, res) => {
+    const {
+        login,
+        password,
+    } = req.body;
+    const formListErrors = new FormListErrors();
 
     let user;
     try {
         user = await User.findOne({ where: { login } });
     } catch (error) {
-        console.error(error);
+        formListErrors.addDefault();
 
-        res.status(FORBIDDEN);
+        res.status(INTERNAL_SERVER_ERROR).json(formListErrors.data);
     }
 
     if (!user) {
-        next({
-            status: BAD_REQUEST,
-            message: "User with such name not found"
-        });
+        formListErrors.add("user with such name not found.");
+
+        res.status(BAD_REQUEST).json(formListErrors.data);
     } else {
-        const isRightPassword = await user.comparePasswords(credentials.password);
+        const isRightPassword = await user.comparePasswords(password);
 
         if (isRightPassword) {
-            const token = jwt.sign({
-                userId: user.id,
-                role: ['user'] }, process.env.JWT_SECRET);
+            const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET);
 
-            res.send(token);
-        } else {
-            next({
-                status: BAD_REQUEST,
-                message: "Login or password is invalid"
+            res.json({
+                ...user.initState(),
+                token
             });
+        } else {
+            formListErrors.add("password is invalid");
+
+            res.status(BAD_REQUEST).json(formListErrors.data);
         }
     }
+};
+
+export const initAuth = async (req, res) => {
+    const user = await User.findByPk(req.user_id);
+
+    res.json({ ...user.initState() });
 };

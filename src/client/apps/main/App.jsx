@@ -1,43 +1,38 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from "../../hoc/PrivateRoute";
+import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import { LinkContainer } from 'react-router-bootstrap';
+import Container from "react-bootstrap/Container";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
 
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Profile from "./pages/Profile";
+import HttpErrorInfo from "./components/HttpErrorInfo";
+import {NOT_FOUND} from "http-status-codes";
+
 class App extends React.Component {
     render() {
-        const App = () => (
-            <div>
-                <Navbar bg="dark" variant="dark">
-                    <LinkContainer to="/">
-                        <Navbar.Brand>PassQuiz</Navbar.Brand>
-                    </LinkContainer>
-                    <Nav>
-                        <LinkContainer to="/signup">
-                            <Nav.Link>Sign Up</Nav.Link>
-                        </LinkContainer>
-                        <LinkContainer to="/login">
-                            <Nav.Link>Login</Nav.Link>
-                        </LinkContainer>
-                    </Nav>
-                </Navbar>
-                <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route path='/login' component={Login} />
-                    <Route path='/signup' component={SignUp} />
-                </Switch>
-            </div>
-        );
-
         return (
-            <Switch>
-                <App/>
-            </Switch>
+            <div>
+                <Header />
+
+                <Switch>
+                    <Route exact path='/' component={Home}/>
+                    <NotIsLoggedInRoute path='/login' component={Login}/>
+                    <NotIsLoggedInRoute path='/signup' component={SignUp}/>
+                    <PrivateRoute path='/profile' component={Profile}/>
+                    <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
+                </Switch>
+
+                <Container className="p-3">
+                    <Footer/>
+                </Container>
+            </div>
         );
     }
 }
