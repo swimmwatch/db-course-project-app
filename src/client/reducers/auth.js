@@ -1,4 +1,5 @@
 import * as authActions from "../actions/auth";
+import * as authService from "../services/auth";
 
 let initState = { isLoggedIn: false, user: null }
 
@@ -9,9 +10,11 @@ export default (state = initState, action) => {
         case authActions.LOGIN_APPROVE:
             return { isLoggedIn, user };
         case authActions.LOGIN_FAILED:
-            return { isLoggedIn: false, user: null };
+            return { isLoggedIn, user };
         case authActions.LOGOUT:
-            return { isLoggedIn: false, user: null };
+            authService.logOut();
+
+            return { isLoggedIn, user };
         default:
             return state;
     }

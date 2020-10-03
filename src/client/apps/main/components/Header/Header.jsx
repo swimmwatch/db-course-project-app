@@ -1,6 +1,9 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import ReactRouterPropTypes from "react-router-prop-types";
 import { connect } from "react-redux";
+import * as authActions from "../../../../actions/auth";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -12,12 +15,18 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import "./style.scss";
 
-const Header = ({ isLoggedIn, user }) => {
+const Header = ({ isLoggedIn, user, dispatch, history }) => {
     const [modalShow, setModalShow] = React.useState(false);
 
     const showModal = () => setModalShow(true);
 
-    const hideModal = () => setModalShow(false);
+    const onLogOut = () => {
+        dispatch(authActions.logOut());
+
+        setModalShow(false);
+
+        history.push("/");
+    };
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -51,7 +60,7 @@ const Header = ({ isLoggedIn, user }) => {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                onHide={hideModal}
+                onHide={onLogOut}
                 show={modalShow}
             >
                 <Modal.Header closeButton>
@@ -61,7 +70,7 @@ const Header = ({ isLoggedIn, user }) => {
                     <p>Are you sure you want to log-off?</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={hideModal}>Yes</Button>
+                    <Button onClick={onLogOut}>Yes</Button>
                 </Modal.Footer>
             </Modal>
         </Navbar>
@@ -69,6 +78,8 @@ const Header = ({ isLoggedIn, user }) => {
 }
 
 Header.propTypes = {
+    history: ReactRouterPropTypes.history,
+    dispatch: PropTypes.func,
     isLoggedIn: PropTypes.bool,
     user: PropTypes.shape({
         login: PropTypes.string
@@ -81,6 +92,7 @@ function mapStateToProps(state) {
     return { isLoggedIn, user };
 }
 
-const connectedHeader = connect(mapStateToProps)(Header);
+const headerWithRouter = withRouter(Header);
+const connectedHeaderWithRouter = connect(mapStateToProps)(headerWithRouter);
 
-export { connectedHeader as Header };
+export { connectedHeaderWithRouter as Header };

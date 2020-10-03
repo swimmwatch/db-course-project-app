@@ -9,3 +9,7 @@ export const success = (user) => {
 export const failed = () => {
     return { type: LOGIN_FAILED, user: null, isLoggedIn: false };
 };
+
+export const logOut = () => {
+    return { type: LOGOUT, user: null, isLoggedIn: false };
+};

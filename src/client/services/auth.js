@@ -26,4 +26,8 @@ async function signIn(formData) {
     }
 }
 
-export default { signUp, signIn };
+export function logOut() {
+    localStorage.removeItem("TOKEN");
+}
+
+export default { signUp, signIn, logOut };
