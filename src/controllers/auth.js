@@ -56,7 +56,7 @@ export const signIn = async (req, res) => {
             const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET);
 
             res.json({
-                user: { login: user.login },
+                ...user.initState(),
                 token
             });
         } else {
@@ -68,7 +68,7 @@ export const signIn = async (req, res) => {
 };
 
 export const initAuth = async (req, res) => {
-    const user = await User.findOne({ where: { id: req.user_id } });
+    const user = await User.findByPk(req.user_id);
 
-    res.json({ user: { login: user.login } });
+    res.json({ ...user.initState() });
 };

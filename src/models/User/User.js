@@ -74,6 +74,14 @@ User.prototype.comparePasswords = async function(password) {
     return await bcrypt.compare(password, this.password);
 };
 
+User.prototype.initState = function() {
+    return {
+        user: {
+            login: this.login
+        }
+    }
+}
+
 User.beforeCreate(async (user, options) => {
     const { repeatPassword } = options;
 
