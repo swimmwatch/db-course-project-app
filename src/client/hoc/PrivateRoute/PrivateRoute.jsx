@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, isLoggedIn, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-    component: PropTypes.element,
+    component: PropTypes.elementType,
     isLoggedIn: PropTypes.bool
 };
 
