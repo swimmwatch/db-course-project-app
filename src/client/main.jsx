@@ -2,14 +2,15 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
-import "bootstrap/scss/bootstrap.scss";
+import { toggleLoader } from "./helpers/loader";
 
 import App from "./apps/main/App";
 import { store, initAuthStore } from "./store";
 
+import "bootstrap/scss/bootstrap.scss";
+
 initAuthStore(store).then(() => {
-    // TODO: Close loader
+    toggleLoader();
 
     ReactDOM.render(
         <Provider store={store}>
