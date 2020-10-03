@@ -27,5 +27,7 @@ function mapStateToProps(state) {
     return { isLoggedIn };
 }
 
-export default connect(mapStateToProps)(PrivateRoute);
+const connectedPrivateRoute = connect(mapStateToProps)(PrivateRoute);
+
+export { connectedPrivateRoute as PrivateRoute };
 
