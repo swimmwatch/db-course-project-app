@@ -10,7 +10,6 @@ import config from "./config";
 
 import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
-import checkToken from "./middlewares/checkToken";
 import profileModify from "./routes/profileModify";
 
 const app = express();
@@ -41,10 +40,6 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 // app.get("/admin", (req, res) => {
 //     res.render("admin");
 // });
-
-app.get("/test_token", checkToken, (req, res) => {
-    res.send("hello! you can read this secure resource.");
-});
 
 app.use("/api", authRouter);
 app.use("/api/profile", profileModify);
