@@ -2,6 +2,7 @@ import * as React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import UpdatePasswordForm from "./components/UpdatePasswordForm";
 
 import "./style.scss";
@@ -23,8 +24,12 @@ class ProfileSettings extends React.Component {
                         <UpdatePasswordForm />
                     </Col>
                 </Row>
-                {/*<h5>Danger zone</h5>*/}
-                {/*<Button variant="danger">Delete profile</Button>*/}
+                <Row>
+                    <Col lg={6}>
+                        <h5>Danger zone</h5>
+                        <Button variant="danger">Delete profile</Button>
+                    </Col>
+                </Row>
             </Container>
         );
     }
