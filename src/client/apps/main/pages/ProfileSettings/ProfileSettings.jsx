@@ -1,5 +1,7 @@
 import * as React from "react";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -8,35 +10,32 @@ import "./style.scss";
 const ProfileSettings = () => {
     return (
         <Container className="p-3">
-            <Form>
-                <Form.Group controlId="main-signup-form__email">
-                    <Form.Label className="main-signup-form__label">Email address:</Form.Label>
-                    <Form.Control type="email"
-                                  placeholder="Enter email"
-                                  name="email" />
-                </Form.Group>
-                <Form.Group controlId="main-signup-form__login">
-                    <Form.Label className="main-signup-form__label">Login:</Form.Label>
-                    <Form.Control type="text"
-                                  placeholder="Enter login"
-                                  name="login" />
-                </Form.Group>
-                <Form.Group controlId="main-signup-form__password">
-                    <Form.Label className="main-signup-form__label">Password:</Form.Label>
-                    <Form.Control type="password"
-                                  placeholder="Enter password"
-                                  name="password" />
-                </Form.Group>
-                <Form.Group controlId="main-signup-form__repassword">
-                    <Form.Label className="main-signup-form__label">Repeat password:</Form.Label>
-                    <Form.Control type="password"
-                                  placeholder="Enter password"
-                                  name="repassword" />
-                </Form.Group>
-                <Button variant="primary"
-                        type="submit"
-                        block>Submit</Button>
-            </Form>
+            <Row>
+                <Col lg={6}>
+                    <h5>Update password:</h5>
+                    <Form>
+                        <Form.Group controlId="profile-settings-form__password">
+                            <Form.Control type="password"
+                                          placeholder="Enter current password"
+                                          name="password" />
+                        </Form.Group>
+                        <Form.Group controlId="profile-settings-form__repassword">
+                            <Form.Control type="password"
+                                          placeholder="Enter new password"
+                                          name="newPassword" />
+                        </Form.Group>
+                        <Form.Group controlId="profile-settings-form__repassword">
+                            <Form.Control type="password"
+                                          placeholder="Enter new password again"
+                                          name="repeatNewPassword" />
+                        </Form.Group>
+                        <Button variant="primary"
+                                type="submit">Save</Button>
+                    </Form>
+                </Col>
+            </Row>
+            {/*<h5>Danger zone</h5>*/}
+            {/*<Button variant="danger">Delete profile</Button>*/}
         </Container>
     );
 };
