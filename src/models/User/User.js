@@ -75,12 +75,12 @@ User.prototype.comparePasswords = async function(password) {
 };
 
 User.prototype.initState = function() {
+    const { login } = this;
+
     return {
-        user: {
-            login: this.login
-        }
+        user: { login }
     }
-}
+};
 
 User.beforeCreate(async (user, options) => {
     const { repeatPassword } = options;
