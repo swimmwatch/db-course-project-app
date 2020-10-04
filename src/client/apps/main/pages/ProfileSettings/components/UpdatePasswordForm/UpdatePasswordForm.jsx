@@ -12,6 +12,8 @@ class UpdatePasswordForm extends React.Component {
             newPassword: '',
             repeatNewPassword: ''
         };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     handleInputChange(event) {
@@ -28,17 +30,20 @@ class UpdatePasswordForm extends React.Component {
                     <Form.Group controlId="profile-settings-form__password">
                         <Form.Control type="password"
                                       placeholder="Enter current password"
-                                      name="password" />
+                                      name="password"
+                                      onChange={this.handleInputChange} />
                     </Form.Group>
                     <Form.Group controlId="profile-settings-form__repassword">
                         <Form.Control type="password"
                                       placeholder="Enter new password"
-                                      name="newPassword" />
+                                      name="newPassword"
+                                      onChange={this.handleInputChange} />
                     </Form.Group>
                     <Form.Group controlId="profile-settings-form__repassword">
                         <Form.Control type="password"
                                       placeholder="Enter new password again"
-                                      name="repeatNewPassword" />
+                                      name="repeatNewPassword"
+                                      onChange={this.handleInputChange} />
                     </Form.Group>
                     <Button variant="primary"
                             type="submit">Save</Button>
