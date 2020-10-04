@@ -1,4 +1,4 @@
-export const update = async (req, res) => {
+export const updatePassword = async (req, res) => {
     res.end();
 };
 
