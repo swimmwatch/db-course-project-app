@@ -82,7 +82,7 @@ User.prototype.initState = function() {
     }
 };
 
-User.beforeCreate(async (user, options) => {
+User.afterValidate((user, options) => {
     const { repeatPassword } = options;
 
     if (repeatPassword !== user.password) {
@@ -93,7 +93,9 @@ User.beforeCreate(async (user, options) => {
 
         throw validErr;
     }
+});
 
+User.beforeCreate(async user => {
     user.password = await User.hashPassword(user.password);
 });
 
