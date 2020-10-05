@@ -66,7 +66,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             }
 
             <Modal
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
                 onHide={onLogOut}
