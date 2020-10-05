@@ -9,7 +9,7 @@ export const updatePassword = async (req, res, next) => {
 
     const user = await User.findByPk(user_id);
 
-    const isRightPassword = user.comparePasswords(password);
+    const isRightPassword = await user.comparePasswords(password);
 
     if (isRightPassword) {
         if (repeatNewPassword !== newPassword) {
@@ -22,7 +22,7 @@ export const updatePassword = async (req, res, next) => {
         }
 
         try {
-            await user.update({ password: newPassword }, { repeatPassword: repeatNewPassword });
+            await user.update({ password: newPassword });
         } catch ({ errors }) {
             formListErrors.addFromModelErrors(errors);
 
@@ -48,7 +48,7 @@ export const remove = async (req, res) => {
 
     const user = await User.findByPk(user_id);
 
-    user.destroy();
+    await user.destroy();
 
     res.sendStatus(OK);
 };
