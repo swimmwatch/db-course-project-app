@@ -33,7 +33,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             <LinkContainer to="/">
                 <Navbar.Brand>PassQuiz</Navbar.Brand>
             </LinkContainer>
-            <Nav>
+            <Nav className="mr-auto">
                 { !isLoggedIn ? (
                     <>
                         <LinkContainer to="/signup">
@@ -55,6 +55,15 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                     </NavDropdown>
                 ) }
             </Nav>
+            {
+                isLoggedIn && (
+                    <Nav>
+                        <LinkContainer to="/create">
+                            <Button type="primary">Create test</Button>
+                        </LinkContainer>
+                    </Nav>
+                )
+            }
 
             <Modal
                 size="lg"
