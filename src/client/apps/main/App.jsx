@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Login from "./pages/Login";
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
+import TestEditor from "./pages/TestEditor";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -26,6 +27,7 @@ class App extends React.Component {
                     <NotIsLoggedInRoute path='/login' component={Login}/>
                     <NotIsLoggedInRoute path='/signup' component={SignUp}/>
                     <PrivateRoute path='/profile' component={Profile}/>
+                    <PrivateRoute exact path='/test/create' component={TestEditor} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
