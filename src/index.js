@@ -11,6 +11,7 @@ import config from "./config";
 import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
 import profileModify from "./routes/profileModify";
+import errorHandler from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -45,6 +46,8 @@ app.use("/api", authRouter);
 app.use("/api/profile", profileModify);
 
 app.use("*", mainRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
     try {
