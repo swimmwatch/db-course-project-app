@@ -15,12 +15,15 @@ class UpdatePasswordForm extends React.Component {
         this.state = {
             password: '',
             newPassword: '',
-            repeatNewPassword: ''
+            repeatNewPassword: '',
+
+            isLoading: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this._generateFormData = this._generateFormData.bind(this);
+        this.toggleLoadingState = this.toggleLoadingState.bind(this);
     }
 
     handleInputChange(event) {
@@ -31,9 +34,9 @@ class UpdatePasswordForm extends React.Component {
 
     _generateFormData() {
         const formData = new FormData();
-        formData.append('password', this.password);
-        formData.append('newPassword', this.newPassword);
-        formData.append('repeatNewPassword', this.repeatNewPassword);
+        formData.append('password', this.state.password);
+        formData.append('newPassword', this.state.newPassword);
+        formData.append('repeatNewPassword', this.state.repeatNewPassword);
 
         return formData;
     }
@@ -43,6 +46,8 @@ class UpdatePasswordForm extends React.Component {
 
         const { dispatch, history, onSubmitError } = this.props;
 
+        this.toggleLoadingState();
+
         try {
             const formData = this._generateFormData();
             await editProfileSettings.updatePassword(formData);
@@ -51,11 +56,21 @@ class UpdatePasswordForm extends React.Component {
 
             history.push("/login");
         } catch ({ errors }) {
+            this.toggleLoadingState();
+
             onSubmitError(errors);
         }
     }
 
+    toggleLoadingState() {
+        this.setState(prev => {
+            return { isLoading: !prev.isLoading }
+        });
+    }
+
     render() {
+        const { isLoading } = this.state;
+
         return (
             <>
                 <h5>Update password:</h5>
@@ -80,7 +95,8 @@ class UpdatePasswordForm extends React.Component {
                     </Form.Group>
                     <Button variant="primary"
                             type="submit"
-                            onClick={this.handleFormSubmit}>Save</Button>
+                            disabled={isLoading}
+                            onClick={this.handleFormSubmit}>{ isLoading ? 'Loading...' : 'Save' }</Button>
                 </Form>
             </>
         );
