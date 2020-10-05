@@ -20,6 +20,8 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
 
     const showModal = () => setModalShow(true);
 
+    const hideModal = () => setModalShow(false);
+
     const onLogOut = () => {
         dispatch(authActions.logOut());
 
@@ -69,7 +71,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                 size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                onHide={onLogOut}
+                onHide={hideModal}
                 show={modalShow}
             >
                 <Modal.Header closeButton>
