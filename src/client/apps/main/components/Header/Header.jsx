@@ -60,7 +60,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             {
                 isLoggedIn && (
                     <Nav>
-                        <LinkContainer to="/create">
+                        <LinkContainer to="/test/create">
                             <Button type="primary">Create test</Button>
                         </LinkContainer>
                     </Nav>
