@@ -103,7 +103,6 @@ class SignUp extends React.Component {
                                         show={listErrors.length !== 0}
                                         onHide={this.hideErrorAlert} />
                         <Form.Group controlId="main-signup-form__email">
-                            <Form.Label className="main-signup-form__label">Email address:</Form.Label>
                             <Form.Control type="email"
                                           placeholder="Enter email"
                                           name="email"
@@ -112,7 +111,6 @@ class SignUp extends React.Component {
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__login">
-                            <Form.Label className="main-signup-form__label">Login:</Form.Label>
                             <Form.Control type="text"
                                           placeholder="Enter login"
                                           name="login"
@@ -122,7 +120,6 @@ class SignUp extends React.Component {
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__password">
-                            <Form.Label className="main-signup-form__label">Password:</Form.Label>
                             <Form.Control type="password"
                                           placeholder="Enter password"
                                           name="password"
@@ -132,7 +129,6 @@ class SignUp extends React.Component {
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-signup-form__repeat-password">
-                            <Form.Label className="main-signup-form__label">Repeat password:</Form.Label>
                             <Form.Control type="password"
                                           placeholder="Enter password"
                                           name="repeatPassword"

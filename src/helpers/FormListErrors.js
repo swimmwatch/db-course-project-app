@@ -24,4 +24,8 @@ export default class FormListErrors {
     add(message) {
         this.data.errors.push({ message });
     }
+
+    isNotEmpty() {
+        return this.data.errors.length;
+    }
 }

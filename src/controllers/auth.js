@@ -7,7 +7,7 @@ import * as jwt from "jsonwebtoken";
 import FormListErrors from "../helpers/FormListErrors";
 import User from "../models/User";
 
-export const signUp = async (req, res) => {
+export const signUp = async (req, res, next) => {
     const {
         login,
         repeatPassword,
@@ -16,20 +16,30 @@ export const signUp = async (req, res) => {
     } = req.body;
     const formListErrors = new FormListErrors();
 
-    try {
-        await User.create(
-            { email, login, password },
-            { repeatPassword });
-    } catch (ex) {
-        formListErrors.addFromModelErrors(ex.errors);
+    if (repeatPassword !== password) {
+        formListErrors.add("passwords doesn't equal.");
 
-        res.status(BAD_REQUEST).json(formListErrors.data);
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    try {
+        await User.create({ email, login, password });
+    } catch ({ errors }) {
+        formListErrors.addFromModelErrors(errors);
+
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     res.sendStatus(OK);
 };
 
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
     const {
         login,
         password,
@@ -42,13 +52,19 @@ export const signIn = async (req, res) => {
     } catch (error) {
         formListErrors.addDefault();
 
-        res.status(INTERNAL_SERVER_ERROR).json(formListErrors.data);
+        next({
+            status: INTERNAL_SERVER_ERROR,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (!user) {
         formListErrors.add("user with such name not found.");
 
-        res.status(BAD_REQUEST).json(formListErrors.data);
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     } else {
         const isRightPassword = await user.comparePasswords(password);
 
@@ -62,7 +78,10 @@ export const signIn = async (req, res) => {
         } else {
             formListErrors.add("password is invalid");
 
-            res.status(BAD_REQUEST).json(formListErrors.data);
+            next({
+                status: BAD_REQUEST,
+                errors: formListErrors.data.errors
+            });
         }
     }
 };

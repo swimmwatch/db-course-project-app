@@ -113,7 +113,6 @@ class Login extends React.Component {
                                         show={listErrors.length !== 0}
                                         onHide={this.hideErrorAlert} />
                         <Form.Group controlId="main-login-form__login">
-                            <Form.Label className="main-login-form__label">Login:</Form.Label>
                             <Form.Control type="text"
                                           placeholder="Enter login"
                                           name="login"
@@ -123,7 +122,6 @@ class Login extends React.Component {
                                           onChange={this.handleInputChange} />
                         </Form.Group>
                         <Form.Group controlId="main-login-form__password">
-                            <Form.Label className="main-login-form__label">Password:</Form.Label>
                             <Form.Control type="password"
                                           placeholder="Enter password"
                                           name="password"

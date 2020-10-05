@@ -1,6 +1,7 @@
 import { createStore } from "redux";
 import rootReducer from "../reducers";
 import * as authActions from "../actions/auth";
+import { headerWithAuth } from "../helpers/header";
 
 const store = createStore(
     rootReducer,
@@ -15,8 +16,7 @@ export const initAuthStore = async (store) => {
     } else {
         let response = null;
         try {
-            const headers = new Headers();
-            headers.append('Authorization', token);
+            const headers = headerWithAuth(token);
             response = await fetch('/api/init', { headers, method: 'POST' });
         } catch (err) {
             console.log(err);
