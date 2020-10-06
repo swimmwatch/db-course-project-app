@@ -105,11 +105,20 @@ class TestEditor extends React.Component {
                             <Row>
                                 <Col lg={12}>
                                     <div className="test-editor__submit-section">
-                                        <Button className="test-editor__submit-btn"
-                                                type="primary"
-                                                size="lg">
-                                            Create
-                                        </Button>
+                                        <div className="test-editor__submit-section-row">
+                                            <Button className="test-editor__submit-btn"
+                                                    type="primary"
+                                                    size="lg">
+                                                Add question
+                                            </Button>
+                                        </div>
+                                        <div className="test-editor__submit-section-row">
+                                            <Button className="test-editor__submit-btn"
+                                                    type="primary"
+                                                    size="lg">
+                                                Publish
+                                            </Button>
+                                        </div>
                                     </div>
                                 </Col>
                             </Row>
