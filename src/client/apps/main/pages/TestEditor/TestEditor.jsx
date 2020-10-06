@@ -103,11 +103,14 @@ class TestEditor extends React.Component {
                             <hr/>
 
                             <Row>
-                                <Col lg={{offset: 3, span: 6}} >
-                                    <Button className="test-editor__submit-btn"
-                                            type="primary">
-                                        Save
-                                    </Button>
+                                <Col lg={12}>
+                                    <div className="test-editor__submit-section">
+                                        <Button className="test-editor__submit-btn"
+                                                type="primary"
+                                                size="lg">
+                                            Create
+                                        </Button>
+                                    </div>
                                 </Col>
                             </Row>
                         </Form>
