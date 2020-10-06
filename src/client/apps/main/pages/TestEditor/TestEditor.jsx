@@ -43,7 +43,7 @@ class TestEditor extends React.Component {
                                 </Col>
                                 <Col lg={8}>
                                     <Form.Group controlId="">
-                                        <Form.Control as="textarea" rows={3} />
+                                        <Form.Control className="test-editor__textarea" as="textarea" rows={3} />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -74,7 +74,7 @@ class TestEditor extends React.Component {
                                 </Col>
                                 <Col lg={8}>
                                     <Form.Group controlId="">
-                                        <Form.Control as="textarea" rows={3} />
+                                        <Form.Control className="test-editor__textarea" as="textarea" rows={3} />
                                     </Form.Group>
                                 </Col>
                             </Row>
