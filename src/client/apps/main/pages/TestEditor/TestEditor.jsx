@@ -99,6 +99,14 @@ class TestEditor extends React.Component {
                                     <AnswerEditList />
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col lg={12}>
+                                    <Button className="float-right"
+                                            variant="danger">
+                                        Delete question
+                                    </Button>
+                                </Col>
+                            </Row>
 
                             <hr/>
 
