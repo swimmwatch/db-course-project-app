@@ -26,7 +26,7 @@ class TestEditor extends React.Component {
                 <Form>
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Title</Form.Label>
+                            <Form.Label>Title:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="">
@@ -36,7 +36,7 @@ class TestEditor extends React.Component {
                     </Row>
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Description</Form.Label>
+                            <Form.Label>Description:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="">
@@ -46,7 +46,7 @@ class TestEditor extends React.Component {
                     </Row>
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Tags</Form.Label>
+                            <Form.Label>Tags:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="">
@@ -67,7 +67,7 @@ class TestEditor extends React.Component {
 
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Question</Form.Label>
+                            <Form.Label>Question:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="">
@@ -77,7 +77,7 @@ class TestEditor extends React.Component {
                     </Row>
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Question type</Form.Label>
+                            <Form.Label>Question type:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="">
@@ -90,7 +90,7 @@ class TestEditor extends React.Component {
                     </Row>
                     <Row>
                         <Col lg={3}>
-                            <Form.Label>Answers</Form.Label>
+                            <Form.Label>Answers:</Form.Label>
                         </Col>
                         <Col lg={6}>
                             <Form.Group controlId="1">
