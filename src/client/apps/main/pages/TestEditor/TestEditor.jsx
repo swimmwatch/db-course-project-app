@@ -9,10 +9,8 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import Button from "react-bootstrap/Button";
-import AnswerEditList from "../../components/AnswerEditList";
+import QuestionEditItem from "../../components/QuestionEditItem";
 
 import "./style.scss";
 
@@ -68,47 +66,9 @@ class TestEditor extends React.Component {
 
                             <hr/>
 
-                            <Row>
-                                <Col lg={4}>
-                                    <Form.Label>Question:</Form.Label>
-                                </Col>
-                                <Col lg={8}>
-                                    <Form.Group controlId="">
-                                        <Form.Control className="test-editor__textarea" as="textarea" rows={3} />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col lg={4}>
-                                    <Form.Label>Question type:</Form.Label>
-                                </Col>
-                                <Col lg={8}>
-                                    <Form.Group controlId="">
-                                        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                            <ToggleButton value={1}>One answer</ToggleButton>
-                                            <ToggleButton value={2}>Multiple answers</ToggleButton>
-                                        </ToggleButtonGroup>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col lg={4}>
-                                    <Form.Label>Answers:</Form.Label>
-                                </Col>
-                                <Col lg={8}>
-                                    <AnswerEditList />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col lg={12}>
-                                    <Button className="float-right"
-                                            variant="danger">
-                                        Delete question
-                                    </Button>
-                                </Col>
-                            </Row>
-
-                            <hr/>
+                            <QuestionEditItem />
+                            <QuestionEditItem />
+                            <QuestionEditItem />
 
                             <Row>
                                 <Col lg={12}>
