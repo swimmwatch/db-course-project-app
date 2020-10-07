@@ -4,6 +4,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
 
+export const ANSWER_TYPE = {
+    ONE: "radio",
+    MULTIPLE: "checkbox"
+};
+
 class AnswerEditList extends React.Component {
     constructor(props) {
         super(props);
@@ -37,4 +42,4 @@ AnswerEditList.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
 };
 
-export default AnswerEditList;
+export { AnswerEditList };

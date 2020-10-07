@@ -5,12 +5,16 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import AnswerEditList from "../AnswerEditList";
+import { AnswerEditList, ANSWER_TYPE } from "../AnswerEditList";
 import Button from "react-bootstrap/Button";
 
 class QuestionEditItem extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            typeAnswer: ANSWER_TYPE.ONE
+        };
     }
 
     render() {
@@ -33,10 +37,10 @@ class QuestionEditItem extends React.Component {
                         <Form.Label>Question type:</Form.Label>
                     </Col>
                     <Col lg={8}>
-                        <Form.Group controlId="">
-                            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                                <ToggleButton value={1}>One answer</ToggleButton>
-                                <ToggleButton value={2}>Multiple answers</ToggleButton>
+                        <Form.Group>
+                            <ToggleButtonGroup type="radio" name={`${name}_toggle_answer_type`} defaultValue={ANSWER_TYPE.ONE}>
+                                <ToggleButton value={ANSWER_TYPE.ONE}>One answer</ToggleButton>
+                                <ToggleButton value={ANSWER_TYPE.MULTIPLE}>Multiple answers</ToggleButton>
                             </ToggleButtonGroup>
                         </Form.Group>
                     </Col>
