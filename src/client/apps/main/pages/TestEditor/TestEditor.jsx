@@ -13,7 +13,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import QuestionEditList from "../../components/QuestionEditList";
-import TagList from "../../components/TagList";
+import TestEditorTagList from "../../../../containers/TestEditorTagList";
 
 import "./style.scss";
 
@@ -67,7 +67,6 @@ class TestEditor extends React.Component {
         const { dispatch } = this.props;
 
         dispatch(testEditorActions.appendTag(tagValue));
-        this.forceUpdate();
     }
 
     render() {
@@ -122,7 +121,7 @@ class TestEditor extends React.Component {
                                             </InputGroup.Append>
                                         </InputGroup>
                                     </Form.Group>
-                                    <TagList />
+                                    <TestEditorTagList />
                                 </Col>
                             </Row>
 

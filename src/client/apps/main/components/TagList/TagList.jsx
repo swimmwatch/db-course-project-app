@@ -1,12 +1,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import * as testEditorActions from "../../../../actions/testEditor";
 import Tag from "../Tag";
 
 import "./style.scss";
 
-const TagList = ({ tags, dispatch }) => {
+const TagList = ({ tags, deleteTag }) => {
     return (
         <ul className="tag-list">
             {
@@ -14,7 +12,7 @@ const TagList = ({ tags, dispatch }) => {
                     return (
                         <Tag content={content}
                              key={i}
-                             onDelete={() => dispatch(testEditorActions.deleteTag(i))} />
+                             onDelete={() => deleteTag(i)} />
                     );
                 })
             }
@@ -23,16 +21,8 @@ const TagList = ({ tags, dispatch }) => {
 };
 
 TagList.propTypes = {
-    tags: PropTypes.arrayOf(PropTypes.string),
-    dispatch: PropTypes.func
+    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    deleteTag: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
-    const { tags } = state.testEditor.info;
-
-    return { tags };
-}
-
-const connectTagList = connect(mapStateToProps)(TagList);
-
-export { connectTagList as TagList };
+export default TagList;
