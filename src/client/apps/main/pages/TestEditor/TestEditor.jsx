@@ -66,9 +66,9 @@ class TestEditor extends React.Component {
 
                             <hr/>
 
-                            <QuestionEditItem />
-                            <QuestionEditItem />
-                            <QuestionEditItem />
+                            <QuestionEditItem name={1} />
+                            <QuestionEditItem name={2} />
+                            <QuestionEditItem name={3} />
 
                             <Row>
                                 <Col lg={12}>

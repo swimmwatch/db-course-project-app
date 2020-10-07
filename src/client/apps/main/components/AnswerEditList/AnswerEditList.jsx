@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
@@ -11,12 +12,18 @@ class AnswerEditList extends React.Component {
     }
 
     render() {
+        const { name } = this.props;
+
         return (
             <>
                 <p>Choose right answer:</p>
                 <Form.Group controlId="">
-                    <AnswerEditItem />
-                    <AnswerEditItem />
+                    {
+                        ["1", "2"].map((el, i) => {
+                            return <AnswerEditItem key={i}
+                                                   name={name} />
+                        })
+                    }
                 </Form.Group>
                 <Button type="primary">
                     Add answer
@@ -25,5 +32,9 @@ class AnswerEditList extends React.Component {
         );
     }
 }
+
+AnswerEditList.propTypes = {
+    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+};
 
 export default AnswerEditList;

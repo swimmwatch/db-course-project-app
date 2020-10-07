@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -13,6 +14,8 @@ class QuestionEditItem extends React.Component {
     }
 
     render() {
+        const { name } = this.props;
+
         return (
             <>
                 <Row>
@@ -43,7 +46,7 @@ class QuestionEditItem extends React.Component {
                         <Form.Label>Answers:</Form.Label>
                     </Col>
                     <Col lg={8}>
-                        <AnswerEditList />
+                        <AnswerEditList name={name} />
                     </Col>
                 </Row>
                 <Row>
@@ -60,5 +63,9 @@ class QuestionEditItem extends React.Component {
         );
     }
 }
+
+QuestionEditItem.propTypes = {
+    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+};
 
 export default QuestionEditItem;
