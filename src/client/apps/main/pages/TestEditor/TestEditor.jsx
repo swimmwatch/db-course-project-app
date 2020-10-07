@@ -21,8 +21,14 @@ class TestEditor extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            tagValue: ''
+        };
+
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+        this.handleAppendTag = this.handleAppendTag.bind(this);
+        this.handleTagInputChange = this.handleTagInputChange.bind(this);
     }
 
     componentDidMount() {
@@ -52,10 +58,19 @@ class TestEditor extends React.Component {
         dispatch(testEditorActions.updateDescription(value));
     }
 
-    render() {
-        const { info } = this.props;
-        const { tags } = info;
+    handleTagInputChange({ target: { value } }) {
+        this.setState({ tagValue: value });
+    }
 
+    handleAppendTag() {
+        const { tagValue } = this.state;
+        const { dispatch } = this.props;
+
+        dispatch(testEditorActions.appendTag(tagValue));
+        this.forceUpdate();
+    }
+
+    render() {
         return (
             <Container className="p-3">
                 <Row>
@@ -97,13 +112,17 @@ class TestEditor extends React.Component {
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
                                                 required
+                                                onChange={this.handleTagInputChange}
                                             />
                                             <InputGroup.Append>
-                                                <Button variant="primary">Add</Button>
+                                                <Button variant="primary"
+                                                        onClick={this.handleAppendTag}>
+                                                    Add
+                                                </Button>
                                             </InputGroup.Append>
                                         </InputGroup>
                                     </Form.Group>
-                                    <TagList tags={tags} />
+                                    <TagList />
                                 </Col>
                             </Row>
 
@@ -142,20 +161,9 @@ class TestEditor extends React.Component {
 TestEditor.propTypes = {
     dispatch: PropTypes.func,
     history: ReactRouterPropTypes.history,
-    location: ReactRouterPropTypes.location,
-    info: PropTypes.exact({
-        title: PropTypes.string,
-        description: PropTypes.string,
-        tags: PropTypes.arrayOf(PropTypes.string)
-    }).isRequired
+    location: ReactRouterPropTypes.location
 };
 
-function mapStateToProps(state) {
-    const { info } = state.testEditor;
-
-    return { info };
-}
-
-const connectedTestEditor = connect(mapStateToProps)(withRouter(TestEditor));
+const connectedTestEditor = connect()(withRouter(TestEditor));
 
 export { connectedTestEditor as TestEditor };

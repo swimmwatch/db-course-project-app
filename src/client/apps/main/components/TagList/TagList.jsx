@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import Tag from "../Tag";
 
 import "./style.scss";
@@ -23,4 +24,12 @@ TagList.propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default TagList;
+function mapStateToProps(state) {
+    const { tags } = state.testEditor.info;
+
+    return { tags };
+}
+
+const connectTagList = connect(mapStateToProps)(TagList);
+
+export { connectTagList as TagList };

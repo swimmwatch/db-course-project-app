@@ -5,7 +5,7 @@ let initState = {
     info: {
         title: '',
         description: '',
-        tags: ['hello', 'js', 'react', 'basic']
+        tags: ['react']
     },
     questions: [
         { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
@@ -13,7 +13,7 @@ let initState = {
 };
 
 export default (state = initState, action) => {
-    let newState = {...state};
+    let newState = Object.assign({}, state);
 
     switch (action.type) {
         case testEditorActions.RESET:
@@ -27,6 +27,15 @@ export default (state = initState, action) => {
         }
         case testEditorActions.UPDATE_DESCRIPTION: {
             newState.info.description = action.description;
+
+            return newState;
+        }
+        case testEditorActions.APPEND_TAG: {
+            const tagIsNotInList = !newState.info.tags.includes(action.tag);
+
+            if (action.tag.length && tagIsNotInList) {
+                newState.info.tags.push(action.tag);
+            }
 
             return newState;
         }
