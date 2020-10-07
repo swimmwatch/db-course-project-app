@@ -11,15 +11,29 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import QuestionEditList from "../../components/QuestionEditList";
+import { ANSWER_TYPE } from "../../components/AnswerEditList/config";
 
 import "./style.scss";
 
 class TestEditor extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            info: {
+                title: '',
+                description: '',
+                tags: []
+            },
+            questions: [
+                { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
+            ]
+        }
     }
 
     render() {
+        const { questions } = this.state;
+
         return (
             <Container className="p-3">
                 <Row>
@@ -66,7 +80,7 @@ class TestEditor extends React.Component {
 
                             <hr/>
 
-                            <QuestionEditList />
+                            <QuestionEditList questions={questions} />
 
                             <Row>
                                 <Col lg={12}>
