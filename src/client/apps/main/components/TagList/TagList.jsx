@@ -1,11 +1,21 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import Tag from "../Tag";
 
 import "./style.scss";
 
-const TagList = () => {
+const TagList = ({ tags }) => {
     return (
-        <span>hello</span>
+        <ul className="tag-list">
+            {
+                tags.map((content, i) => {
+                    return (
+                        <Tag content={content}
+                             key={i} />
+                    );
+                })
+            }
+        </ul>
     );
 };
 

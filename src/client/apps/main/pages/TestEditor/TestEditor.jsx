@@ -13,6 +13,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import QuestionEditList from "../../components/QuestionEditList";
+import TagList from "../../components/TagList";
 
 import "./style.scss";
 
@@ -37,6 +38,9 @@ class TestEditor extends React.Component {
     }
 
     render() {
+        const { info } = this.props;
+        const { tags } = info;
+
         return (
             <Container className="p-3">
                 <Row>
@@ -78,6 +82,7 @@ class TestEditor extends React.Component {
                                             </InputGroup.Append>
                                         </InputGroup>
                                     </Form.Group>
+                                    <TagList tags={tags} />
                                 </Col>
                             </Row>
 
@@ -116,9 +121,20 @@ class TestEditor extends React.Component {
 TestEditor.propTypes = {
     dispatch: PropTypes.func,
     history: ReactRouterPropTypes.history,
-    location: ReactRouterPropTypes.location
+    location: ReactRouterPropTypes.location,
+    info: PropTypes.exact({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        tags: PropTypes.arrayOf(PropTypes.string)
+    }).isRequired
 };
 
-const connectedTestEditor = connect()(withRouter(TestEditor));
+function mapStateToProps(state) {
+    const { info } = state.testEditor;
+
+    return { info };
+}
+
+const connectedTestEditor = connect(mapStateToProps)(withRouter(TestEditor));
 
 export { connectedTestEditor as TestEditor };

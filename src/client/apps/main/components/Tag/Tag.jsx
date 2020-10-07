@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import "./style.scss";
 
-const Tag = () => {
+const Tag = ({ content }) => {
     return (
-        <span>hello</span>
+        <li className="tag">{content}</li>
     );
 };
 

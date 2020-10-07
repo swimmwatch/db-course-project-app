@@ -5,7 +5,7 @@ let initState = {
     info: {
         title: '',
         description: '',
-        tags: []
+        tags: ['hello', 'js', 'react', 'basic']
     },
     questions: [
         { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
