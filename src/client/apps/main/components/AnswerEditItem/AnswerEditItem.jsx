@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import { ANSWER_TYPE } from "../AnswerEditList/config";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,12 +15,27 @@ class AnswerEditItem extends React.Component {
     }
 
     render() {
-        const { name } = this.props;
+        const { name, type } = this.props;
 
         return (
             <InputGroup className="answer-edit-item">
                 <InputGroup.Prepend>
-                    <InputGroup.Radio name={name} aria-label="Radio button for following text input" />
+                    {
+                        (() => {
+                            switch (type) {
+                                case ANSWER_TYPE.ONE:
+                                    return (
+                                        <InputGroup.Radio name={name}
+                                                          aria-label="Radio button for following text input" />
+                                    );
+                                case ANSWER_TYPE.MULTIPLE:
+                                    return (
+                                        <InputGroup.Checkbox name={name}
+                                                             aria-label="Radio button for following text input" />
+                                    );
+                            }
+                        })()
+                    }
                 </InputGroup.Prepend>
                 <FormControl aria-label="Text input with radio button" />
                 <InputGroup.Append>
@@ -33,7 +49,8 @@ class AnswerEditItem extends React.Component {
 }
 
 AnswerEditItem.propTypes = {
-    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+    type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired
 };
 
 export default AnswerEditItem;

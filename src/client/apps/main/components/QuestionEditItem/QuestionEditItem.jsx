@@ -5,7 +5,8 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import { AnswerEditList, ANSWER_TYPE } from "../AnswerEditList";
+import { ANSWER_TYPE } from "../AnswerEditList/config";
+import { AnswerEditList } from "../AnswerEditList";
 import Button from "react-bootstrap/Button";
 
 class QuestionEditItem extends React.Component {

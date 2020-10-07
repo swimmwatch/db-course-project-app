@@ -3,11 +3,7 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
-
-export const ANSWER_TYPE = {
-    ONE: "radio",
-    MULTIPLE: "checkbox"
-};
+import {ANSWER_TYPE} from "./config";
 
 class AnswerEditList extends React.Component {
     constructor(props) {
@@ -26,7 +22,8 @@ class AnswerEditList extends React.Component {
                     {
                         ["1", "2"].map((el, i) => {
                             return <AnswerEditItem key={i}
-                                                   name={name} />
+                                                   name={name}
+                                                   type={ANSWER_TYPE.MULTIPLE} />
                         })
                     }
                 </Form.Group>
@@ -39,7 +36,8 @@ class AnswerEditList extends React.Component {
 }
 
 AnswerEditList.propTypes = {
-    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+    type: PropTypes.oneOf([ ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE ])
 };
 
 export { AnswerEditList };
