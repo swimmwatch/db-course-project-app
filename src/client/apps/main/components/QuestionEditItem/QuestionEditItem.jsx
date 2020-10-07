@@ -16,9 +16,16 @@ class QuestionEditItem extends React.Component {
         this.state = {
             typeAnswer: ANSWER_TYPE.ONE
         };
+
+        this.handleToggleChange = this.handleToggleChange.bind(this);
+    }
+
+    handleToggleChange({ target: { value } }) {
+        this.setState({ typeAnswer: value });
     }
 
     render() {
+        const { typeAnswer } = this.state;
         const { name } = this.props;
 
         return (
@@ -39,9 +46,13 @@ class QuestionEditItem extends React.Component {
                     </Col>
                     <Col lg={8}>
                         <Form.Group>
-                            <ToggleButtonGroup type="radio" name={`${name}_toggle_answer_type`} defaultValue={ANSWER_TYPE.ONE}>
-                                <ToggleButton value={ANSWER_TYPE.ONE}>One answer</ToggleButton>
-                                <ToggleButton value={ANSWER_TYPE.MULTIPLE}>Multiple answers</ToggleButton>
+                            <ToggleButtonGroup type="radio"
+                                               name={`${name}_toggle_answer_type`}
+                                               defaultValue={ANSWER_TYPE.ONE}>
+                                <ToggleButton value={ANSWER_TYPE.ONE}
+                                              onChange={this.handleToggleChange}>One answer</ToggleButton>
+                                <ToggleButton value={ANSWER_TYPE.MULTIPLE}
+                                              onChange={this.handleToggleChange}>Multiple answers</ToggleButton>
                             </ToggleButtonGroup>
                         </Form.Group>
                     </Col>
@@ -51,7 +62,8 @@ class QuestionEditItem extends React.Component {
                         <Form.Label>Answers:</Form.Label>
                     </Col>
                     <Col lg={8}>
-                        <AnswerEditList name={name} />
+                        <AnswerEditList name={name}
+                                        type={typeAnswer} />
                     </Col>
                 </Row>
                 <Row>

@@ -13,7 +13,7 @@ class AnswerEditList extends React.Component {
     }
 
     render() {
-        const { name } = this.props;
+        const { name, type } = this.props;
 
         return (
             <>
@@ -23,7 +23,7 @@ class AnswerEditList extends React.Component {
                         ["1", "2"].map((el, i) => {
                             return <AnswerEditItem key={i}
                                                    name={name}
-                                                   type={ANSWER_TYPE.MULTIPLE} />
+                                                   type={type} />
                         })
                     }
                 </Form.Group>
@@ -37,7 +37,7 @@ class AnswerEditList extends React.Component {
 
 AnswerEditList.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
-    type: PropTypes.oneOf([ ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE ])
+    type: PropTypes.oneOf([ ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE ]).isRequired
 };
 
 export { AnswerEditList };
