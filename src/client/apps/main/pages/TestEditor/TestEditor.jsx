@@ -52,7 +52,7 @@ class TestEditor extends React.Component {
                                 </Col>
                                 <Col lg={8}>
                                     <Form.Group controlId="">
-                                        <Form.Control />
+                                        <Form.Control required />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -62,7 +62,10 @@ class TestEditor extends React.Component {
                                 </Col>
                                 <Col lg={8}>
                                     <Form.Group controlId="">
-                                        <Form.Control className="test-editor__textarea" as="textarea" rows={3} />
+                                        <Form.Control className="test-editor__textarea"
+                                                      as="textarea"
+                                                      rows={3}
+                                                      required />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -76,6 +79,7 @@ class TestEditor extends React.Component {
                                             <FormControl
                                                 aria-label="Recipient's username"
                                                 aria-describedby="basic-addon2"
+                                                required
                                             />
                                             <InputGroup.Append>
                                                 <Button variant="primary">Add</Button>
