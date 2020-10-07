@@ -22,6 +22,7 @@ class TestEditor extends React.Component {
         super(props);
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     }
 
     componentDidMount() {
@@ -43,6 +44,12 @@ class TestEditor extends React.Component {
         const { dispatch } = this.props;
 
         dispatch(testEditorActions.updateTitle(value));
+    }
+
+    handleDescriptionChange({ target: { value } }) {
+        const { dispatch } = this.props;
+
+        dispatch(testEditorActions.updateDescription(value));
     }
 
     render() {
@@ -74,7 +81,8 @@ class TestEditor extends React.Component {
                                         <Form.Control className="test-editor__textarea"
                                                       as="textarea"
                                                       rows={3}
-                                                      required />
+                                                      required
+                                                      onChange={this.handleDescriptionChange} />
                                     </Form.Group>
                                 </Col>
                             </Row>

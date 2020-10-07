@@ -13,15 +13,20 @@ let initState = {
 };
 
 export default (state = initState, action) => {
+    let newState = {...state};
+
     switch (action.type) {
         case testEditorActions.RESET:
             return { ...initState };
         case testEditorActions.UPDATE:
             return { ...action }
         case testEditorActions.UPDATE_TITLE: {
-            let newState = {...state};
-
             newState.info.title = action.title;
+
+            return newState;
+        }
+        case testEditorActions.UPDATE_DESCRIPTION: {
+            newState.info.description = action.description;
 
             return newState;
         }
