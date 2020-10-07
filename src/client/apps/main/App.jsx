@@ -27,7 +27,7 @@ class App extends React.Component {
                     <NotIsLoggedInRoute path='/login' component={Login}/>
                     <NotIsLoggedInRoute path='/signup' component={SignUp}/>
                     <PrivateRoute path='/profile' component={Profile}/>
-                    <PrivateRoute exact path='/test/create' component={TestEditor} />
+                    <PrivateRoute exact path='/test/edit' component={TestEditor} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
