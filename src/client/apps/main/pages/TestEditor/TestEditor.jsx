@@ -1,7 +1,9 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import ReactRouterPropTypes from "react-router-prop-types";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as testEditorActions from "../../../../actions/testEditor";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,29 +13,30 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import QuestionEditList from "../../components/QuestionEditList";
-import { ANSWER_TYPE } from "../../components/AnswerEditList/config";
 
 import "./style.scss";
 
 class TestEditor extends React.Component {
     constructor(props) {
         super(props);
+    }
 
-        this.state = {
-            info: {
-                title: '',
-                description: '',
-                tags: []
-            },
-            questions: [
-                { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
-            ]
+    componentDidMount() {
+        const { dispatch, location } = this.props;
+
+        let query = new URLSearchParams(location.search);
+
+        const id = query.get("id");
+
+        if (id) {
+            // TODO: handle request
+            console.log(id);
+        } else {
+            dispatch(testEditorActions.reset());
         }
     }
 
     render() {
-        const { questions } = this.state;
-
         return (
             <Container className="p-3">
                 <Row>
@@ -80,7 +83,7 @@ class TestEditor extends React.Component {
 
                             <hr/>
 
-                            <QuestionEditList questions={questions} />
+                            <QuestionEditList />
 
                             <Row>
                                 <Col lg={12}>
@@ -110,11 +113,12 @@ class TestEditor extends React.Component {
     }
 }
 
-TestEditor.propsType = {
+TestEditor.propTypes = {
     dispatch: PropTypes.func,
-    history: ReactRouterPropTypes.history
+    history: ReactRouterPropTypes.history,
+    location: ReactRouterPropTypes.location
 };
 
-const connectedTestEditor = connect()(TestEditor);
+const connectedTestEditor = connect()(withRouter(TestEditor));
 
 export { connectedTestEditor as TestEditor };

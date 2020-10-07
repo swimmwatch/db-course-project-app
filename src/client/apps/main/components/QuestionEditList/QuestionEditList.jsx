@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import {ANSWER_TYPE} from "../AnswerEditList/config";
 import PropTypes from "prop-types";
 
@@ -41,4 +42,12 @@ QuestionEditList.propTypes = {
     )
 };
 
-export default QuestionEditList;
+function mapStateToProps(state) {
+    const { questions } = state.testEditor;
+
+    return { questions };
+}
+
+const connectedQuestionEditList = connect(mapStateToProps)(QuestionEditList);
+
+export { connectedQuestionEditList as QuestionEditList };
