@@ -13,13 +13,13 @@ let initState = {
 };
 
 export default (state = initState, action) => {
-    let newState = Object.assign({}, state);
+    let newState = JSON.parse(JSON.stringify(state));
 
     switch (action.type) {
         case testEditorActions.RESET:
-            return { ...initState };
+            return { ...newState };
         case testEditorActions.UPDATE:
-            return { ...action }
+            return { ...newState }
         case testEditorActions.UPDATE_TITLE: {
             newState.info.title = action.title;
 
