@@ -20,6 +20,8 @@ import "./style.scss";
 class TestEditor extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleTitleChange = this.handleTitleChange.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +39,12 @@ class TestEditor extends React.Component {
         }
     }
 
+    handleTitleChange({ target: { value } }) {
+        const { dispatch } = this.props;
+
+        dispatch(testEditorActions.updateTitle(value));
+    }
+
     render() {
         const { info } = this.props;
         const { tags } = info;
@@ -52,7 +60,8 @@ class TestEditor extends React.Component {
                                 </Col>
                                 <Col lg={8}>
                                     <Form.Group controlId="">
-                                        <Form.Control required />
+                                        <Form.Control required
+                                                      onChange={this.handleTitleChange} />
                                     </Form.Group>
                                 </Col>
                             </Row>

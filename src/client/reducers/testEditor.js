@@ -18,6 +18,13 @@ export default (state = initState, action) => {
             return { ...initState };
         case testEditorActions.UPDATE:
             return { ...action }
+        case testEditorActions.UPDATE_TITLE: {
+            let newState = {...state};
+
+            newState.info.title = action.title;
+
+            return newState;
+        }
         default:
             return state;
     }
