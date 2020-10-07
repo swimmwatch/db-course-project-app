@@ -39,6 +39,13 @@ export default (state = initState, action) => {
 
             return newState;
         }
+        case testEditorActions.DELETE_TAG: {
+            const { id } = action.id;
+
+            newState.info.tags.splice(id, 1);
+
+            return newState;
+        }
         default:
             return state;
     }

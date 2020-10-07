@@ -1,18 +1,20 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import * as testEditorActions from "../../../../actions/testEditor";
 import Tag from "../Tag";
 
 import "./style.scss";
 
-const TagList = ({ tags }) => {
+const TagList = ({ tags, dispatch }) => {
     return (
         <ul className="tag-list">
             {
                 tags.map((content, i) => {
                     return (
                         <Tag content={content}
-                             key={i} />
+                             key={i}
+                             onDelete={() => dispatch(testEditorActions.deleteTag(i))} />
                     );
                 })
             }
@@ -21,7 +23,8 @@ const TagList = ({ tags }) => {
 };
 
 TagList.propTypes = {
-    tags: PropTypes.arrayOf(PropTypes.string)
+    tags: PropTypes.arrayOf(PropTypes.string),
+    dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {

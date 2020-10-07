@@ -5,11 +5,15 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import "./style.scss";
 
-const Tag = ({ content }) => {
+const Tag = ({ content, onDelete }) => {
     return (
         <li className="tag">
             <span className="tag__content">{content}</span>
-            <button className="tag__delete-btn">
+            <button className="tag__delete-btn"
+                    onClick={event => {
+                        event.preventDefault();
+                        onDelete()
+                    }}>
                 <FontAwesomeIcon icon={faTimes} />
             </button>
         </li>
@@ -17,7 +21,8 @@ const Tag = ({ content }) => {
 };
 
 Tag.propTypes = {
-    content: PropTypes.string.isRequired
+    content: PropTypes.string.isRequired,
+    onDelete: PropTypes.func
 };
 
 export default Tag;
