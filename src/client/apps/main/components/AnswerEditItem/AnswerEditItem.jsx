@@ -15,7 +15,11 @@ class AnswerEditItem extends React.Component {
     }
 
     render() {
-        const { name, type } = this.props;
+        const {
+            name,
+            type,
+            onDeleteAnswer
+        } = this.props;
 
         return (
             <InputGroup className="answer-edit-item">
@@ -39,7 +43,8 @@ class AnswerEditItem extends React.Component {
                 </InputGroup.Prepend>
                 <FormControl aria-label="Text input with radio button" />
                 <InputGroup.Append>
-                    <Button variant="danger">
+                    <Button variant="danger"
+                            onClick={onDeleteAnswer}>
                         <FontAwesomeIcon icon={faTrash} />
                     </Button>
                 </InputGroup.Append>
@@ -50,7 +55,8 @@ class AnswerEditItem extends React.Component {
 
 AnswerEditItem.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
-    type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired
+    type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
+    onDeleteAnswer: PropTypes.func
 };
 
 export default AnswerEditItem;

@@ -81,6 +81,16 @@ export default (state = initState, action) => {
 
             return newState;
         }
+        case testEditorActions.DELETE_ANSWER: {
+            const { questionId, answerId } = action;
+            const { answers } = newState.questions[questionId];
+
+            if (answers.length > 2) {
+                answers.splice(answerId, 1);
+            }
+
+            return newState;
+        }
         default:
             return state;
     }

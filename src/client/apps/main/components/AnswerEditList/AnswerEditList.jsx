@@ -1,9 +1,11 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
 import {ANSWER_TYPE} from "./config";
+import * as testEditorActions from "../../../../actions/testEditor";
 
 class AnswerEditList extends React.Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class AnswerEditList extends React.Component {
             name,
             type,
             answers,
-            onAppendAnswer
+            onAppendAnswer,
+            deleteAnswer
         } = this.props;
 
         return (
@@ -27,7 +30,8 @@ class AnswerEditList extends React.Component {
                             return (
                                 <AnswerEditItem key={i}
                                                 name={name}
-                                                type={type} />
+                                                type={type}
+                                                onDeleteAnswer={() => deleteAnswer(name, i)} />
                             );
                         })
                     }
@@ -49,7 +53,20 @@ AnswerEditList.propTypes = {
             isRight: PropTypes.bool
         })
     ).isRequired,
-    onAppendAnswer: PropTypes.func
+    onAppendAnswer: PropTypes.func,
+    deleteAnswer: PropTypes.func
 };
 
-export { AnswerEditList };
+function mapStateToProps() {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteAnswer: (questionId, answerId) => dispatch(testEditorActions.deleteAnswer(questionId, answerId))
+    };
+}
+
+const connectedAnswerEditList = connect(mapStateToProps, mapDispatchToProps)(AnswerEditList);
+
+export { connectedAnswerEditList as AnswerEditList };
