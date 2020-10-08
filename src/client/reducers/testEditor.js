@@ -1,5 +1,6 @@
 import * as testEditorActions from "../actions/testEditor";
 import {createQuestion, createAnswer} from "../helpers/question";
+import {ANSWER_TYPE} from "../apps/main/components/AnswerEditList/config";
 
 let initState = {
     info: {
@@ -69,6 +70,11 @@ export default (state = initState, action) => {
         }
         case testEditorActions.UPDATE_QUESTION_TYPE: {
             const { id, typeAnswer } = action;
+            const { answers } = newState.questions[id];
+
+            for (let currAnswer of answers) {
+                currAnswer.isRight = false;
+            }
 
             newState.questions[id].typeAnswer = typeAnswer;
 
@@ -98,6 +104,20 @@ export default (state = initState, action) => {
             const { answers } = newState.questions[questionId];
 
             answers[answerId].content = value;
+
+            return newState;
+        }
+        case testEditorActions.UPDATE_ANSWERS: {
+            const { questionId, answerId, isRight, typeAnswer } = action;
+            const { answers } = newState.questions[questionId];
+
+            if (typeAnswer === ANSWER_TYPE.ONE) {
+                for (let currAnswer of answers) {
+                    currAnswer.isRight = false;
+                }
+            }
+
+            answers[answerId].isRight = isRight;
 
             return newState;
         }

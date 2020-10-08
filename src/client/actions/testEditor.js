@@ -11,6 +11,7 @@ export const UPDATE_QUESTION_TYPE = "UPDATE_QUESTION_TYPE";
 export const APPEND_ANSWER = "APPEND_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
 export const UPDATE_ANSWER_TEXT = "UPDATE_ANSWER_TEXT";
+export const UPDATE_ANSWERS = "UPDATE_ANSWERS";
 
 export const reset = () => {
     return { type: RESET };
@@ -89,6 +90,16 @@ export const updateAnswerText = (questionId, answerId, value) => {
         questionId,
         answerId,
         value
+    };
+};
+
+export const updateAnswers = (questionId, answerId, isRight, typeAnswer) => {
+    return {
+        type: UPDATE_ANSWERS,
+        questionId,
+        answerId,
+        isRight,
+        typeAnswer
     };
 };
 

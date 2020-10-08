@@ -18,6 +18,15 @@ class AnswerEditItem extends React.Component {
         this.state = {
             answerValue: content
         }
+
+        this.handleChangeAnswer = this.handleChangeAnswer.bind(this);
+    }
+
+    handleChangeAnswer(event) {
+        const { onChangeAnswer } = this.props;
+        const { checked, type } = event.target;
+
+        onChangeAnswer(checked, type);
     }
 
     render() {
@@ -25,6 +34,7 @@ class AnswerEditItem extends React.Component {
             name,
             type,
             content,
+            isRight,
             onDeleteAnswer,
             onChangeAnswerText
         } = this.props;
@@ -38,11 +48,15 @@ class AnswerEditItem extends React.Component {
                                 case ANSWER_TYPE.ONE:
                                     return (
                                         <InputGroup.Radio name={name}
+                                                          checked={isRight}
+                                                          onChange={this.handleChangeAnswer}
                                                           aria-label="Radio button for following text input" />
                                     );
                                 case ANSWER_TYPE.MULTIPLE:
                                     return (
                                         <InputGroup.Checkbox name={name}
+                                                             checked={isRight}
+                                                             onChange={this.handleChangeAnswer}
                                                              aria-label="Radio button for following text input" />
                                     );
                             }
@@ -70,9 +84,11 @@ class AnswerEditItem extends React.Component {
 AnswerEditItem.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
     type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
-    content: PropTypes.string,
+    content: PropTypes.string.isRequired,
+    isRight: PropTypes.bool.isRequired,
     onDeleteAnswer: PropTypes.func.isRequired,
-    onChangeAnswerText: PropTypes.func.isRequired
+    onChangeAnswerText: PropTypes.func.isRequired,
+    onChangeAnswer: PropTypes.func.isRequired
 };
 
 export default AnswerEditItem;

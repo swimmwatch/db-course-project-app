@@ -19,7 +19,8 @@ class AnswerEditList extends React.Component {
             answers,
             onAppendAnswer,
             deleteAnswer,
-            updateAnswerText
+            updateAnswerText,
+            updateAnswers
         } = this.props;
 
         return (
@@ -28,13 +29,15 @@ class AnswerEditList extends React.Component {
                 <Form.Group controlId="">
                     {
                         answers.map((el, i) => {
-                            const { content } = el
+                            const { content, isRight } = el;
 
                             return (
                                 <AnswerEditItem key={i}
                                                 name={name}
                                                 type={type}
+                                                isRight={isRight}
                                                 content={content}
+                                                onChangeAnswer={(isRight, typeAnswer) => updateAnswers(name, i, isRight, typeAnswer)}
                                                 onDeleteAnswer={() => deleteAnswer(name, i)}
                                                 onChangeAnswerText={value => updateAnswerText(name, i, value)} />
                             );
@@ -60,7 +63,8 @@ AnswerEditList.propTypes = {
     ).isRequired,
     onAppendAnswer: PropTypes.func.isRequired,
     deleteAnswer: PropTypes.func.isRequired,
-    updateAnswerText: PropTypes.func.isRequired
+    updateAnswerText: PropTypes.func.isRequired,
+    updateAnswers: PropTypes.func
 };
 
 function mapStateToProps() {
@@ -70,7 +74,8 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
     return {
         deleteAnswer: (questionId, answerId) => dispatch(testEditorActions.deleteAnswer(questionId, answerId)),
-        updateAnswerText: (questionId, answerId, value) => dispatch(testEditorActions.updateAnswerText(questionId, answerId, value))
+        updateAnswerText: (questionId, answerId, value) => dispatch(testEditorActions.updateAnswerText(questionId, answerId, value)),
+        updateAnswers: (questionId, answerId, isRight, typeAnswer) => dispatch(testEditorActions.updateAnswers(questionId, answerId, isRight, typeAnswer))
     };
 }
 
