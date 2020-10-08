@@ -1,5 +1,5 @@
 import * as testEditorActions from "../actions/testEditor";
-import {ANSWER_TYPE} from "../apps/main/components/AnswerEditList/config";
+import {createQuestion} from "../helpers/question";
 
 let initState = {
     info: {
@@ -8,7 +8,7 @@ let initState = {
         tags: []
     },
     questions: [
-        { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
+        createQuestion(),
     ]
 };
 
