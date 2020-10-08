@@ -89,6 +89,8 @@ export default (state = initState, action) => {
                 answers.splice(answerId, 1);
             }
 
+            newState.questions[questionId].answers = answers;
+
             return newState;
         }
         case testEditorActions.UPDATE_ANSWER_TEXT: {

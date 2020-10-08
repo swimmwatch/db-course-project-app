@@ -28,10 +28,13 @@ class AnswerEditList extends React.Component {
                 <Form.Group controlId="">
                     {
                         answers.map((el, i) => {
+                            const { content } = el
+
                             return (
                                 <AnswerEditItem key={i}
                                                 name={name}
                                                 type={type}
+                                                content={content}
                                                 onDeleteAnswer={() => deleteAnswer(name, i)}
                                                 onChangeAnswerText={value => updateAnswerText(name, i, value)} />
                             );
