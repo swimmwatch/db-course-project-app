@@ -25,7 +25,7 @@ class QuestionEditItem extends React.Component {
     }
 
     render() {
-        const { name, typeAnswer } = this.props;
+        const { name, typeAnswer, answers } = this.props;
 
         return (
             <>
@@ -62,7 +62,8 @@ class QuestionEditItem extends React.Component {
                     </Col>
                     <Col lg={8}>
                         <AnswerEditList name={name}
-                                        type={typeAnswer} />
+                                        type={typeAnswer}
+                                        answers={answers} />
                     </Col>
                 </Row>
                 <Row>
@@ -82,7 +83,13 @@ class QuestionEditItem extends React.Component {
 
 QuestionEditItem.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
-    typeAnswer: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired
+    typeAnswer: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
+    answers: PropTypes.arrayOf(
+        PropTypes.exact({
+            content: PropTypes.string,
+            isRight: PropTypes.bool
+        })
+    ).isRequired
 };
 
 export default QuestionEditItem;

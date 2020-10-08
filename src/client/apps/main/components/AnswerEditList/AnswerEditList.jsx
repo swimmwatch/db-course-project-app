@@ -8,22 +8,22 @@ import {ANSWER_TYPE} from "./config";
 class AnswerEditList extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {};
     }
 
     render() {
-        const { name, type } = this.props;
+        const { name, type, answers } = this.props;
 
         return (
             <>
                 <p>Choose right answer:</p>
                 <Form.Group controlId="">
                     {
-                        ["1", "2"].map((el, i) => {
-                            return <AnswerEditItem key={i}
-                                                   name={name}
-                                                   type={type} />
+                        answers.map((el, i) => {
+                            return (
+                                <AnswerEditItem key={i}
+                                                name={name}
+                                                type={type} />
+                            );
                         })
                     }
                 </Form.Group>
@@ -37,7 +37,13 @@ class AnswerEditList extends React.Component {
 
 AnswerEditList.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
-    type: PropTypes.oneOf([ ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE ]).isRequired
+    type: PropTypes.oneOf([ ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE ]).isRequired,
+    answers: PropTypes.arrayOf(
+        PropTypes.exact({
+            content: PropTypes.string,
+            isRight: PropTypes.bool
+        })
+    ).isRequired
 };
 
 export { AnswerEditList };
