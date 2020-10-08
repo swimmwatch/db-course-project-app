@@ -1,4 +1,5 @@
 import {connect} from "react-redux";
+import * as testEditorActions from "../../actions/testEditor";
 import QuestionEditList from "../../../client/apps/main/components/QuestionEditList";
 
 function mapStateToProps(state) {
@@ -7,6 +8,12 @@ function mapStateToProps(state) {
     return { questions };
 }
 
-const TestEditorQuestionList = connect(mapStateToProps)(QuestionEditList);
+function mapDispatchToProps(dispatch) {
+    return {
+        deleteQuestion: (i) => dispatch(testEditorActions.deleteQuestion(i))
+    };
+}
+
+const TestEditorQuestionList = connect(mapStateToProps, mapDispatchToProps)(QuestionEditList);
 
 export { TestEditorQuestionList };

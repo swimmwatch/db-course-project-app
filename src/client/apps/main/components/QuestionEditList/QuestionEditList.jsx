@@ -10,7 +10,7 @@ class QuestionEditList extends React.Component {
     }
 
     render() {
-        const { questions } = this.props;
+        const { questions, deleteQuestion } = this.props;
 
         return (
             <>
@@ -22,7 +22,8 @@ class QuestionEditList extends React.Component {
                             <QuestionEditItem name={i}
                                               key={i}
                                               typeAnswer={typeAnswer}
-                                              answers={answers}/>
+                                              answers={answers}
+                                              onDelete={() => deleteQuestion(i)} />
                         );
                     })
                 }
@@ -43,7 +44,8 @@ QuestionEditList.propTypes = {
                 })
             )
         }).isRequired
-    )
+    ),
+    deleteQuestion: PropTypes.func
 };
 
 export default QuestionEditList;

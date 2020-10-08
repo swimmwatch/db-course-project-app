@@ -25,7 +25,7 @@ class QuestionEditItem extends React.Component {
     }
 
     render() {
-        const { name, typeAnswer, answers } = this.props;
+        const { name, typeAnswer, answers, onDelete } = this.props;
 
         return (
             <>
@@ -69,7 +69,8 @@ class QuestionEditItem extends React.Component {
                 <Row>
                     <Col lg={12}>
                         <Button className="float-right"
-                                variant="danger">
+                                variant="danger"
+                                onClick={onDelete}>
                             Delete question
                         </Button>
                     </Col>
@@ -89,7 +90,8 @@ QuestionEditItem.propTypes = {
             content: PropTypes.string,
             isRight: PropTypes.bool
         })
-    ).isRequired
+    ).isRequired,
+    onDelete: PropTypes.func
 };
 
 export default QuestionEditItem;
