@@ -14,7 +14,8 @@ class QuestionEditList extends React.Component {
             questions,
             deleteQuestion,
             updateQuestionTitle,
-            changeQuestionType
+            changeQuestionType,
+            appendAnswer
         } = this.props;
 
         return (
@@ -35,7 +36,8 @@ class QuestionEditList extends React.Component {
                                               title={title}
                                               onDelete={() => deleteQuestion(i)}
                                               onUpdateTitle={titleVal => updateQuestionTitle(i, titleVal)}
-                                              onChangeAnswerType={typeAnswer => changeQuestionType(i, typeAnswer)} />
+                                              onChangeAnswerType={typeAnswer => changeQuestionType(i, typeAnswer)}
+                                              onAnswerListUpdate={id => appendAnswer(id)} />
                         );
                     })
                 }
@@ -60,6 +62,7 @@ QuestionEditList.propTypes = {
     deleteQuestion: PropTypes.func,
     updateQuestionTitle: PropTypes.func,
     changeQuestionType: PropTypes.func,
+    appendAnswer: PropTypes.func
 };
 
 export default QuestionEditList;

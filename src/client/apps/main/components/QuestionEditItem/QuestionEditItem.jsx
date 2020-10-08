@@ -29,6 +29,7 @@ class QuestionEditItem extends React.Component {
             answers,
             onDelete,
             onUpdateTitle,
+            onAnswerListUpdate,
             title
         } = this.props;
 
@@ -76,7 +77,8 @@ class QuestionEditItem extends React.Component {
                     <Col lg={8}>
                         <AnswerEditList name={name}
                                         type={typeAnswer}
-                                        answers={answers} />
+                                        answers={answers}
+                                        onAppendAnswer={() => onAnswerListUpdate(name)} />
                     </Col>
                 </Row>
                 <Row>
@@ -107,7 +109,8 @@ QuestionEditItem.propTypes = {
     ).isRequired,
     onDelete: PropTypes.func,
     onUpdateTitle: PropTypes.func,
-    onChangeAnswerType: PropTypes.func
+    onChangeAnswerType: PropTypes.func,
+    onAnswerListUpdate: PropTypes.func
 };
 
 export default QuestionEditItem;

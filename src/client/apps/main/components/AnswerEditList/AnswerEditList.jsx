@@ -11,7 +11,12 @@ class AnswerEditList extends React.Component {
     }
 
     render() {
-        const { name, type, answers } = this.props;
+        const {
+            name,
+            type,
+            answers,
+            onAppendAnswer
+        } = this.props;
 
         return (
             <>
@@ -27,7 +32,7 @@ class AnswerEditList extends React.Component {
                         })
                     }
                 </Form.Group>
-                <Button type="primary">
+                <Button variant="primary" onClick={onAppendAnswer}>
                     Add answer
                 </Button>
             </>
@@ -43,7 +48,8 @@ AnswerEditList.propTypes = {
             content: PropTypes.string,
             isRight: PropTypes.bool
         })
-    ).isRequired
+    ).isRequired,
+    onAppendAnswer: PropTypes.func
 };
 
 export { AnswerEditList };

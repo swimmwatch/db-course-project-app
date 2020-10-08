@@ -10,9 +10,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        deleteQuestion: (i) => dispatch(testEditorActions.deleteQuestion(i)),
+        deleteQuestion: i => dispatch(testEditorActions.deleteQuestion(i)),
         updateQuestionTitle: (i, title) => dispatch(testEditorActions.updateQuestionTitle(i, title)),
-        changeQuestionType: (i, typeAnswer) => dispatch(testEditorActions.changeQuestionType(i, typeAnswer))
+        changeQuestionType: (i, typeAnswer) => dispatch(testEditorActions.changeQuestionType(i, typeAnswer)),
+        appendAnswer: i => dispatch(testEditorActions.appendAnswer(i))
     };
 }
 

@@ -1,5 +1,5 @@
 import * as testEditorActions from "../actions/testEditor";
-import {createQuestion} from "../helpers/question";
+import {createQuestion, createAnswer} from "../helpers/question";
 
 let initState = {
     info: {
@@ -71,6 +71,13 @@ export default (state = initState, action) => {
             const { id, typeAnswer } = action;
 
             newState.questions[id].typeAnswer = typeAnswer;
+
+            return newState;
+        }
+        case testEditorActions.APPEND_ANSWER: {
+            const { questionId } = action;
+
+            newState.questions[questionId].answers.push(createAnswer());
 
             return newState;
         }

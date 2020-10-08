@@ -1,6 +1,6 @@
 import {ANSWER_TYPE} from "../apps/main/components/AnswerEditList/config";
 
-const createAnswer = (content = '', isRight = false) => {
+export const createAnswer = (content = '', isRight = false) => {
     return {content, isRight};
 };
 

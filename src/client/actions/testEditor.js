@@ -8,6 +8,7 @@ export const APPEND_QUESTION = "APPEND_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
 export const UPDATE_QUESTION_TITLE = "UPDATE_QUESTION_TITLE";
 export const UPDATE_QUESTION_TYPE = "UPDATE_QUESTION_TYPE";
+export const APPEND_ANSWER = "APPEND_ANSWER";
 
 export const reset = () => {
     return { type: RESET };
@@ -66,4 +67,8 @@ export const changeQuestionType = (id, typeAnswer) => {
         id,
         typeAnswer
     }
+};
+
+export const appendAnswer = questionId => {
+    return { type: APPEND_ANSWER, questionId }
 };
