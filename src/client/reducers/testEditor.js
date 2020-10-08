@@ -5,7 +5,7 @@ let initState = {
     info: {
         title: '',
         description: '',
-        tags: ['react']
+        tags: []
     },
     questions: [
         { title: '', typeAnswer: ANSWER_TYPE.ONE, answers: [ { content: '', isRight: false } ] }
@@ -17,7 +17,7 @@ export default (state = initState, action) => {
 
     switch (action.type) {
         case testEditorActions.RESET:
-            return { ...newState };
+            return { ...initState };
         case testEditorActions.UPDATE:
             return { ...newState }
         case testEditorActions.UPDATE_TITLE: {
