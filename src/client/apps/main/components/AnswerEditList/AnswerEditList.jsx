@@ -18,7 +18,8 @@ class AnswerEditList extends React.Component {
             type,
             answers,
             onAppendAnswer,
-            deleteAnswer
+            deleteAnswer,
+            updateAnswerText
         } = this.props;
 
         return (
@@ -31,7 +32,8 @@ class AnswerEditList extends React.Component {
                                 <AnswerEditItem key={i}
                                                 name={name}
                                                 type={type}
-                                                onDeleteAnswer={() => deleteAnswer(name, i)} />
+                                                onDeleteAnswer={() => deleteAnswer(name, i)}
+                                                onChangeAnswerText={value => updateAnswerText(name, i, value)} />
                             );
                         })
                     }
@@ -53,8 +55,9 @@ AnswerEditList.propTypes = {
             isRight: PropTypes.bool
         })
     ).isRequired,
-    onAppendAnswer: PropTypes.func,
-    deleteAnswer: PropTypes.func
+    onAppendAnswer: PropTypes.func.isRequired,
+    deleteAnswer: PropTypes.func.isRequired,
+    updateAnswerText: PropTypes.func.isRequired
 };
 
 function mapStateToProps() {
@@ -63,7 +66,8 @@ function mapStateToProps() {
 
 function mapDispatchToProps(dispatch) {
     return {
-        deleteAnswer: (questionId, answerId) => dispatch(testEditorActions.deleteAnswer(questionId, answerId))
+        deleteAnswer: (questionId, answerId) => dispatch(testEditorActions.deleteAnswer(questionId, answerId)),
+        updateAnswerText: (questionId, answerId, value) => dispatch(testEditorActions.updateAnswerText(questionId, answerId, value))
     };
 }
 

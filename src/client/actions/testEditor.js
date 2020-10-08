@@ -10,6 +10,7 @@ export const UPDATE_QUESTION_TITLE = "UPDATE_QUESTION_TITLE";
 export const UPDATE_QUESTION_TYPE = "UPDATE_QUESTION_TYPE";
 export const APPEND_ANSWER = "APPEND_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
+export const UPDATE_ANSWER_TEXT = "UPDATE_ANSWER_TEXT";
 
 export const reset = () => {
     return { type: RESET };
@@ -81,3 +82,13 @@ export const deleteAnswer = (questionId, answerId) => {
         answerId
     };
 };
+
+export const updateAnswerText = (questionId, answerId, value) => {
+    return {
+        type: UPDATE_ANSWER_TEXT,
+        questionId,
+        answerId,
+        value
+    };
+};
+

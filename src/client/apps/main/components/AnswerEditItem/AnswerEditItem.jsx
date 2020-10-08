@@ -12,13 +12,21 @@ import "./style.scss";
 class AnswerEditItem extends React.Component {
     constructor(props) {
         super(props);
+
+        const { content } = props;
+
+        this.state = {
+            answerValue: content
+        }
     }
 
     render() {
         const {
             name,
             type,
-            onDeleteAnswer
+            content,
+            onDeleteAnswer,
+            onChangeAnswerText
         } = this.props;
 
         return (
@@ -41,7 +49,13 @@ class AnswerEditItem extends React.Component {
                         })()
                     }
                 </InputGroup.Prepend>
-                <FormControl aria-label="Text input with radio button" />
+                <FormControl aria-label="Text input with radio button"
+                             value={content}
+                             onChange={(event => {
+                                 const { value } = event.target;
+
+                                 onChangeAnswerText(value);
+                             })} />
                 <InputGroup.Append>
                     <Button variant="danger"
                             onClick={onDeleteAnswer}>
@@ -56,7 +70,9 @@ class AnswerEditItem extends React.Component {
 AnswerEditItem.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
     type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
-    onDeleteAnswer: PropTypes.func
+    content: PropTypes.string,
+    onDeleteAnswer: PropTypes.func.isRequired,
+    onChangeAnswerText: PropTypes.func.isRequired
 };
 
 export default AnswerEditItem;

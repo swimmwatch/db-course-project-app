@@ -91,6 +91,14 @@ export default (state = initState, action) => {
 
             return newState;
         }
+        case testEditorActions.UPDATE_ANSWER_TEXT: {
+            const { questionId, answerId, value } = action;
+            const { answers } = newState.questions[questionId];
+
+            answers[answerId].content = value;
+
+            return newState;
+        }
         default:
             return state;
     }
