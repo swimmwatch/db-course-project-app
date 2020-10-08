@@ -13,15 +13,13 @@ class QuestionEditItem extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            typeAnswer: ANSWER_TYPE.ONE
-        };
-
         this.handleToggleChange = this.handleToggleChange.bind(this);
     }
 
     handleToggleChange({ target: { value } }) {
-        this.setState({ typeAnswer: value });
+        const { onChangeAnswerType } = this.props;
+
+        onChangeAnswerType(value);
     }
 
     render() {
@@ -108,7 +106,8 @@ QuestionEditItem.propTypes = {
         })
     ).isRequired,
     onDelete: PropTypes.func,
-    onUpdateTitle: PropTypes.func
+    onUpdateTitle: PropTypes.func,
+    onChangeAnswerType: PropTypes.func
 };
 
 export default QuestionEditItem;

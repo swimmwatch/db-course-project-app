@@ -11,7 +11,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         deleteQuestion: (i) => dispatch(testEditorActions.deleteQuestion(i)),
-        updateQuestionTitle: (i, title) => dispatch(testEditorActions.updateQuestionTitle(i, title))
+        updateQuestionTitle: (i, title) => dispatch(testEditorActions.updateQuestionTitle(i, title)),
+        changeQuestionType: (i, typeAnswer) => dispatch(testEditorActions.changeQuestionType(i, typeAnswer))
     };
 }
 

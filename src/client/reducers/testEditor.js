@@ -67,6 +67,13 @@ export default (state = initState, action) => {
 
             return newState;
         }
+        case testEditorActions.UPDATE_QUESTION_TYPE: {
+            const { id, typeAnswer } = action;
+
+            newState.questions[id].typeAnswer = typeAnswer;
+
+            return newState;
+        }
         default:
             return state;
     }
