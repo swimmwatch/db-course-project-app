@@ -25,8 +25,7 @@ class QuestionEditItem extends React.Component {
     }
 
     render() {
-        const { typeAnswer } = this.state;
-        const { name } = this.props;
+        const { name, typeAnswer } = this.props;
 
         return (
             <>
@@ -82,7 +81,8 @@ class QuestionEditItem extends React.Component {
 }
 
 QuestionEditItem.propTypes = {
-    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired
+    name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
+    typeAnswer: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired
 };
 
 export default QuestionEditItem;
