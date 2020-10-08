@@ -12,8 +12,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import QuestionEditList from "../../components/QuestionEditList";
 import TestEditorTagList from "../../../../containers/TestEditorTagList";
+import TestEditorQuestionList from "../../../../containers/TestEditorQuestionList";
 
 import "./style.scss";
 
@@ -127,7 +127,7 @@ class TestEditor extends React.Component {
 
                             <hr/>
 
-                            <QuestionEditList />
+                            <TestEditorQuestionList />
 
                             <Row>
                                 <Col lg={12}>
