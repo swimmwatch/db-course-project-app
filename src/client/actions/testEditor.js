@@ -4,6 +4,7 @@ export const UPDATE_TITLE = "UPDATE_TITLE";
 export const UPDATE_DESCRIPTION = "UPDATE_DESCRIPTION";
 export const APPEND_TAG = "APPEND_TAG";
 export const DELETE_TAG = "DELETE_TAG";
+export const APPEND_QUESTION = "APPEND_QUESTION";
 
 export const reset = () => {
     return { type: RESET };
@@ -35,4 +36,8 @@ export const deleteTag = id => {
         type: DELETE_TAG,
         id
     }
+};
+
+export const appendQuestion = () => {
+    return { type: APPEND_QUESTION }
 };

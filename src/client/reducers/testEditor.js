@@ -46,6 +46,11 @@ export default (state = initState, action) => {
 
             return newState;
         }
+        case testEditorActions.APPEND_QUESTION: {
+            newState.questions.push(createQuestion());
+
+            return newState;
+        }
         default:
             return state;
     }

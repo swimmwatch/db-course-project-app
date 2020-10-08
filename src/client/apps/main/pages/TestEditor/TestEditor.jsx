@@ -29,6 +29,7 @@ class TestEditor extends React.Component {
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleAppendTag = this.handleAppendTag.bind(this);
         this.handleTagInputChange = this.handleTagInputChange.bind(this);
+        this.handleAppendQuestion = this.handleAppendQuestion.bind(this);
     }
 
     componentDidMount() {
@@ -67,6 +68,14 @@ class TestEditor extends React.Component {
         const { dispatch } = this.props;
 
         dispatch(testEditorActions.appendTag(tagValue));
+    }
+
+    handleAppendQuestion(event) {
+        event.preventDefault();
+
+        const { dispatch } = this.props;
+
+        dispatch(testEditorActions.appendQuestion());
     }
 
     render() {
@@ -135,7 +144,8 @@ class TestEditor extends React.Component {
                                         <div className="test-editor__submit-section-row">
                                             <Button className="test-editor__submit-btn"
                                                     type="primary"
-                                                    size="lg">
+                                                    size="lg"
+                                                    onClick={this.handleAppendQuestion}>
                                                 Add question
                                             </Button>
                                         </div>
