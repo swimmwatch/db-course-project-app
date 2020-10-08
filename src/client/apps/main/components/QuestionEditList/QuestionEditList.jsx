@@ -10,20 +10,30 @@ class QuestionEditList extends React.Component {
     }
 
     render() {
-        const { questions, deleteQuestion } = this.props;
+        const {
+            questions,
+            deleteQuestion,
+            updateQuestionTitle
+        } = this.props;
 
         return (
             <>
                 {
                     questions.map((el, i) => {
-                        const { typeAnswer, answers } = el;
+                        const {
+                            typeAnswer,
+                            answers,
+                            title
+                        } = el;
 
                         return (
                             <QuestionEditItem name={i}
                                               key={i}
                                               typeAnswer={typeAnswer}
                                               answers={answers}
-                                              onDelete={() => deleteQuestion(i)} />
+                                              title={title}
+                                              onDelete={() => deleteQuestion(i)}
+                                              onUpdateTitle={titleVal => updateQuestionTitle(i, titleVal)}/>
                         );
                     })
                 }
@@ -45,7 +55,8 @@ QuestionEditList.propTypes = {
             )
         }).isRequired
     ),
-    deleteQuestion: PropTypes.func
+    deleteQuestion: PropTypes.func,
+    updateQuestionTitle: PropTypes.func
 };
 
 export default QuestionEditList;

@@ -6,6 +6,7 @@ export const APPEND_TAG = "APPEND_TAG";
 export const DELETE_TAG = "DELETE_TAG";
 export const APPEND_QUESTION = "APPEND_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
+export const UPDATE_QUESTION_TITLE = "UPDATE_QUESTION_TITLE";
 
 export const reset = () => {
     return { type: RESET };
@@ -47,5 +48,13 @@ export const deleteQuestion = id => {
     return {
         type: DELETE_QUESTION,
         id
+    }
+};
+
+export const updateQuestionTitle = (id, title) => {
+    return {
+        type: UPDATE_QUESTION_TITLE,
+        id,
+        title
     }
 };

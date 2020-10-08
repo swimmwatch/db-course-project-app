@@ -25,7 +25,14 @@ class QuestionEditItem extends React.Component {
     }
 
     render() {
-        const { name, typeAnswer, answers, onDelete } = this.props;
+        const {
+            name,
+            typeAnswer,
+            answers,
+            onDelete,
+            onUpdateTitle,
+            title
+        } = this.props;
 
         return (
             <>
@@ -35,7 +42,15 @@ class QuestionEditItem extends React.Component {
                     </Col>
                     <Col lg={8}>
                         <Form.Group controlId="">
-                            <Form.Control className="test-editor__textarea" as="textarea" rows={3} />
+                            <Form.Control className="test-editor__textarea"
+                                          as="textarea"
+                                          rows={3}
+                                          value={title}
+                                          onChange={event => {
+                                              const titleVal = event.target.value;
+
+                                              onUpdateTitle(titleVal);
+                                          }} />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -85,13 +100,15 @@ class QuestionEditItem extends React.Component {
 QuestionEditItem.propTypes = {
     name: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
     typeAnswer: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
+    title: PropTypes.string,
     answers: PropTypes.arrayOf(
         PropTypes.exact({
             content: PropTypes.string,
             isRight: PropTypes.bool
         })
     ).isRequired,
-    onDelete: PropTypes.func
+    onDelete: PropTypes.func,
+    onUpdateTitle: PropTypes.func
 };
 
 export default QuestionEditItem;

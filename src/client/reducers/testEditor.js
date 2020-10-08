@@ -54,9 +54,16 @@ export default (state = initState, action) => {
         case testEditorActions.DELETE_QUESTION: {
             const { id } = action;
 
-            if (newState.questions.length > 2) {
+            if (newState.questions.length > 1) {
                 newState.questions.splice(id, 1);
             }
+
+            return newState;
+        }
+        case testEditorActions.UPDATE_QUESTION_TITLE: {
+            const { id, title } = action;
+
+            newState.questions[id].title = title;
 
             return newState;
         }
