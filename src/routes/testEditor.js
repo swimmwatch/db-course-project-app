@@ -7,4 +7,6 @@ const router = new Router();
 router.post("/create", checkToken, testEditor.create);
 router.post("/update:testId", checkToken, testEditor.update);
 
+router.get("/profile", checkToken, testEditor.getOwnTests);
+
 export default router;
