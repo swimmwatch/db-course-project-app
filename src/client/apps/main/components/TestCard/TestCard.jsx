@@ -3,7 +3,6 @@ import PropType from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
-import { LinkContainer } from "react-router-bootstrap";
 
 import "./style.scss";
 
@@ -14,9 +13,7 @@ const TestCard = ({ title, description, author }) => {
                 <Card.Title className="test-card__title">{title}</Card.Title>
 
                 <p className="test-card__author">
-                    Author: <LinkContainer to="#">
-                                <a className="test-card__author-name">{author}</a>
-                            </LinkContainer>
+                    Author: {author}
                 </p>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
