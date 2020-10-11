@@ -6,7 +6,7 @@ import * as tagConstraints from "./constraints";
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
-const Tag = sequelize.define('test', {
+const Tag = sequelize.define('tag', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
