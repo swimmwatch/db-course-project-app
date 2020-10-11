@@ -3,6 +3,7 @@ import * as bcrypt from "bcrypt";
 
 import config from "../../config";
 import userConstraints from "./constraints";
+import Test from "../Test";
 
 const {
     MIN_PASSWORD_LENGTH,
@@ -85,5 +86,8 @@ User.beforeCreate(async user => {
 User.beforeUpdate(async user => {
     user.password = await User.hashPassword(user.password);
 });
+
+User.hasMany(Test);
+Test.belongsTo(User);
 
 export default User;

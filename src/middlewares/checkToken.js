@@ -10,7 +10,7 @@ export default async (req, res, next) => {
         console.error(err);
     }
 
-    req.user_id = tokenObj.sub;
+    req.userId = tokenObj.sub;
 
     next();
 };

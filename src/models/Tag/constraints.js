@@ -1,0 +1,7 @@
+const MIN_TAG_NAME_LENGTH = 1;
+const MAX_TAG_NAME_LENGTH = 16;
+
+export {
+    MIN_TAG_NAME_LENGTH,
+    MAX_TAG_NAME_LENGTH
+}
