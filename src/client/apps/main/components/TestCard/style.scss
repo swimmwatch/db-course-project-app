@@ -6,6 +6,10 @@
     font-size: 1.1rem;
   }
 
+  &__label-info {
+    font-weight: bold;
+  }
+
   &__control {
     display: flex;
     justify-content: space-between;

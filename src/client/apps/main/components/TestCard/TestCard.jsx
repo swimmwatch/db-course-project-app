@@ -13,7 +13,7 @@ const TestCard = ({ title, description, author }) => {
                 <Card.Title className="test-card__title">{title}</Card.Title>
 
                 <p className="test-card__author">
-                    Author: {author}
+                    <span className="test-card__label-info">Author:</span> {author}
                 </p>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
