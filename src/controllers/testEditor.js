@@ -6,7 +6,7 @@ export const update = async (req, res) => {
 };
 
 export const create = async (req, res, next) => {
-    const { user_id } = req;
+    const { userId } = req;
     const { info } = req.body;
     const content = req.body.questions;
     const { title, description /*,tags*/ } = info;
@@ -17,7 +17,7 @@ export const create = async (req, res, next) => {
             description,
             // tags,
             content,
-            userId: user_id
+            userId
         });
     } catch ({ errors }) {
         next({

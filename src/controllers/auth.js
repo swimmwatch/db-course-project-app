@@ -87,7 +87,7 @@ export const signIn = async (req, res, next) => {
 };
 
 export const initAuth = async (req, res) => {
-    const user = await User.findByPk(req.user_id);
+    const user = await User.findByPk(req.userId);
 
     res.json({ ...user.initState() });
 };

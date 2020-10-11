@@ -4,10 +4,10 @@ import FormListErrors from "../helpers/FormListErrors";
 
 export const updatePassword = async (req, res, next) => {
     const formListErrors = new FormListErrors();
-    const { user_id } = req;
+    const { userId } = req;
     const { password, newPassword, repeatNewPassword } = req.body;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findByPk(userId);
 
     const isRightPassword = await user.comparePasswords(password);
 
@@ -44,9 +44,9 @@ export const updatePassword = async (req, res, next) => {
 };
 
 export const remove = async (req, res) => {
-    const { user_id } = req;
+    const { userId } = req;
 
-    const user = await User.findByPk(user_id);
+    const user = await User.findByPk(userId);
 
     await user.destroy();
 
