@@ -3,6 +3,7 @@ import PropType from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
+import TagList from "../TagList";
 
 import "./style.scss";
 
@@ -12,13 +13,14 @@ const TestCard = ({ title, description, author }) => {
             <Card.Body>
                 <Card.Title className="test-card__title">{title}</Card.Title>
 
-                <p className="test-card__author">
+                <div className="test-card__author">
                     <span className="test-card__label-info">Author:</span> {author}
-                </p>
+                </div>
 
-                <p className="test-card__tags">
-                    <span className="test-card__label-info">Tags:</span> {author}
-                </p>
+                <div className="test-card__tags">
+                    <span className="test-card__label-info">Tags:</span>
+                    <TagList tags={['js', 'react', 'html']} canDelete={false} />
+                </div>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
