@@ -14,6 +14,9 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import TestEditorTagList from "../../../../containers/TestEditorTagList";
 import TestEditorQuestionList from "../../../../containers/TestEditorQuestionList";
+import ErrorFormAlert from "../../components/ErrorFormAlert";
+import {createHeaderWithAuth} from "../../../../helpers/header";
+import {ANSWER_TYPE} from "../../components/AnswerEditList/config";
 
 import "./style.scss";
 
@@ -22,7 +25,8 @@ class TestEditor extends React.Component {
         super(props);
 
         this.state = {
-            tagValue: ''
+            tagValue: '',
+            listErrors: [],
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -30,6 +34,8 @@ class TestEditor extends React.Component {
         this.handleAppendTag = this.handleAppendTag.bind(this);
         this.handleTagInputChange = this.handleTagInputChange.bind(this);
         this.handleAppendQuestion = this.handleAppendQuestion.bind(this);
+        this.hideErrorAlert = this.hideErrorAlert.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -78,11 +84,49 @@ class TestEditor extends React.Component {
         dispatch(testEditorActions.appendQuestion());
     }
 
+    hideErrorAlert() {
+        this.setState({
+            listErrors: []
+        });
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+
+        const { history, testEditor } = this.props;
+        const token = localStorage.getItem('TOKEN');
+        const headers = createHeaderWithAuth(token);
+
+        headers.append('Accept', 'application/json');
+        headers.append('Content-Type', 'application/json');
+
+        const response = await fetch('/api/test/create', {
+            method: 'POST',
+            body: JSON.stringify(testEditor),
+            headers,
+        });
+
+        if (response.ok) {
+            history.push('/profile/tests');
+        } else {
+            const responseJson = await response.json();
+
+            this.setState({
+                listErrors: responseJson.errors
+            });
+        }
+    }
+
     render() {
+        const { listErrors } = this.state;
+
         return (
             <Container className="p-3">
                 <Row>
                     <Col lg={{offset: 2, span: 8}}>
+                        <ErrorFormAlert listErrors={listErrors}
+                                        show={listErrors.length !== 0}
+                                        onHide={this.hideErrorAlert} />
                         <Form>
                             <Row>
                                 <Col lg={4}>
@@ -152,7 +196,7 @@ class TestEditor extends React.Component {
                                         <div className="test-editor__submit-section-row">
                                             <Button className="test-editor__submit-btn"
                                                     type="primary"
-                                                    size="lg">
+                                                    size="lg" onClick={this.handleFormSubmit}>
                                                 Publish
                                             </Button>
                                         </div>
@@ -170,9 +214,34 @@ class TestEditor extends React.Component {
 TestEditor.propTypes = {
     dispatch: PropTypes.func,
     history: ReactRouterPropTypes.history,
-    location: ReactRouterPropTypes.location
+    location: ReactRouterPropTypes.location,
+    testEditor: PropTypes.exact({
+        info: PropTypes.exact({
+            title: PropTypes.string,
+            description: PropTypes.string,
+            tags: PropTypes.arrayOf(PropTypes.string)
+        }),
+        questions: PropTypes.arrayOf(
+            PropTypes.exact({
+                title: PropTypes.string,
+                typeAnswer: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]),
+                answers: PropTypes.arrayOf(
+                    PropTypes.exact({
+                        content: PropTypes.string,
+                        isRight: PropTypes.bool
+                    })
+                )
+            })
+        )
+    }).isRequired
 };
 
-const connectedTestEditor = connect()(withRouter(TestEditor));
+function mapStateToProps(state) {
+    const { testEditor } = state;
+
+    return { testEditor };
+}
+
+const connectedTestEditor = connect(mapStateToProps)(withRouter(TestEditor));
 
 export { connectedTestEditor as TestEditor };
