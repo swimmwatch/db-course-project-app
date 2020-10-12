@@ -1,6 +1,7 @@
 import * as React from "react";
 import Container from "react-bootstrap/Container";
 import ListTestCards from "../../components/ListTestCards";
+import * as editTest from "../../../../services/editTest";
 import {createHeaderWithAuth} from "../../../../helpers/header";
 
 import "./style.scss";
@@ -17,34 +18,26 @@ class ProfileTests extends React.Component {
     }
 
     async handleDeleteTestCard(testId) {
-        const token = localStorage.getItem('TOKEN');
-        const headers = createHeaderWithAuth(token);
-
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
-
-        const response = await fetch(`/api/test/delete`, {
-            method: 'DELETE',
-            headers,
-            body: JSON.stringify({ testId })
-        });
-
-        if (response.ok) {
-            this.setState(prev => {
-                const { profileTests } = prev;
-
-                const delI = profileTests.map(test => test.testId).indexOf(testId);
-
-                return {
-                    profileTests: [
-                        ...profileTests.slice(0, delI),
-                        ...profileTests.slice(delI + 1),
-                    ]
-                }
-            });
-        } else {
-            // TODO: handle if something went wrong
+        try {
+            await editTest.deleteTest(testId);
+        } catch (err) {
+            console.error(err);
         }
+
+        // delete test card from list
+        this.setState(prev => {
+            const { profileTests } = prev;
+
+            const delI = profileTests.map(test => test.testId)
+                                     .indexOf(testId);
+
+            return {
+                profileTests: [
+                    ...profileTests.slice(0, delI),
+                    ...profileTests.slice(delI + 1),
+                ]
+            }
+        });
     }
 
     async componentDidMount() {
