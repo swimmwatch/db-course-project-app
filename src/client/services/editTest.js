@@ -42,3 +42,25 @@ export const getOwnTests = async () => {
         return Promise.reject();
     }
 };
+
+export const create = async (testData) => {
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
+    appendJSON(headers);
+
+    const response = await fetch('/api/test/create', {
+        method: 'POST',
+        body: JSON.stringify(testData),
+        headers,
+    });
+
+    if (response.ok) {
+        return Promise.resolve();
+    } else {
+        const responseJson = await response.json();
+
+        return Promise.reject(responseJson);
+    }
+};

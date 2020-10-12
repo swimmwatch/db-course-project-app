@@ -16,8 +16,7 @@ import TestEditorTagList from "../../../../containers/TestEditorTagList";
 import TestEditorQuestionList from "../../../../containers/TestEditorQuestionList";
 import ErrorFormAlert from "../../components/ErrorFormAlert";
 import {ANSWER_TYPE} from "../../components/AnswerEditList/config";
-import {getToken} from "../../../../helpers/token";
-import {appendAuth, appendJSON} from "../../../../helpers/header";
+import * as editTest from "../../../../services/editTest";
 
 import "./style.scss";
 
@@ -29,6 +28,8 @@ class TestEditor extends React.Component {
             tagValue: '',
             listErrors: [],
         };
+
+        // TODO: add loading state
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -95,25 +96,14 @@ class TestEditor extends React.Component {
         event.preventDefault();
 
         const { history, testEditor } = this.props;
-        const token = getToken();
-        const headers = new Headers();
 
-        appendAuth(headers, token);
-        appendJSON(headers);
+        try {
+            await editTest.create(testEditor);
 
-        const response = await fetch('/api/test/create', {
-            method: 'POST',
-            body: JSON.stringify(testEditor),
-            headers,
-        });
-
-        if (response.ok) {
             history.push('/profile/tests');
-        } else {
-            const responseJson = await response.json();
-
+        } catch ({ errors }) {
             this.setState({
-                listErrors: responseJson.errors
+                listErrors: errors
             });
         }
     }
