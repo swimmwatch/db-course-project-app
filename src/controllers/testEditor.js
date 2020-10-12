@@ -79,12 +79,25 @@ export const getOwnTests = async (req, res) => {
 
 export const deleteTest = async (req, res) => {
     const { testId } = req.body;
+    const { userId } = req;
 
-    await Test.destroy({
-        where: {
-            id: testId
-        }
+    const test = await Test.findByPk(testId, {
+        include: User
     });
 
-    res.sendStatus(OK);
+    if (!test) {
+        // TODO: handle if test not found
+    }
+
+    if (test.userId === userId) {
+        await Test.destroy({
+            where: {
+                id: testId
+            }
+        });
+
+        res.sendStatus(OK);
+    } else {
+        // TODO: handle if testId != test.id
+    }
 };
