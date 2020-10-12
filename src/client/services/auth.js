@@ -1,3 +1,5 @@
+import {removeToken} from "../helpers/token";
+
 async function signUp(formData) {
     const response = await fetch("/api/signup", {
         method: "POST",
@@ -27,7 +29,11 @@ async function signIn(formData) {
 }
 
 export function logOut() {
-    localStorage.removeItem("TOKEN");
+    removeToken();
 }
 
-export default { signUp, signIn, logOut };
+export default {
+    signUp,
+    signIn,
+    logOut
+};
