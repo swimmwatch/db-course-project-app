@@ -20,3 +20,22 @@ export const deleteTest = async testId => {
         return Promise.reject();
     }
 };
+
+export const getOwnTests = async () => {
+    const token = localStorage.getItem('TOKEN');
+    const headers = createHeaderWithAuth(token);
+
+    const response  = await fetch('/api/test/profile', {
+        method: 'GET',
+        headers
+    });
+
+    if (response.ok) {
+        const responseJson = await response.json();
+
+        return Promise.resolve(responseJson);
+    } else {
+        // TODO: handle if something wrong
+        return Promise.reject();
+    }
+};

@@ -2,7 +2,6 @@ import * as React from "react";
 import Container from "react-bootstrap/Container";
 import ListTestCards from "../../components/ListTestCards";
 import * as editTest from "../../../../services/editTest";
-import {createHeaderWithAuth} from "../../../../helpers/header";
 
 import "./style.scss";
 
@@ -41,23 +40,16 @@ class ProfileTests extends React.Component {
     }
 
     async componentDidMount() {
-        const token = localStorage.getItem('TOKEN');
-        const headers = createHeaderWithAuth(token);
-
-        const response  = await fetch('/api/test/profile', {
-            method: 'GET',
-            headers
-        });
-
-        if (response.ok) {
-            const responseJson = await response.json();
-
-            this.setState({
-                profileTests: responseJson
-            });
-        } else {
-            // TODO: handle if something wrong
+        let responseJson = null;
+        try {
+            responseJson = await editTest.getOwnTests();
+        } catch (err) {
+            console.error(err);
         }
+
+        this.setState({
+            profileTests: responseJson
+        });
     }
 
     render() {
