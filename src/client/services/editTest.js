@@ -1,11 +1,12 @@
-import {createHeaderWithAuth} from "../helpers/header";
+import {appendAuth, appendJSON} from "../helpers/header";
+import {getToken} from "../helpers/token";
 
 export const deleteTest = async testId => {
-    const token = localStorage.getItem('TOKEN');
-    const headers = createHeaderWithAuth(token);
+    const token = getToken();
+    const headers = new Headers();
 
-    headers.append('Accept', 'application/json');
-    headers.append('Content-Type', 'application/json');
+    appendAuth(headers, token);
+    appendJSON(headers);
 
     const response = await fetch(`/api/test/delete`, {
         method: 'DELETE',
@@ -22,8 +23,10 @@ export const deleteTest = async testId => {
 };
 
 export const getOwnTests = async () => {
-    const token = localStorage.getItem('TOKEN');
-    const headers = createHeaderWithAuth(token);
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
 
     const response  = await fetch('/api/test/profile', {
         method: 'GET',

@@ -15,8 +15,9 @@ import Button from "react-bootstrap/Button";
 import TestEditorTagList from "../../../../containers/TestEditorTagList";
 import TestEditorQuestionList from "../../../../containers/TestEditorQuestionList";
 import ErrorFormAlert from "../../components/ErrorFormAlert";
-import {createHeaderWithAuth} from "../../../../helpers/header";
 import {ANSWER_TYPE} from "../../components/AnswerEditList/config";
+import {getToken} from "../../../../helpers/token";
+import {appendAuth, appendJSON} from "../../../../helpers/header";
 
 import "./style.scss";
 
@@ -94,11 +95,11 @@ class TestEditor extends React.Component {
         event.preventDefault();
 
         const { history, testEditor } = this.props;
-        const token = localStorage.getItem('TOKEN');
-        const headers = createHeaderWithAuth(token);
+        const token = getToken();
+        const headers = new Headers();
 
-        headers.append('Accept', 'application/json');
-        headers.append('Content-Type', 'application/json');
+        appendAuth(headers, token);
+        appendJSON(headers);
 
         const response = await fetch('/api/test/create', {
             method: 'POST',

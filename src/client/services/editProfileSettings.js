@@ -1,10 +1,17 @@
 import {BAD_REQUEST, FORBIDDEN} from "http-status-codes";
-import {createHeaderWithAuth} from "../helpers/header";
+import {appendAuth} from "../helpers/header";
+import {getToken} from "../helpers/token";
 
 const remove = async () => {
-    const token = localStorage.getItem("TOKEN");
-    const headers = createHeaderWithAuth(token);
-    const response = await fetch("/api/profile/remove", { headers, method: 'POST' });
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
+
+    const response = await fetch("/api/profile/remove", {
+        headers,
+        method: 'POST'
+    });
 
     if (response.ok) {
         return Promise.resolve();
@@ -19,8 +26,10 @@ const remove = async () => {
 };
 
 const updatePassword = async (formData) => {
-    const token = localStorage.getItem("TOKEN");
-    const headers = createHeaderWithAuth(token);
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(token);
 
     const response = await fetch("/api/profile/update-password", {
         method: 'POST',
