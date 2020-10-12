@@ -7,7 +7,7 @@ import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author, tags }) => {
+const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }) => {
     return (
         <Card className="test-card">
             <Card.Body>
@@ -38,7 +38,11 @@ const TestCard = ({ title, description, author, tags }) => {
                         <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
                         <Dropdown.Menu>
                             <Dropdown.Item as="button">Edit</Dropdown.Item>
-                            <Dropdown.Item as="button">Delete</Dropdown.Item>
+                            <Dropdown.Item as="button" onClick={() => {
+                                onDeleteTestCard(testId);
+                            }}>
+                                Delete
+                            </Dropdown.Item>
                             <Dropdown.Item as="button">Share</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
@@ -52,7 +56,9 @@ TestCard.propTypes = {
     title: PropType.string.isRequired,
     description: PropType.string.isRequired,
     author: PropType.string.isRequired,
-    tags: PropType.arrayOf(PropType.string).isRequired
+    tags: PropType.arrayOf(PropType.string).isRequired,
+    testId: PropType.number.isRequired,
+    onDeleteTestCard: PropType.func
 };
 
 export default TestCard;

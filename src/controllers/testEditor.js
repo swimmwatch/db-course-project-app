@@ -61,7 +61,7 @@ export const getOwnTests = async (req, res) => {
 
     const response = [];
     for (let test of tests) {
-        const { title, description } = test;
+        const { title, description, id } = test;
         const { login } = test.user;
         const tags = await test.getTags();
 
@@ -69,9 +69,22 @@ export const getOwnTests = async (req, res) => {
             title,
             description,
             tags: tags.map((tag => tag.name)),
-            author: login
+            author: login,
+            testId: id
         });
     }
 
     res.json(response);
+};
+
+export const deleteTest = async (req, res) => {
+    const { testId } = req.body;
+
+    await Test.destroy({
+        where: {
+            id: testId
+        }
+    });
+
+    res.sendStatus(OK);
 };

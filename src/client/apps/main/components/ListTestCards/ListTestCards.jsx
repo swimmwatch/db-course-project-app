@@ -6,19 +6,27 @@ import TestCard from "../TestCard";
 
 import "./style.scss";
 
-const ListTestCards = ({ tests }) => {
+const ListTestCards = ({ tests, onDeleteTestCard }) => {
     return (
         <Row>
             {
-                tests.map((test, i) => {
-                    const { title, description, author, tags } = test;
+                tests.map(test => {
+                    const {
+                        title,
+                        description,
+                        author,
+                        tags,
+                        testId
+                    } = test;
 
                     return (
                         <TestCard title={title}
                                   description={description}
                                   author={author}
                                   tags={tags}
-                                  key={i} />
+                                  key={testId}
+                                  testId={testId}
+                                  onDeleteTestCard={onDeleteTestCard} />
                     );
                 })
             }
@@ -27,7 +35,8 @@ const ListTestCards = ({ tests }) => {
 };
 
 ListTestCards.propTypes = {
-    tests: PropTypes.array
+    tests: PropTypes.array,
+    onDeleteTestCard: PropTypes.func
 };
 
 export default ListTestCards;
