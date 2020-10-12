@@ -7,7 +7,7 @@ import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author }) => {
+const TestCard = ({ title, description, author, tags }) => {
     return (
         <Card className="test-card">
             <Card.Body>
@@ -19,7 +19,13 @@ const TestCard = ({ title, description, author }) => {
 
                 <div className="test-card__tags">
                     <span className="test-card__label-info">Tags:</span>
-                    <TagList tags={['js', 'react', 'html']} canDelete={false} />
+                    {
+                        tags.length ? (
+                            <TagList tags={tags} canDelete={false} />
+                        ) : (
+                            "None"
+                        )
+                    }
                 </div>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
@@ -43,9 +49,10 @@ const TestCard = ({ title, description, author }) => {
 };
 
 TestCard.propTypes = {
-    title: PropType.string,
-    description: PropType.string,
-    author: PropType.string
+    title: PropType.string.isRequired,
+    description: PropType.string.isRequired,
+    author: PropType.string.isRequired,
+    tags: PropType.arrayOf(PropType.string).isRequired
 };
 
 export default TestCard;

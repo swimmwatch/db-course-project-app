@@ -11,12 +11,13 @@ const ListTestCards = ({ tests }) => {
         <Row>
             {
                 tests.map((test, i) => {
-                    const { title, description, author } = test;
+                    const { title, description, author, tags } = test;
 
                     return (
                         <TestCard title={title}
                                   description={description}
                                   author={author}
+                                  tags={tags}
                                   key={i} />
                     );
                 })

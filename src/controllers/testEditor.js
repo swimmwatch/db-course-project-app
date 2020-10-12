@@ -1,6 +1,8 @@
 import Test from "../models/Test";
 import User from "../models/User";
-import {BAD_REQUEST, FORBIDDEN, OK} from "http-status-codes";
+import Tag from "../models/Tag";
+import TestTag from "../models/TestTag";
+import {BAD_REQUEST, OK} from "http-status-codes";
 
 export const update = async (req, res) => {
     res.send();
@@ -10,54 +12,66 @@ export const create = async (req, res, next) => {
     const { userId } = req;
     const { info } = req.body;
     const content = req.body.questions;
-    const { title, description /*,tags*/ } = info;
+    const { title, description, tags } = info;
 
     try {
-        await Test.create({
+        // create new tags
+        const createdTags = [];
+        for (let tagName of tags) {
+            const newTag = await Tag.create({ name: tagName });
+            createdTags.push(newTag);
+        }
+
+        // create new test
+        const newTest = await Test.create({
             title,
             description,
-            // tags,
             content,
-            userId
+            userId,
+        }, {
+            include: Tag
         });
-    } catch ({ errors }) {
+
+        // create link from tags to tests
+        for (let currTag of createdTags) {
+            await TestTag.create({
+                testId: newTest.id,
+                tagId: currTag.id
+            });
+        }
+    } catch (err) {
+        console.log(err);
+
         next({
             status: BAD_REQUEST,
-            errors
+            errors: err.errors
         });
     }
 
     res.sendStatus(OK);
 };
 
-export const getOwnTests = async (req, res, next) => {
+export const getOwnTests = async (req, res) => {
     const { userId } = req;
 
+    const tests = await Test.findAll({
+        where: { userId },
+        include: [User, Tag]
+    });
 
-    if (userId) {
-        const tests = await Test.findAll({
-            where: { userId },
-            include: User
-        });
+    const response = [];
+    for (let test of tests) {
+        const { title, description } = test;
+        const { login } = test.user;
+        const tags = await test.getTags();
 
-        const response = tests.map(test => {
-            const { title, description } = test;
-            const { login } = test.user;
-
-            return {
-                title,
-                description,
-                author: login
-            };
-        });
-
-        res.json(response);
-    } else {
-        next({
-            status: FORBIDDEN,
-            errors: [{
-                message: "something went wrong"
-            }]
+        response.push({
+            title,
+            description,
+            tags: tags.map((tag => tag.name)),
+            author: login
         });
     }
+
+    res.json(response);
 };
