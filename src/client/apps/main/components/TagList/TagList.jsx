@@ -4,7 +4,7 @@ import Tag from "../Tag";
 
 import "./style.scss";
 
-const TagList = ({ tags, deleteTag }) => {
+const TagList = ({ tags, deleteTag, canDelete = true }) => {
     return (
         <ul className="tag-list">
             {
@@ -12,6 +12,7 @@ const TagList = ({ tags, deleteTag }) => {
                     return (
                         <Tag content={content}
                              key={i}
+                             canDelete={canDelete}
                              onDelete={() => deleteTag(i)} />
                     );
                 })
@@ -22,7 +23,8 @@ const TagList = ({ tags, deleteTag }) => {
 
 TagList.propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-    deleteTag: PropTypes.func.isRequired
+    canDelete: PropTypes.bool,
+    deleteTag: PropTypes.func,
 };
 
 export default TagList;

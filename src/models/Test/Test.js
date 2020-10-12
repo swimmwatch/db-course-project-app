@@ -34,7 +34,6 @@ const Test = sequelize.define("test", {
     description: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
         validate: {
             len: {
                 msg: `description must has length between ${MIN_DESCRIPTION_LENGTH} and ${MAX_DESCRIPTION_LENGTH}.`,

@@ -47,7 +47,7 @@ class DeleteProfileForm extends React.Component {
 
         return (
             <>
-                <h5>Danger zone</h5>
+                <h5>Danger zone:</h5>
                 <Button variant="danger"
                         onClick={this.toggleWarningModal}>Delete profile</Button>
 

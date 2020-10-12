@@ -1,5 +1,3 @@
-import { LoremIpsum } from "lorem-ipsum";
-import { random } from "lodash";
 import * as React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,35 +9,12 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
-import ListTestCards from "../../components/ListTestCards";
 import ProfileSettings from "../ProfileSettings";
 import ProfileAttempts from "../ProfileAttempts";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
+import ProfileTests from "../ProfileTests";
 
 import "./style.scss";
-import HttpErrorInfo from "../../components/HttpErrorInfo";
-
-const lorem = new LoremIpsum({
-    sentencesPerParagraph: {
-        max: 8,
-        min: 4
-    },
-    wordsPerSentence: {
-        max: 16,
-        min: 4
-    }
-});
-
-
-// TODO: Delete mock
-const tests = [];
-
-for (let i = 0; i < 7; i++) {
-    tests.push({
-        title: lorem.generateWords(random(1, 10)),
-        description: lorem.generateWords(random(10, 50)),
-        author: "Dmitry"
-    });
-}
 
 const Profile = ({ user }) => {
     return (
@@ -70,8 +45,8 @@ const Profile = ({ user }) => {
                     </Nav>
 
                     <Switch>
-                        <Route exact path="/profile" render={() => <ListTestCards tests={tests} />} />
-                        <Route path="/profile/tests" render={() => <ListTestCards tests={tests} />} />
+                        <Route exact path="/profile" render={() => <ProfileTests />} />
+                        <Route path="/profile/tests" render={() => <ProfileTests />} />
                         <Route path="/profile/attempts" component={ProfileAttempts} />
                         <Route path="/profile/settings" component={ProfileSettings} />
                         <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />

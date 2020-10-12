@@ -3,21 +3,30 @@ import PropType from "prop-types";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
-import { LinkContainer } from "react-router-bootstrap";
+import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author }) => {
+const TestCard = ({ title, description, author, tags }) => {
     return (
         <Card className="test-card">
             <Card.Body>
                 <Card.Title className="test-card__title">{title}</Card.Title>
 
-                <p className="test-card__author">
-                    Author: <LinkContainer to="#">
-                                <a className="test-card__author-name">{author}</a>
-                            </LinkContainer>
-                </p>
+                <div className="test-card__author">
+                    <span className="test-card__label-info">Author:</span> {author}
+                </div>
+
+                <div className="test-card__tags">
+                    <span className="test-card__label-info">Tags:</span>
+                    {
+                        tags.length ? (
+                            <TagList tags={tags} canDelete={false} />
+                        ) : (
+                            "None"
+                        )
+                    }
+                </div>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
@@ -40,9 +49,10 @@ const TestCard = ({ title, description, author }) => {
 };
 
 TestCard.propTypes = {
-    title: PropType.string,
-    description: PropType.string,
-    author: PropType.string
+    title: PropType.string.isRequired,
+    description: PropType.string.isRequired,
+    author: PropType.string.isRequired,
+    tags: PropType.arrayOf(PropType.string).isRequired
 };
 
 export default TestCard;
