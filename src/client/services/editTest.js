@@ -64,3 +64,46 @@ export const create = async (testData) => {
         return Promise.reject(responseJson);
     }
 };
+
+export const update = async (testData, testId) => {
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
+    appendJSON(headers);
+
+    const response = await fetch('/api/test/update', {
+        method: 'PUT',
+        body: JSON.stringify({ ...testData, testId }),
+        headers,
+    });
+
+    if (response.ok) {
+        return Promise.resolve();
+    } else {
+        const responseJson = await response.json();
+
+        return Promise.reject(responseJson);
+    }
+};
+
+export const getTestForEdit = async testId => {
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
+    appendJSON(headers);
+
+    const response = await fetch('/api/test/update', {
+        method: 'POST',
+        body: JSON.stringify({ testId }),
+        headers,
+    });
+
+    const responseJson = await response.json();
+    if (response.ok) {
+        return Promise.resolve(responseJson);
+    } else {
+        return Promise.reject();
+    }
+};

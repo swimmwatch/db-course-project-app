@@ -20,7 +20,7 @@ export default (state = initState, action) => {
         case testEditorActions.RESET:
             return { ...initState };
         case testEditorActions.UPDATE:
-            return { ...newState }
+            return action.content;
         case testEditorActions.UPDATE_TITLE: {
             newState.info.title = action.title;
 
