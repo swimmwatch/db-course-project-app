@@ -1,8 +1,13 @@
+import {
+    BAD_REQUEST,
+    FORBIDDEN,
+    INTERNAL_SERVER_ERROR,
+    OK
+} from "http-status-codes";
 import Test from "../models/Test";
 import User from "../models/User";
 import Tag from "../models/Tag";
 import TestTag from "../models/TestTag";
-import {BAD_REQUEST, INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
 import FormListErrors from "../helpers/FormListErrors";
 
 export const update = async (req, res, next) => {
@@ -18,14 +23,19 @@ export const update = async (req, res, next) => {
     });
 
     if (!currTest) {
-        // TODO: handle case if test not found
+        formListErrors.addDefault();
+
+        next({
+            status: INTERNAL_SERVER_ERROR,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (userId !== currTest.userId) {
         formListErrors.addDefault();
 
         next({
-            status: INTERNAL_SERVER_ERROR,
+            status: FORBIDDEN,
             errors: formListErrors.data.errors
         });
     }
@@ -38,9 +48,8 @@ export const update = async (req, res, next) => {
             content,
         });
 
-    } catch ({ errors }) {
-
-        formListErrors.addFromModelErrors(errors);
+    } catch (err) {
+        formListErrors.addFromModelErrors(err.errors);
 
         next({
             status: BAD_REQUEST,
@@ -59,9 +68,12 @@ export const update = async (req, res, next) => {
             currTestTags.push(newTag);
         }
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
-        // TODO: handle case if something wrong with creating tags
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     const ownTestTags = await TestTag.findAll({
@@ -101,6 +113,7 @@ export const create = async (req, res, next) => {
     const { info } = req.body;
     const content = req.body.questions;
     const { title, description, tags } = info;
+    const formListErrors = new FormListErrors();
 
     // create new test
     let newTest = null;
@@ -112,11 +125,11 @@ export const create = async (req, res, next) => {
             userId,
         }, { include: [Tag] });
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
         next({
             status: BAD_REQUEST,
-            errors: err.errors
+            errors: formListErrors.data.errors
         });
     }
 
@@ -133,11 +146,11 @@ export const create = async (req, res, next) => {
             currTestTags.push(newTag);
         }
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
         next({
             status: BAD_REQUEST,
-            errors: err.errors
+            errors: formListErrors.data.errors
         });
     }
 
@@ -183,17 +196,18 @@ export const getOwnTests = async (req, res) => {
 export const deleteTest = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;
+    const formListErrors = new FormListErrors();
 
     const test = await Test.findByPk(testId, {
         include: User
     });
 
     if (!test) {
+        formListErrors.addDefault();
+
         next({
-            status: INTERNAL_SERVER_ERROR,
-            errors: [{
-                message: 'something went wrong'
-            }]
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
         });
     }
 
