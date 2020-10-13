@@ -2,13 +2,16 @@ import Test from "../models/Test";
 import User from "../models/User";
 import Tag from "../models/Tag";
 import TestTag from "../models/TestTag";
-import {BAD_REQUEST, OK} from "http-status-codes";
+import {BAD_REQUEST, INTERNAL_SERVER_ERROR, OK} from "http-status-codes";
+import FormListErrors from "../helpers/FormListErrors";
 
 export const update = async (req, res, next) => {
     const { userId } = req;
     const { info, testId } = req.body;
     const content = req.body.questions;
     const { title, description, tags } = info;
+    const formListErrors = new FormListErrors();
+
 
     const currTest = await Test.findByPk(testId, {
         include: [Tag]
@@ -30,14 +33,13 @@ export const update = async (req, res, next) => {
             content,
         });
 
-    } catch (err) {
-        // TODO: handle case if something wrong with updating
+    } catch ({ errors }) {
 
-        console.log(err);
+        formListErrors.addFromModelErrors(errors);
 
         next({
             status: BAD_REQUEST,
-            errors: err.errors
+            errors: formListErrors.data.errors
         });
     }
 
@@ -173,7 +175,7 @@ export const getOwnTests = async (req, res) => {
     res.json(response);
 };
 
-export const deleteTest = async (req, res) => {
+export const deleteTest = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;
 
@@ -182,7 +184,12 @@ export const deleteTest = async (req, res) => {
     });
 
     if (!test) {
-        // TODO: handle if test not found
+        next({
+            status: INTERNAL_SERVER_ERROR,
+            errors: [{
+                message: 'something went wrong'
+            }]
+        });
     }
 
     if (test.userId === userId) {
