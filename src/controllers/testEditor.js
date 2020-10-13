@@ -11,11 +11,16 @@ export const update = async (req, res, next) => {
     const { title, description, tags } = info;
 
     // create new tags
-    const createdTags = [];
+    const currTestTags = [];
     try {
         for (let tagName of tags) {
-            const newTag = await Tag.create({ name: tagName });
-            createdTags.push(newTag);
+            const [newTag] = await Tag.findOrCreate({
+                where: {
+                    name: tagName
+                }
+            });
+
+            currTestTags.push(newTag);
         }
     } catch (err) {
         console.error(err);
@@ -52,17 +57,14 @@ export const update = async (req, res, next) => {
         });
     }
 
-    try {
-        // update link from tags to tests
-        for (let currTag of createdTags) {
-            await TestTag.create({
+    // update link from tags to tests
+    for (let currTag of currTestTags) {
+        await TestTag.findOrCreate({
+            where: {
                 testId: currTest.id,
                 tagId: currTag.id
-            });
-        }
-    } catch (err) {
-        // TODO: handle case if something wrong with adding in test_tag table
-        console.log(err);
+            }
+        });
     }
 
     res.sendStatus(OK);
@@ -74,37 +76,49 @@ export const create = async (req, res, next) => {
     const content = req.body.questions;
     const { title, description, tags } = info;
 
+    // create or find tags
+    const currTestTags = [];
     try {
-        // create new tags
-        const createdTags = [];
-        for (let tagName of tags) {
-            const newTag = await Tag.create({ name: tagName });
-            createdTags.push(newTag);
-        }
+        for (let currTagName of tags) {
+            const [newTag] = await Tag.findOrCreate({
+                where: {
+                    name: currTagName
+                }
+            });
 
-        // create new test
-        const newTest = await Test.create({
+            currTestTags.push(newTag);
+        }
+    } catch (err) {
+        console.error(err);
+
+        // TODO: handle case if tag is invalid
+    }
+
+    // create new test
+    let newTest = null;
+    try {
+        newTest = await Test.create({
             title,
             description,
             content,
             userId,
-        }, {
-            include: Tag
-        });
-
-        // create link from tags to tests
-        for (let currTag of createdTags) {
-            await TestTag.create({
-                testId: newTest.id,
-                tagId: currTag.id
-            });
-        }
+        }, { include: [Tag] });
     } catch (err) {
-        console.log(err);
+        console.error(err);
 
         next({
             status: BAD_REQUEST,
             errors: err.errors
+        });
+    }
+
+    // create link from tags to tests
+    for (let currTag of currTestTags) {
+        await TestTag.findOrCreate({
+            where: {
+                testId: newTest.id,
+                tagId: currTag.id
+            }
         });
     }
 
