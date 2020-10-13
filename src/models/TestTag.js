@@ -13,4 +13,9 @@ const TestTag = sequelize.define("test_tag", {});
 Test.belongsToMany(Tag, { through: TestTag });
 Tag.belongsToMany(Test, { through: TestTag });
 
+Test.hasMany(TestTag);
+TestTag.belongsTo(Test);
+Tag.hasMany(TestTag);
+TestTag.belongsTo(Tag);
+
 export default TestTag;
