@@ -22,7 +22,12 @@ export const update = async (req, res, next) => {
     }
 
     if (userId !== currTest.userId) {
-        // TODO: handle case if not true creator
+        formListErrors.addDefault();
+
+        next({
+            status: INTERNAL_SERVER_ERROR,
+            errors: formListErrors.data.errors
+        });
     }
 
     try {
