@@ -2,6 +2,7 @@ import {
     BAD_REQUEST,
     FORBIDDEN,
     INTERNAL_SERVER_ERROR,
+    NOT_FOUND,
     OK
 } from "http-status-codes";
 import Test from "../models/Test";
@@ -220,20 +221,31 @@ export const deleteTest = async (req, res, next) => {
 
         res.sendStatus(OK);
     } else {
-        // TODO: handle if testId != test.id
+        formListErrors.addDefault();
+
+        next({
+            status: FORBIDDEN,
+            errors: formListErrors.data.errors
+        });
     }
 };
 
-export const getTestForEdit = async (req, res) => {
+export const getTestForEdit = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;
+    const formListErrors = new FormListErrors();
 
     const test = await Test.findByPk(testId, {
         include: [User, Tag]
     });
 
     if (!test) {
-        // TODO: handle if test not found
+        formListErrors.add('test not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (test.userId === userId) {
@@ -249,6 +261,11 @@ export const getTestForEdit = async (req, res) => {
             questions: content
         });
     } else {
-        // TODO: handle if testId != test.id
+        formListErrors.addDefault();
+
+        next({
+            status: FORBIDDEN,
+            errors: formListErrors.data.errors
+        });
     }
 };
