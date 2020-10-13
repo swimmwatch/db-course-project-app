@@ -1,14 +1,14 @@
 .test-card {
-  margin: 15px 0;
-  position: relative;
-
-  &__description {
-    max-height: 170px;
-  }
+  margin: 0 0 15px;
+  width: 100%;
 
   &__title {
     font-size: 1.1rem;
-    max-height: 60px;
+  }
+
+  &__label-info {
+    font-weight: bold;
+    padding-right: 5px;
   }
 
   &__control {

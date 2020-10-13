@@ -1,12 +1,9 @@
-import {
-    Sequelize,
-    ValidationError,
-    ValidationErrorItem
-} from "sequelize";
+import { Sequelize } from "sequelize";
 import * as bcrypt from "bcrypt";
 
 import config from "../../config";
 import userConstraints from "./constraints";
+import Test from "../Test";
 
 const {
     MIN_PASSWORD_LENGTH,
@@ -75,26 +72,22 @@ User.prototype.comparePasswords = async function(password) {
 };
 
 User.prototype.initState = function() {
+    const { login } = this;
+
     return {
-        user: {
-            login: this.login
-        }
+        user: { login }
     }
-}
+};
 
-User.beforeCreate(async (user, options) => {
-    const { repeatPassword } = options;
-
-    if (repeatPassword !== user.password) {
-        const validErr = new ValidationError();
-        const validItemErr = new ValidationErrorItem("passwords doesn't equal.")
-
-        validErr.errors.push(validItemErr);
-
-        throw validErr;
-    }
-
+User.beforeCreate(async user => {
     user.password = await User.hashPassword(user.password);
 });
+
+User.beforeUpdate(async user => {
+    user.password = await User.hashPassword(user.password);
+});
+
+User.hasMany(Test);
+Test.belongsTo(User);
 
 export default User;

@@ -1,6 +1,8 @@
 import { createStore } from "redux";
 import rootReducer from "../reducers";
 import * as authActions from "../actions/auth";
+import {getToken} from "../helpers/token";
+import {appendAuth} from "../helpers/header";
 
 const store = createStore(
     rootReducer,
@@ -8,7 +10,7 @@ const store = createStore(
 );
 
 export const initAuthStore = async (store) => {
-    const token = localStorage.getItem('TOKEN');
+    const token = getToken();
 
     if (!token) {
         store.dispatch(authActions.failed());
@@ -16,7 +18,9 @@ export const initAuthStore = async (store) => {
         let response = null;
         try {
             const headers = new Headers();
-            headers.append('Authorization', token);
+
+            appendAuth(headers, token);
+
             response = await fetch('/api/init', { headers, method: 'POST' });
         } catch (err) {
             console.log(err);

@@ -10,8 +10,11 @@ import config from "./config";
 
 import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
-import checkToken from "./middlewares/checkToken";
+import testEditorRouter from "./routes/testEditor";
 import profileModify from "./routes/profileModify";
+import errorHandler from "./middlewares/errorHandler";
+
+import * as models from "./models";
 
 const app = express();
 
@@ -42,19 +45,22 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 //     res.render("admin");
 // });
 
-app.get("/test_token", checkToken, (req, res) => {
-    res.send("hello! you can read this secure resource.");
-});
-
 app.use("/api", authRouter);
 app.use("/api/profile", profileModify);
+app.use("/api/test", testEditorRouter);
 
 app.use("*", mainRouter);
+
+app.use(errorHandler);
 
 app.listen(PORT, async () => {
     try {
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
+
+        for (let modelName in models) {
+            await models[modelName].sync();
+        }
 
         console.log('Connection has been established successfully.');
     } catch (error) {

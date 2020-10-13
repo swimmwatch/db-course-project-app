@@ -20,6 +20,8 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
 
     const showModal = () => setModalShow(true);
 
+    const hideModal = () => setModalShow(false);
+
     const onLogOut = () => {
         dispatch(authActions.logOut());
 
@@ -33,7 +35,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             <LinkContainer to="/">
                 <Navbar.Brand>PassQuiz</Navbar.Brand>
             </LinkContainer>
-            <Nav>
+            <Nav className="mr-auto">
                 { !isLoggedIn ? (
                     <>
                         <LinkContainer to="/signup">
@@ -55,12 +57,21 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                     </NavDropdown>
                 ) }
             </Nav>
+            {
+                isLoggedIn && (
+                    <Nav>
+                        <LinkContainer to="/test/edit">
+                            <Button type="primary">Create test</Button>
+                        </LinkContainer>
+                    </Nav>
+                )
+            }
 
             <Modal
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
-                onHide={onLogOut}
+                onHide={hideModal}
                 show={modalShow}
             >
                 <Modal.Header closeButton>
