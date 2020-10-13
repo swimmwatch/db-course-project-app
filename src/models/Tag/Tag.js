@@ -26,6 +26,8 @@ const Tag = sequelize.define('tag', {
             }
         }
     }
+}, {
+    timestamps: false
 });
 
 export default Tag;
