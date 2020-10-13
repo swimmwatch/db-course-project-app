@@ -1,25 +1,44 @@
+import {
+    BAD_REQUEST,
+    FORBIDDEN,
+    INTERNAL_SERVER_ERROR,
+    NOT_FOUND,
+    OK
+} from "http-status-codes";
 import Test from "../models/Test";
 import User from "../models/User";
 import Tag from "../models/Tag";
 import TestTag from "../models/TestTag";
-import {BAD_REQUEST, OK} from "http-status-codes";
+import FormListErrors from "../helpers/FormListErrors";
 
 export const update = async (req, res, next) => {
     const { userId } = req;
     const { info, testId } = req.body;
     const content = req.body.questions;
     const { title, description, tags } = info;
+    const formListErrors = new FormListErrors();
+
 
     const currTest = await Test.findByPk(testId, {
         include: [Tag]
     });
 
     if (!currTest) {
-        // TODO: handle case if test not found
+        formListErrors.addDefault();
+
+        next({
+            status: INTERNAL_SERVER_ERROR,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (userId !== currTest.userId) {
-        // TODO: handle case if not true creator
+        formListErrors.addDefault();
+
+        next({
+            status: FORBIDDEN,
+            errors: formListErrors.data.errors
+        });
     }
 
     try {
@@ -31,13 +50,11 @@ export const update = async (req, res, next) => {
         });
 
     } catch (err) {
-        // TODO: handle case if something wrong with updating
-
-        console.log(err);
+        formListErrors.addFromModelErrors(err.errors);
 
         next({
             status: BAD_REQUEST,
-            errors: err.errors
+            errors: formListErrors.data.errors
         });
     }
 
@@ -52,9 +69,12 @@ export const update = async (req, res, next) => {
             currTestTags.push(newTag);
         }
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
-        // TODO: handle case if something wrong with creating tags
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     const ownTestTags = await TestTag.findAll({
@@ -94,6 +114,7 @@ export const create = async (req, res, next) => {
     const { info } = req.body;
     const content = req.body.questions;
     const { title, description, tags } = info;
+    const formListErrors = new FormListErrors();
 
     // create new test
     let newTest = null;
@@ -105,11 +126,11 @@ export const create = async (req, res, next) => {
             userId,
         }, { include: [Tag] });
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
         next({
             status: BAD_REQUEST,
-            errors: err.errors
+            errors: formListErrors.data.errors
         });
     }
 
@@ -126,9 +147,12 @@ export const create = async (req, res, next) => {
             currTestTags.push(newTag);
         }
     } catch (err) {
-        console.error(err);
+        formListErrors.addFromModelErrors(err.errors);
 
-        // TODO: handle case if tag is invalid
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     // create link from tags to tests
@@ -170,16 +194,22 @@ export const getOwnTests = async (req, res) => {
     res.json(response);
 };
 
-export const deleteTest = async (req, res) => {
+export const deleteTest = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;
+    const formListErrors = new FormListErrors();
 
     const test = await Test.findByPk(testId, {
         include: User
     });
 
     if (!test) {
-        // TODO: handle if test not found
+        formListErrors.addDefault();
+
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (test.userId === userId) {
@@ -191,20 +221,31 @@ export const deleteTest = async (req, res) => {
 
         res.sendStatus(OK);
     } else {
-        // TODO: handle if testId != test.id
+        formListErrors.addDefault();
+
+        next({
+            status: FORBIDDEN,
+            errors: formListErrors.data.errors
+        });
     }
 };
 
-export const getTestForEdit = async (req, res) => {
+export const getTestForEdit = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;
+    const formListErrors = new FormListErrors();
 
     const test = await Test.findByPk(testId, {
         include: [User, Tag]
     });
 
     if (!test) {
-        // TODO: handle if test not found
+        formListErrors.add('test not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
     }
 
     if (test.userId === userId) {
@@ -220,6 +261,11 @@ export const getTestForEdit = async (req, res) => {
             questions: content
         });
     } else {
-        // TODO: handle if testId != test.id
+        formListErrors.addDefault();
+
+        next({
+            status: FORBIDDEN,
+            errors: formListErrors.data.errors
+        });
     }
 };
