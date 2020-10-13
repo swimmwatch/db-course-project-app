@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropType from "prop-types";
+import { useHistory } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -8,6 +9,8 @@ import TagList from "../TagList";
 import "./style.scss";
 
 const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }) => {
+    const history = useHistory();
+
     return (
         <Card className="test-card">
             <Card.Body>
@@ -37,8 +40,11 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                     <Dropdown className="test-card__dropdown-menu">
                         <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <Dropdown.Item as="button">Edit</Dropdown.Item>
                             <Dropdown.Item as="button" onClick={() => {
+                                history.push(`/test/edit?id=${testId}`);
+                            }}>Edit</Dropdown.Item>
+                            <Dropdown.Item as="button"
+                                           onClick={() => {
                                 onDeleteTestCard(testId);
                             }}>
                                 Delete

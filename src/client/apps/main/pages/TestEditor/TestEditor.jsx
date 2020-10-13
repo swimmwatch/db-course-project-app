@@ -24,7 +24,16 @@ class TestEditor extends React.Component {
     constructor(props) {
         super(props);
 
+        const { location } = props;
+        let query = new URLSearchParams(location.search);
+
+        const testId = parseInt(query.get("id"));
+
+        const isEditing = !!testId;
+
         this.state = {
+            isEditing,
+            testId: testId ? testId : -1,
             tagValue: '',
             listErrors: [],
         };
@@ -40,16 +49,19 @@ class TestEditor extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    componentDidMount() {
-        const { dispatch, location } = this.props;
+    async componentDidMount() {
+        const { dispatch } = this.props;
+        const { isEditing, testId } = this.state;
 
-        let query = new URLSearchParams(location.search);
+        if (isEditing) {
+            let response = null;
+            try {
+                response = await editTest.getTestForEdit(testId);
 
-        const id = query.get("id");
-
-        if (id) {
-            // TODO: handle request
-            console.log(id);
+                dispatch(testEditorActions.update(response));
+            } catch (err) {
+                console.error(err);
+            }
         } else {
             dispatch(testEditorActions.reset());
         }
@@ -96,9 +108,14 @@ class TestEditor extends React.Component {
         event.preventDefault();
 
         const { history, testEditor } = this.props;
+        const { isEditing, testId } = this.state;
 
         try {
-            await editTest.create(testEditor);
+            if (!isEditing) {
+                await editTest.create(testEditor);
+            } else {
+                await editTest.update(testEditor, testId);
+            }
 
             history.push('/profile/tests');
         } catch ({ errors }) {
@@ -110,6 +127,7 @@ class TestEditor extends React.Component {
 
     render() {
         const { listErrors } = this.state;
+        const { testEditor: { info } } = this.props;
 
         return (
             <Container className="p-3">
@@ -126,6 +144,7 @@ class TestEditor extends React.Component {
                                 <Col lg={8}>
                                     <Form.Group controlId="">
                                         <Form.Control required
+                                                      value={info.title}
                                                       onChange={this.handleTitleChange} />
                                     </Form.Group>
                                 </Col>
@@ -139,6 +158,7 @@ class TestEditor extends React.Component {
                                         <Form.Control className="test-editor__textarea"
                                                       as="textarea"
                                                       rows={3}
+                                                      value={info.description}
                                                       required
                                                       onChange={this.handleDescriptionChange} />
                                     </Form.Group>

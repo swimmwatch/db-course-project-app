@@ -17,6 +17,13 @@ export const reset = () => {
     return { type: RESET };
 };
 
+export const update = content => {
+    return {
+        type: UPDATE,
+        content
+    };
+};
+
 export const updateTitle = title => {
     return {
         type: UPDATE_TITLE,
