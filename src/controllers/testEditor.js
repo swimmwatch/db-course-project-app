@@ -128,7 +128,10 @@ export const create = async (req, res, next) => {
     } catch (err) {
         console.error(err);
 
-        // TODO: handle case if tag is invalid
+        next({
+            status: BAD_REQUEST,
+            errors: err.errors
+        });
     }
 
     // create link from tags to tests
