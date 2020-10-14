@@ -45,7 +45,7 @@ class ProfileSettings extends React.Component {
                 </Row>
                 <Row>
                     <Col lg={6}>
-                        <DeleteProfileForm />
+                        <DeleteProfileForm onSubmitError={this.updateListErrors} />
                     </Col>
                 </Row>
             </Container>

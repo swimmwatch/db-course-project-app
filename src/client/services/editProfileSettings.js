@@ -29,7 +29,7 @@ const updatePassword = async (formData) => {
     const token = getToken();
     const headers = new Headers();
 
-    appendAuth(token);
+    appendAuth(headers, token);
 
     const response = await fetch("/api/profile/update-password", {
         method: 'POST',
@@ -38,7 +38,7 @@ const updatePassword = async (formData) => {
     });
 
     if (response.ok) {
-        return Promise.resolve(null);
+        return Promise.resolve();
     } else {
         const responseJson = await response.json();
 
