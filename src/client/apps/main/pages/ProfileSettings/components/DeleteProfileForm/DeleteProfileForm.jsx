@@ -29,7 +29,7 @@ class DeleteProfileForm extends React.Component {
     }
 
     async handleSubmit() {
-        const { history, dispatch } = this.props;
+        const { history, dispatch, onSubmitError } = this.props;
 
         try {
             await editProfileSettings.remove();
@@ -37,8 +37,8 @@ class DeleteProfileForm extends React.Component {
             dispatch(authActions.logOut());
 
             history.push('/');
-        } catch (err) {
-            console.log(err);
+        } catch ({ errors }) {
+            onSubmitError(errors);
         }
     }
 
