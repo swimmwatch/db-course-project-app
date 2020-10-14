@@ -94,7 +94,6 @@ class UpdatePasswordForm extends React.Component {
                                       onChange={this.handleInputChange} />
                     </Form.Group>
                     <Button variant="primary"
-                            type="submit"
                             disabled={isLoading}
                             onClick={this.handleFormSubmit}>{ isLoading ? 'Loading...' : 'Save' }</Button>
                 </Form>
