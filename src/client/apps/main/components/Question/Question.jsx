@@ -1,45 +1,45 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import ListGroupItem from "react-bootstrap/ListGroupItem";
-import Form from "react-bootstrap/Form";
+import AnswerList from "../AnswerList";
+import Answer from "../Answer";
+import {ANSWER_TYPE} from "../AnswerEditList/config";
 
 import "./style.scss";
 
-const Question = () => {
+const Question = ({ title, answers, type, id }) => {
     return (
         <Card style={{ width: '100%' }}>
-            <Card.Body>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the cards content.
-                </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroupItem>
-                    <Form.Check
-                        type="radio"
-                        name="1"
-                        label="answer"
-                    />
-                </ListGroupItem>
-                <ListGroupItem>
-                    <Form.Check
-                        type="radio"
-                        name="1"
-                        label="answer"
-                    />
-                </ListGroupItem>
-                <ListGroupItem>
-                    <Form.Check
-                        type="radio"
-                        name="1"
-                        label="answer"
-                    />
-                </ListGroupItem>
-            </ListGroup>
+            <Card.Header>
+                <Card.Title>Question {id + 1}</Card.Title>
+                <Card.Body>
+                    <Card.Text>{title}</Card.Text>
+                </Card.Body>
+            </Card.Header>
+
+            <AnswerList>
+                {
+                    answers.map((answer, i) => {
+                        const name = `${id}_answer`;
+
+                        return (
+                            <Answer type={type}
+                                    content={answer}
+                                    name={name}
+                                    key={i} />
+                        );
+                    })
+                }
+            </AnswerList>
         </Card>
     );
-}
+};
+
+Question.propTypes = {
+    title: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
+    answers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    id: PropTypes.number.isRequired
+};
 
 export default Question;
