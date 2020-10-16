@@ -27,9 +27,7 @@ export default class FormListErrors {
      * Add default error message
      */
     addDefault() {
-        this.data.errors.push({
-            message: "Oops, something went wrong."
-        });
+        this.add("Oops, something went wrong.");
     }
 
     /**
