@@ -32,14 +32,14 @@ const Profile = ({ user }) => {
                         <Nav.Item>
                             <LinkContainer to="/profile/tests">
                                 <Nav.Link eventKey="tests">
-                                    <FontAwesomeIcon icon={faList} /> My tests
+                                    <FontAwesomeIcon icon={faList} /> Tests
                                 </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
                             <LinkContainer to="/profile/attempts">
                                 <Nav.Link eventKey="attempts">
-                                    <FontAwesomeIcon icon={faPoll} /> My attempts
+                                    <FontAwesomeIcon icon={faPoll} /> Attempts
                                 </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
