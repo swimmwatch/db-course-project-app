@@ -3,6 +3,7 @@ import rootReducer from "../reducers";
 import * as authActions from "../actions/auth";
 import {getToken} from "../helpers/token";
 import {appendAuth} from "../helpers/header";
+import history from "../history";
 
 const store = createStore(
     rootReducer,
@@ -23,7 +24,7 @@ export const initAuthStore = async (store) => {
 
             response = await fetch('/api/init', { headers, method: 'POST' });
         } catch (err) {
-            console.log(err);
+            store.dispatch(authActions.logOut());
         }
 
         if (response.ok) {
@@ -32,7 +33,9 @@ export const initAuthStore = async (store) => {
 
             store.dispatch(authActions.success(user));
         } else {
-            store.dispatch(authActions.failed());
+            store.dispatch(authActions.logOut());
+
+            history.push('/login');
         }
     }
 };

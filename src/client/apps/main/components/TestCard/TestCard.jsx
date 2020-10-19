@@ -1,5 +1,7 @@
 import * as React from "react";
 import PropType from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faTags, faTrash, faEdit, faShareSquare } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -17,11 +19,16 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                 <Card.Title className="test-card__title">{title}</Card.Title>
 
                 <div className="test-card__author">
-                    <span className="test-card__label-info">Author:</span> {author}
+                    <span className="test-card__label-info">
+                        <FontAwesomeIcon icon={faUser} /> Author:
+                    </span>
+                    {author}
                 </div>
 
                 <div className="test-card__tags">
-                    <span className="test-card__label-info">Tags:</span>
+                    <span className="test-card__label-info">
+                        <FontAwesomeIcon icon={faTags} /> Tags:
+                    </span>
                     {
                         tags.length ? (
                             <TagList tags={tags} canDelete={false} />
@@ -42,14 +49,18 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                         <Dropdown.Menu>
                             <Dropdown.Item as="button" onClick={() => {
                                 history.push(`/test/edit?id=${testId}`);
-                            }}>Edit</Dropdown.Item>
+                            }}>
+                                <FontAwesomeIcon icon={faEdit} /> Edit
+                            </Dropdown.Item>
                             <Dropdown.Item as="button"
                                            onClick={() => {
                                 onDeleteTestCard(testId);
                             }}>
-                                Delete
+                                <FontAwesomeIcon icon={faTrash} /> Delete
                             </Dropdown.Item>
-                            <Dropdown.Item as="button">Share</Dropdown.Item>
+                            <Dropdown.Item as="button">
+                                <FontAwesomeIcon icon={faShareSquare} /> Share
+                            </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>

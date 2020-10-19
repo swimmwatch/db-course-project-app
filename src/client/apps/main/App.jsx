@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
 import TestEditor from "./pages/TestEditor";
+import Test from "./pages/Test";
+import TestResult from "./pages/TestResult";
 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -28,6 +30,8 @@ class App extends React.Component {
                     <NotIsLoggedInRoute path='/signup' component={SignUp}/>
                     <PrivateRoute path='/profile' component={Profile}/>
                     <PrivateRoute exact path='/test/edit' component={TestEditor} />
+                    <PrivateRoute exact path='/test/result' component={TestResult} />
+                    <PrivateRoute exact path='/test' component={Test} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
