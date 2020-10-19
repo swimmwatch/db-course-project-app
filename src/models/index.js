@@ -4,6 +4,7 @@ import Tag from "./Tag";
 import Role from "./Role";
 import UserRole from "./UserRole";
 import TestTag from "./TestTag";
+import Attempt from "./Attempt";
 
 export {
     Test,
@@ -12,4 +13,5 @@ export {
     Role,
     UserRole,
     TestTag,
+    Attempt
 };
