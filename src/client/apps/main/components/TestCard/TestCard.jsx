@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropType from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTags } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faTags, faTrash, faEdit, faShareSquare } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -49,14 +49,18 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                         <Dropdown.Menu>
                             <Dropdown.Item as="button" onClick={() => {
                                 history.push(`/test/edit?id=${testId}`);
-                            }}>Edit</Dropdown.Item>
+                            }}>
+                                <FontAwesomeIcon icon={faEdit} /> Edit
+                            </Dropdown.Item>
                             <Dropdown.Item as="button"
                                            onClick={() => {
                                 onDeleteTestCard(testId);
                             }}>
-                                Delete
+                                <FontAwesomeIcon icon={faTrash} /> Delete
                             </Dropdown.Item>
-                            <Dropdown.Item as="button">Share</Dropdown.Item>
+                            <Dropdown.Item as="button">
+                                <FontAwesomeIcon icon={faShareSquare} /> Share
+                            </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
                 </div>
