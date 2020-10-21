@@ -9,7 +9,7 @@ export default (state = initState, action) => {
         case testPassingActions.INIT: {
             const { internalState } = action;
 
-            return internalState;
+            return { questions: internalState };
         }
         default:
             return state;
