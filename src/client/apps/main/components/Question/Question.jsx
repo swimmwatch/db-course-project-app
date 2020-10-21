@@ -21,11 +21,13 @@ const Question = ({ title, answers, type, id }) => {
                 {
                     answers.map((answer, i) => {
                         const name = `${id}_answer`;
+                        const { content, isChecked } = answer;
 
                         return (
                             <Answer type={type}
-                                    content={answer}
+                                    content={content}
                                     name={name}
+                                    checked={isChecked}
                                     key={i} />
                         );
                     })
@@ -38,7 +40,12 @@ const Question = ({ title, answers, type, id }) => {
 Question.propTypes = {
     title: PropTypes.string.isRequired,
     type: PropTypes.oneOf([ANSWER_TYPE.ONE, ANSWER_TYPE.MULTIPLE]).isRequired,
-    answers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    answers: PropTypes.arrayOf(
+        PropTypes.exact({
+            content: PropTypes.string,
+            isChecked: PropTypes.bool
+        })
+    ).isRequired,
     id: PropTypes.number.isRequired
 };
 
