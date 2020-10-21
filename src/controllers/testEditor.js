@@ -269,3 +269,37 @@ export const getTestForEdit = async (req, res, next) => {
         });
     }
 };
+
+export const getTestForPassing = async (req, res, next) => {
+    let { id } = req.query;
+    const testId = parseInt(id);
+    // const { userId } = req;
+    const formListErrors = new FormListErrors();
+
+    const test = await Test.findByPk(testId, { include: [User] });
+
+    if (!test) {
+        formListErrors.add('test not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    // exclude from answers 'isRight' and add 'isChecked' properties
+    const questions = test.content.map(question => {
+        const { answers } = question;
+
+        const modifiedAnswers = answers.map(answer => {
+            return {
+                content: answer.content,
+                isChecked: false
+            };
+        });
+
+        return { ...question, answers: modifiedAnswers };
+    });
+
+    res.json(questions);
+};

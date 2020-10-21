@@ -7,6 +7,7 @@ const router = new Router();
 router.post("/create", checkToken, testEditor.create);
 router.put("/update", checkToken, testEditor.update);
 router.post("/update", checkToken, testEditor.getTestForEdit);
+router.get("/pass", checkToken, testEditor.getTestForPassing);
 router.get("/profile", checkToken, testEditor.getOwnTests);
 router.delete("/delete", checkToken, testEditor.deleteTest);
 
