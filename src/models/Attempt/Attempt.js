@@ -24,9 +24,9 @@ const Attempt = sequelize.define("attempt", {
     }
 });
 
+// create associations
 User.hasMany(Attempt, { onDelete: 'cascade' });
-Test.belongsTo(Attempt, { onDelete: 'cascade' });
-Attempt.belongsTo(User);
-Attempt.belongsTo(Test);
+Attempt.belongsTo(Test, { onDelete: 'cascade' });
+Attempt.belongsTo(User, { onDelete: 'cascade' });
 
 export default Attempt;
