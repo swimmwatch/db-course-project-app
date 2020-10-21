@@ -14,7 +14,7 @@ import testEditorRouter from "./routes/testEditor";
 import profileModify from "./routes/profileModify";
 import errorHandler from "./middlewares/errorHandler";
 
-import * as models from "./models";
+import models from "./models";
 
 const app = express();
 
@@ -58,8 +58,8 @@ app.listen(PORT, async () => {
         await sequelize.authenticate();
         await sequelize.sync({ force: true });
 
-        for (let modelName in models) {
-            await models[modelName].sync();
+        for (let model of models) {
+            await model.sync();
         }
 
         console.log('Connection has been established successfully.');

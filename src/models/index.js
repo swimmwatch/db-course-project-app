@@ -6,7 +6,7 @@ import UserRole from "./UserRole";
 import TestTag from "./TestTag";
 import Attempt from "./Attempt";
 
-export {
+const models = [
     Test,
     User,
     Tag,
@@ -14,4 +14,6 @@ export {
     UserRole,
     TestTag,
     Attempt
-};
+];
+
+export default models;
