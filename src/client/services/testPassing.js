@@ -14,13 +14,9 @@ export const init = async testId => {
     appendAuth(headers, token);
 
     // create url
-    const url = new URL('/api/test/pass'),
-          params = { testId };
+    const url = `/api/test/pass?id=${testId}`;
 
-    Object.keys(params)
-          .forEach(key => url.searchParams.append(key, params[key]))
-
-    const response = await fetch(url.toString(), {
+    const response = await fetch(url, {
         method: 'GET',
         headers
     });
