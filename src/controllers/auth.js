@@ -1,7 +1,7 @@
 import {
     INTERNAL_SERVER_ERROR,
     BAD_REQUEST,
-    OK
+    OK, FORBIDDEN
 } from "http-status-codes";
 import * as jwt from "jsonwebtoken";
 import FormListErrors from "../helpers/FormListErrors";
@@ -86,8 +86,17 @@ export const signIn = async (req, res, next) => {
     }
 };
 
-export const initAuth = async (req, res) => {
+export const initAuth = async (req, res, next) => {
     const user = await User.findByPk(req.userId);
+
+    if (!user) {
+        next({
+            status: FORBIDDEN,
+            errors: [
+                { message: 'user with such id not found' }
+            ]
+        });
+    }
 
     res.json({ ...user.initState() });
 };
