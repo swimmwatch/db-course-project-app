@@ -7,7 +7,7 @@ import {ANSWER_TYPE} from "../AnswerEditList/config";
 
 import "./style.scss";
 
-const Question = ({ title, answers, type, id }) => {
+const Question = ({ title, answers, type, id, onAnswerChange }) => {
     return (
         <Card style={{ width: '100%' }}>
             <Card.Header>
@@ -27,7 +27,8 @@ const Question = ({ title, answers, type, id }) => {
                             <Answer type={type}
                                     content={content}
                                     name={name}
-                                    checked={isChecked}
+                                    isChecked={isChecked}
+                                    onAnswerChange={checked => onAnswerChange(id, i, type, checked)}
                                     key={i} />
                         );
                     })
@@ -46,7 +47,8 @@ Question.propTypes = {
             isChecked: PropTypes.bool
         })
     ).isRequired,
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    onAnswerChange: PropTypes.func.isRequired
 };
 
 export default Question;

@@ -10,7 +10,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setInitData: initState => dispatch(testPassingActions.init(initState))
+        setInitData: initState =>
+            dispatch(testPassingActions.init(initState)),
+        updateAnswer: (questionId, answerId, typeAnswer, state) =>
+            dispatch(testPassingActions.updateAnswer(questionId, answerId, typeAnswer, state))
     };
 }
 

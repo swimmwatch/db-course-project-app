@@ -22,14 +22,19 @@ export const init = internalState => {
  * Action that updates answer in question
  * @param {number} questionId
  * @param {number} answerId
+ * @param {string} typeAnswer
  * @param {boolean} state
  * @return {{answerId: number, questionId: number, state: boolean, type: string}}
  */
-export const updateAnswer = (questionId, answerId, state) => {
+export const updateAnswer = (questionId,
+                             answerId,
+                             typeAnswer,
+                             state) => {
     return {
-        type: INIT,
+        type: UPDATE_ANSWER,
         questionId,
         answerId,
+        typeAnswer,
         state
     };
 };

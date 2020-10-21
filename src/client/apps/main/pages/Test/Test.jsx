@@ -33,7 +33,7 @@ class Test extends React.Component {
         try {
             initState = await testPassingService.init(testId);
         } catch (err) {
-            // handle errors
+            // TODO: handle errors
 
             console.error(err);
         }
@@ -48,7 +48,7 @@ class Test extends React.Component {
     }
 
     render() {
-        const { questions } = this.props;
+        const { questions, updateAnswer } = this.props;
 
         return (
             <Container className="p-3">
@@ -63,7 +63,8 @@ class Test extends React.Component {
                                         <Question title={title}
                                                   type={typeAnswer}
                                                   id={i}
-                                                  answers={answers} />
+                                                  answers={answers}
+                                                  onAnswerChange={updateAnswer}/>
                                     </Col>
                                 </Row>
                             );
@@ -95,6 +96,7 @@ Test.propTypes = {
         })
     ).isRequired,
     setInitData: PropTypes.func.isRequired,
+    updateAnswer: PropTypes.func.isRequired,
     location: ReactRouterPropTypes.location.isRequired
 };
 
