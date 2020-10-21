@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp";
 import TestEditor from "./pages/TestEditor";
-import Test from "./pages/Test";
+import Test from "../../containers/Test";
 import TestResult from "./pages/TestResult";
 
 import Footer from "./components/Footer";
@@ -31,7 +31,7 @@ class App extends React.Component {
                     <PrivateRoute path='/profile' component={Profile}/>
                     <PrivateRoute exact path='/test/edit' component={TestEditor} />
                     <PrivateRoute exact path='/test/result' component={TestResult} />
-                    <PrivateRoute exact path='/test' component={Test} />
+                    <PrivateRoute exact path='/test/pass' component={Test} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
