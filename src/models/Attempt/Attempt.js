@@ -9,7 +9,8 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 const Attempt = sequelize.define("attempt", {
     id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     result: {
         type: DataTypes.FLOAT,
