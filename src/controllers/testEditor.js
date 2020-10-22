@@ -361,3 +361,22 @@ export const check = async (req, res, next) => {
 
     res.json({ attemptId: newAttempt.id });
 };
+
+export const getAttemptResults = async (req, res, next) => {
+    let { id } = req.query;
+    const attemptId = parseInt(id);
+    const formListErrors = new FormListErrors();
+
+    const attempt = await Attempt.findByPk(attemptId);
+
+    if (!attempt) {
+        formListErrors.add('attempt not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    res.json({ userAnswers: attempt.answers });
+};
