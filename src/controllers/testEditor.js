@@ -9,7 +9,9 @@ import Test from "../models/Test";
 import User from "../models/User";
 import Tag from "../models/Tag";
 import TestTag from "../models/TestTag";
+import Attempt from "../models/Attempt";
 import FormListErrors from "../helpers/FormListErrors";
+import { zipWith, zip } from "lodash";
 
 export const update = async (req, res, next) => {
     const { userId } = req;
@@ -268,4 +270,113 @@ export const getTestForEdit = async (req, res, next) => {
             errors: formListErrors.data.errors
         });
     }
+};
+
+export const getTestForPassing = async (req, res, next) => {
+    let { id } = req.query;
+    const testId = parseInt(id);
+    // const { userId } = req;
+    const formListErrors = new FormListErrors();
+
+    const test = await Test.findByPk(testId, { include: [User] });
+
+    if (!test) {
+        formListErrors.add('test not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    // exclude from answers 'isRight' and add 'isChecked' properties
+    const questions = test.content.map(question => {
+        const { answers } = question;
+
+        const modifiedAnswers = answers.map(answer => {
+            return {
+                content: answer.content,
+                isChecked: false
+            };
+        });
+
+        return { ...question, answers: modifiedAnswers };
+    });
+
+    res.json(questions);
+};
+
+export const check = async (req, res, next) => {
+    const { questions: userQuestions, testId } = req.body;
+    const { userId } = req;
+    const formListErrors = new FormListErrors();
+
+    const test = await Test.findByPk(testId, { include: [User] });
+
+    if (!test) {
+        formListErrors.add('test not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    // count and check answers
+    let amountRightQuestions = 0;
+    const amountQuestions = test.content.length;
+    const userAnswersStates = [];
+    zipWith(test.content, userQuestions, (testQuestion, userQuestion) => {
+        const { answers: testAnswers } = testQuestion;
+        const { answers: userAnswers } = userQuestion;
+
+        const isRight = zip(testAnswers, userAnswers).every(
+            ([testAnswer, userAnswer]) => testAnswer.isRight === userAnswer.isChecked
+        );
+
+        if (isRight) {
+            amountRightQuestions++;
+        }
+
+        userAnswersStates.push({ isCorrect: isRight });
+    });
+
+    const result = amountRightQuestions / amountQuestions;
+
+    let newAttempt = null;
+    try {
+        newAttempt = await Attempt.create({
+            result,
+            userId,
+            testId,
+            answers: userAnswersStates
+        }, {
+            include: [User, Test]
+        });
+    } catch (err) {
+        // TODO: handle case if data is invalid
+
+        console.error(err);
+    }
+
+    res.json({ attemptId: newAttempt.id });
+};
+
+export const getAttemptResults = async (req, res, next) => {
+    let { id } = req.query;
+    const attemptId = parseInt(id);
+    const formListErrors = new FormListErrors();
+
+    const attempt = await Attempt.findByPk(attemptId);
+
+    if (!attempt) {
+        formListErrors.add('attempt not found');
+
+        next({
+            status: NOT_FOUND,
+            errors: formListErrors.data.errors
+        });
+    }
+
+    res.json({ userAnswers: attempt.answers });
 };

@@ -1,16 +1,43 @@
 import * as React from "react";
+import { withRouter } from "react-router-dom";
+import ReactRouterPropTypes from "react-router-prop-types";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import ResultStatus from "../../components/ResultStatus";
-// import ListGroup from "react-bootstrap/ListGroup";
-// import ListGroupItem from "react-bootstrap/ListGroupItem";
+import * as testResultService from "../../../../services/testResult";
 
 class TestResult extends React.Component {
     constructor(props) {
         super(props);
+
+        // get attempt id from url params
+        const { location } = props;
+        let query = new URLSearchParams(location.search);
+
+        const attemptId = parseInt(query.get("id"));
+
+        this.state = {
+            attemptId,
+            userAnswers: []
+        };
+    }
+
+    async componentDidMount() {
+        const { attemptId } = this.state;
+
+        let userAnswers = null;
+        try {
+            userAnswers = await testResultService.init(attemptId);
+        } catch (err) {
+            console.log(err);
+        }
+
+        this.setState({ userAnswers });
     }
 
     render() {
+        const { userAnswers } = this.state;
+
         return (
             <Container className="p-3">
                 <Table responsive="lg">
@@ -21,14 +48,18 @@ class TestResult extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><ResultStatus isCorrect={true} /></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><ResultStatus isCorrect={false} /></td>
-                        </tr>
+                        {
+                            userAnswers.map((answer, i) => {
+                                const { isCorrect } = answer;
+
+                                return (
+                                    <tr key={i}>
+                                        <td>{i + 1}</td>
+                                        <td><ResultStatus isCorrect={isCorrect} /></td>
+                                    </tr>
+                                );
+                            })
+                        }
                     </tbody>
                 </Table>
             </Container>
@@ -36,4 +67,8 @@ class TestResult extends React.Component {
     }
 }
 
-export default TestResult;
+TestResult.propTypes = {
+    location: ReactRouterPropTypes.location
+};
+
+export default withRouter(TestResult);

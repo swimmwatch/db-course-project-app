@@ -1,8 +1,14 @@
 import * as React from "react";
 import PropType from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTags, faTrash, faEdit, faShareSquare } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import {
+    faUser,
+    faTags,
+    faTrash,
+    faEdit,
+    faShareSquare
+} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -42,7 +48,12 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
 
                 <div className="test-card__control">
                     <Button className="test-card__pass-btn"
-                            variant="primary">Pass test</Button>
+                            variant="primary"
+                            onClick={() => {
+                        history.push(`/test/pass?id=${testId}`);
+                    }}>
+                        Pass test
+                    </Button>
 
                     <Dropdown className="test-card__dropdown-menu">
                         <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
