@@ -87,7 +87,7 @@ User.beforeUpdate(async user => {
     user.password = await User.hashPassword(user.password);
 });
 
-User.hasMany(Test);
+User.hasMany(Test, { onDelete: 'cascade' });
 Test.belongsTo(User);
 
 export default User;

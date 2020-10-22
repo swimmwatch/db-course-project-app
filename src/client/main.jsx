@@ -6,6 +6,7 @@ import { toggleLoader } from "./helpers/loader";
 
 import App from "./apps/main/App";
 import { store, initAuthStore } from "./store";
+import history from "./history";
 
 import "bootstrap/scss/bootstrap.scss";
 
@@ -14,7 +15,7 @@ initAuthStore(store).then(() => {
 
     ReactDOM.render(
         <Provider store={store}>
-            <BrowserRouter>
+            <BrowserRouter history={history}>
                 <App />
             </BrowserRouter>
         </Provider>,

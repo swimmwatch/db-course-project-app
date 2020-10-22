@@ -5,6 +5,8 @@ import {NOT_FOUND} from "http-status-codes";
 
 import { Switch, Route } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faUserCog, faPoll } from "@fortawesome/free-solid-svg-icons";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -29,17 +31,23 @@ const Profile = ({ user }) => {
                     <Nav variant="tabs" defaultActiveKey="tests">
                         <Nav.Item>
                             <LinkContainer to="/profile/tests">
-                                <Nav.Link eventKey="tests">My tests</Nav.Link>
+                                <Nav.Link eventKey="tests">
+                                    <FontAwesomeIcon icon={faList} /> Tests
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
                             <LinkContainer to="/profile/attempts">
-                                <Nav.Link eventKey="attempts">My attempts</Nav.Link>
+                                <Nav.Link eventKey="attempts">
+                                    <FontAwesomeIcon icon={faPoll} /> Attempts
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item>
                             <LinkContainer to="/profile/settings">
-                                <Nav.Link eventKey="settings">Settings</Nav.Link>
+                                <Nav.Link eventKey="settings">
+                                    <FontAwesomeIcon icon={faUserCog} /> Settings
+                                </Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                     </Nav>

@@ -5,12 +5,21 @@ import ReactRouterPropTypes from "react-router-prop-types";
 import { connect } from "react-redux";
 import * as authActions from "../../../../actions/auth";
 
+import {
+    faClipboardList,
+    faUser,
+    faSignOutAlt,
+    faSignInAlt,
+    faIdCard,
+    faUserPlus,
+    faPlus
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-
 import { LinkContainer } from "react-router-bootstrap";
 
 import "./style.scss";
@@ -33,26 +42,36 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
     return (
         <Navbar bg="dark" variant="dark">
             <LinkContainer to="/">
-                <Navbar.Brand>PassQuiz</Navbar.Brand>
+                <Navbar.Brand>
+                    <FontAwesomeIcon icon={faClipboardList} /> PassQuiz
+                </Navbar.Brand>
             </LinkContainer>
             <Nav className="mr-auto">
                 { !isLoggedIn ? (
                     <>
                         <LinkContainer to="/signup">
-                            <Nav.Link>Sign Up</Nav.Link>
+                            <Nav.Link> <FontAwesomeIcon icon={faUserPlus} /> Sign Up</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/login">
-                            <Nav.Link>Login</Nav.Link>
+                            <Nav.Link> <FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link>
                         </LinkContainer>
                     </>
                 ) : (
-                    <NavDropdown title={ user.login } id="user-nav-dropdown">
+                    <NavDropdown title={
+                        <span>
+                            <FontAwesomeIcon icon={faUser} />  {user.login}
+                        </span>
+                    } id="user-nav-dropdown">
                         <LinkContainer to="/profile">
-                            <NavDropdown.Item>My profile</NavDropdown.Item>
+                            <NavDropdown.Item>
+                                <FontAwesomeIcon icon={faIdCard} /> My profile
+                            </NavDropdown.Item>
                         </LinkContainer>
                         <NavDropdown.Divider />
                         <LinkContainer to="#">
-                            <NavDropdown.Item onClick={showModal}>Logout</NavDropdown.Item>
+                            <NavDropdown.Item onClick={showModal}>
+                                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                            </NavDropdown.Item>
                         </LinkContainer>
                     </NavDropdown>
                 ) }
@@ -61,7 +80,9 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                 isLoggedIn && (
                     <Nav>
                         <LinkContainer to="/test/edit">
-                            <Button type="primary">Create test</Button>
+                            <Button variant="primary">
+                                Create test <FontAwesomeIcon icon={faPlus} />
+                            </Button>
                         </LinkContainer>
                     </Nav>
                 )
