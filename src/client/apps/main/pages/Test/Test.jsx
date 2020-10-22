@@ -41,10 +41,18 @@ class Test extends React.Component {
         setInitData(initState);
     }
 
-    handleSubmit() {
-        const { questions } = this.props;
+    async handleSubmit() {
+        const { questions, history } = this.props;
+        const { testId } = this.state;
 
-        console.log(questions);
+        let attemptId = -1;
+        try {
+            attemptId = await testPassingService.submit(questions, testId);
+        } catch (err) {
+            console.error(err);
+        }
+
+        history.push(`/test/result?id=${attemptId}`);
     }
 
     render() {
@@ -97,7 +105,8 @@ Test.propTypes = {
     ).isRequired,
     setInitData: PropTypes.func.isRequired,
     updateAnswer: PropTypes.func.isRequired,
-    location: ReactRouterPropTypes.location.isRequired
+    location: ReactRouterPropTypes.location.isRequired,
+    history: ReactRouterPropTypes.location.isRequired
 };
 
 export default withRouter(Test);
