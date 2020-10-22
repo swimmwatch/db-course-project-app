@@ -30,4 +30,14 @@ User.hasMany(Attempt, { onDelete: 'cascade' });
 Attempt.belongsTo(Test, { onDelete: 'cascade' });
 Attempt.belongsTo(User, { onDelete: 'cascade' });
 
+Test.afterUpdate(async test => {
+    // handle case if test is updated
+
+    await Attempt.destroy({
+        where: {
+            testId: test.id
+        }
+    });
+});
+
 export default Attempt;
