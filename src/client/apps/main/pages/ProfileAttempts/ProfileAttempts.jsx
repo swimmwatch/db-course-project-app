@@ -3,15 +3,22 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import * as attemptsService from "../../../../services/attempt";
+import {NO_CONTENT, OK} from "http-status-codes";
 
 import "./style.scss";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
 
 class ProfileAttempts extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            attempts: []
+            attempts: [],
+            requestIsFailed: false,
+            failedResponse: {
+                status: OK,
+                message: ''
+            }
         };
     }
 
@@ -21,46 +28,64 @@ class ProfileAttempts extends React.Component {
 
             this.setState({ attempts });
         } catch (err) {
-            // TODO: handle error
+            const { status, message } = err;
 
-            console.error(err);
+            this.setState({
+                requestIsFailed: true,
+                failedResponse: {
+                    status,
+                    message
+                }
+            });
         }
     }
 
     render() {
-        const { attempts } = this.state;
+        const { attempts, failedResponse, requestIsFailed } = this.state;
 
         return (
             <Container style={{ padding: '15px 0' }}>
-                <Table responsive="lg">
-                    <thead>
-                        <tr>
-                            <th>Test</th>
-                            <th>Result</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        attempts.map((attempt, i) => {
-                            const { title, testId, result, date } = attempt;
-                            const link = `/test/pass?id=${testId}`;
-
-                            return (
-                                <tr key={i}>
-                                    <td>
-                                        <Link to={link}>{title}</Link>
-                                    </td>
-                                    <td>{result * 100}%</td>
-                                    <td>
-                                        <time dateTime={date}>{date}</time>
-                                    </td>
+                {
+                    requestIsFailed ? (
+                        <HttpErrorInfo status={failedResponse.status}
+                                       reason={failedResponse.message} />
+                    ) : (
+                        attempts.length ? (
+                            <Table responsive="lg">
+                                <thead>
+                                <tr>
+                                    <th>Test</th>
+                                    <th>Result</th>
+                                    <th>Date</th>
                                 </tr>
-                            );
-                        })
-                    }
-                    </tbody>
-                </Table>
+                                </thead>
+                                <tbody>
+                                {
+                                    attempts.map((attempt, i) => {
+                                        const { title, testId, result, date } = attempt;
+                                        const link = `/test/pass?id=${testId}`;
+
+                                        return (
+                                            <tr key={i}>
+                                                <td>
+                                                    <Link to={link}>{title}</Link>
+                                                </td>
+                                                <td>{result * 100}%</td>
+                                                <td>
+                                                    <time dateTime={date}>{date}</time>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })
+                                }
+                                </tbody>
+                            </Table>
+                        ): (
+                            <HttpErrorInfo status={NO_CONTENT}
+                                           reason={"You don't have any attempts."} />
+                        )
+                    )
+                }
             </Container>
         );
     }
