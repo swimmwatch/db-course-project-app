@@ -42,16 +42,9 @@ class ProfileTests extends React.Component {
     }
 
     async componentDidMount() {
-        let responseJson = null;
-        try {
-            responseJson = await editTest.getOwnTests();
-        } catch (err) {
-            console.error(err);
-        }
+        const responseJson = await editTest.getOwnTests();
 
-        this.setState({
-            profileTests: responseJson
-        });
+        this.setState({ profileTests: responseJson });
     }
 
     render() {
