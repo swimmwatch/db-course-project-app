@@ -26,14 +26,9 @@ export const getOwnTests = async () => {
         headers
     });
 
-    if (response.ok) {
-        const responseJson = await response.json();
+    const responseJson = await response.json();
 
-        return Promise.resolve(responseJson);
-    } else {
-        // TODO: handle if something wrong
-        return Promise.reject();
-    }
+    return Promise.resolve(responseJson);
 };
 
 export const create = async (testData) => {
