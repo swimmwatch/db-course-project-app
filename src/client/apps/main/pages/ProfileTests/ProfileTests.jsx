@@ -4,6 +4,8 @@ import ListTestCards from "../../components/ListTestCards";
 import * as editTest from "../../../../services/editTest";
 
 import "./style.scss";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
+import {NO_CONTENT} from "http-status-codes";
 
 class ProfileTests extends React.Component {
     constructor(props) {
@@ -17,11 +19,7 @@ class ProfileTests extends React.Component {
     }
 
     async handleDeleteTestCard(testId) {
-        try {
-            await editTest.deleteTest(testId);
-        } catch (err) {
-            console.error(err);
-        }
+        await editTest.deleteTest(testId);
 
         // delete test card from list
         this.setState(prev => {
@@ -40,16 +38,9 @@ class ProfileTests extends React.Component {
     }
 
     async componentDidMount() {
-        let responseJson = null;
-        try {
-            responseJson = await editTest.getOwnTests();
-        } catch (err) {
-            console.error(err);
-        }
+        const responseJson = await editTest.getOwnTests();
 
-        this.setState({
-            profileTests: responseJson
-        });
+        this.setState({ profileTests: responseJson });
     }
 
     render() {
@@ -57,8 +48,15 @@ class ProfileTests extends React.Component {
 
         return (
             <Container className="p-3">
-                <ListTestCards tests={profileTests}
-                               onDeleteTestCard={this.handleDeleteTestCard}/>
+                {
+                    profileTests.length ? (
+                        <ListTestCards tests={profileTests}
+                                       onDeleteTestCard={this.handleDeleteTestCard}/>
+                    ) : (
+                        <HttpErrorInfo status={NO_CONTENT}
+                                       reason="You don't have tests." />
+                    )
+                }
             </Container>
         );
     }

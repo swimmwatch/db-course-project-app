@@ -21,9 +21,7 @@ export const update = async (req, res, next) => {
     const formListErrors = new FormListErrors();
 
 
-    const currTest = await Test.findByPk(testId, {
-        include: [Tag]
-    });
+    const currTest = await Test.findByPk(testId, { include: [Tag] });
 
     if (!currTest) {
         formListErrors.addDefault();
@@ -32,83 +30,84 @@ export const update = async (req, res, next) => {
             status: INTERNAL_SERVER_ERROR,
             errors: formListErrors.data.errors
         });
-    }
+    } else {
+        if (userId !== currTest.userId) {
+            formListErrors.addDefault();
 
-    if (userId !== currTest.userId) {
-        formListErrors.addDefault();
+            next({
+                status: FORBIDDEN,
+                errors: formListErrors.data.errors
+            });
+        } else {
+            try {
+                // update current test
+                await currTest.update({
+                    title,
+                    description,
+                    content,
+                });
 
-        next({
-            status: FORBIDDEN,
-            errors: formListErrors.data.errors
-        });
-    }
+            } catch (err) {
+                // handle case if data is invalid
+                formListErrors.addFromModelErrors(err.errors);
 
-    try {
-        // update current test
-        await currTest.update({
-            title,
-            description,
-            content,
-        });
+                next({
+                    status: BAD_REQUEST,
+                    errors: formListErrors.data.errors
+                });
+            }
 
-    } catch (err) {
-        formListErrors.addFromModelErrors(err.errors);
+            // create new tags
+            const currTestTags = [];
+            try {
+                for (let tagName of tags) {
+                    const [newTag] = await Tag.findOrCreate({
+                        where: { name: tagName }
+                    });
 
-        next({
-            status: BAD_REQUEST,
-            errors: formListErrors.data.errors
-        });
-    }
+                    currTestTags.push(newTag);
+                }
+            } catch (err) {
+                // handle case if some tag is invalid
 
-    // create new tags
-    const currTestTags = [];
-    try {
-        for (let tagName of tags) {
-            const [newTag] = await Tag.findOrCreate({
-                where: { name: tagName }
+                formListErrors.addFromModelErrors(err.errors);
+
+                next({
+                    status: BAD_REQUEST,
+                    errors: formListErrors.data.errors
+                });
+            }
+
+            const ownTestTags = await TestTag.findAll({
+                where: { testId },
+                include: [Tag]
             });
 
-            currTestTags.push(newTag);
-        }
-    } catch (err) {
-        formListErrors.addFromModelErrors(err.errors);
+            // find and delete tags that we no longer need
+            const notExistTagIds = ownTestTags.filter(tag => !tags.includes(tag.name))
+                                              .map(tag => tag.tagId);
 
-        next({
-            status: BAD_REQUEST,
-            errors: formListErrors.data.errors
-        });
-    }
+            await TestTag.destroy({
+                where: {
+                    testId: currTest.id,
+                    tagId: notExistTagIds
+                },
+                force: true
+            });
 
-    const ownTestTags = await TestTag.findAll({
-        where: {
-            testId
-        },
-        include: [Tag]
-    });
-
-    // find and delete tags that don't need anymore
-    const notExistTagIds = ownTestTags.filter(tag => !tags.includes(tag.name))
-                                      .map(tag => tag.tagId);
-
-    await TestTag.destroy({
-        where: {
-            testId: currTest.id,
-            tagId: notExistTagIds
-        },
-        force: true
-    });
-
-    // update link from tags to tests
-    for (let currTag of currTestTags) {
-        await TestTag.findOrCreate({
-            where: {
-                testId: currTest.id,
-                tagId: currTag.id
+            // update link from tags to tests
+            for (let currTag of currTestTags) {
+                await TestTag.findOrCreate({
+                    where: {
+                        testId: currTest.id,
+                        tagId: currTag.id
+                    }
+                });
             }
-        });
-    }
 
-    res.sendStatus(OK);
+            res.sendStatus(OK);
+        }
+    }
 };
 
 export const create = async (req, res, next) => {
@@ -201,34 +200,32 @@ export const deleteTest = async (req, res, next) => {
     const { userId } = req;
     const formListErrors = new FormListErrors();
 
-    const test = await Test.findByPk(testId, {
-        include: User
-    });
+    const test = await Test.findByPk(testId, { include: [User] });
 
     if (!test) {
-        formListErrors.addDefault();
+        formListErrors.add('no such test');
 
         next({
             status: BAD_REQUEST,
             errors: formListErrors.data.errors
         });
-    }
-
-    if (test.userId === userId) {
-        await Test.destroy({
-            where: {
-                id: testId
-            }
-        });
-
-        res.sendStatus(OK);
     } else {
-        formListErrors.addDefault();
+        if (test.userId === userId) {
+            await Test.destroy({
+                where: {
+                    id: testId
+                }
+            });
 
-        next({
-            status: FORBIDDEN,
-            errors: formListErrors.data.errors
-        });
+            res.sendStatus(OK);
+        } else {
+            formListErrors.addDefault();
+
+            next({
+                status: FORBIDDEN,
+                errors: formListErrors.data.errors
+            });
+        }
     }
 };
 
