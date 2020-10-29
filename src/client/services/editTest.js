@@ -8,18 +8,11 @@ export const deleteTest = async testId => {
     appendAuth(headers, token);
     appendJSON(headers);
 
-    const response = await fetch(`/api/test/delete`, {
+    await fetch(`/api/test/delete`, {
         method: 'DELETE',
         headers,
         body: JSON.stringify({ testId })
     });
-
-    if (response.ok) {
-        return Promise.resolve();
-    } else {
-        // TODO: handle if something went wrong
-        return Promise.reject();
-    }
 };
 
 export const getOwnTests = async () => {

@@ -19,11 +19,7 @@ class ProfileTests extends React.Component {
     }
 
     async handleDeleteTestCard(testId) {
-        try {
-            await editTest.deleteTest(testId);
-        } catch (err) {
-            console.error(err);
-        }
+        await editTest.deleteTest(testId);
 
         // delete test card from list
         this.setState(prev => {

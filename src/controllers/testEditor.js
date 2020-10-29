@@ -201,34 +201,32 @@ export const deleteTest = async (req, res, next) => {
     const { userId } = req;
     const formListErrors = new FormListErrors();
 
-    const test = await Test.findByPk(testId, {
-        include: User
-    });
+    const test = await Test.findByPk(testId, { include: [User] });
 
     if (!test) {
-        formListErrors.addDefault();
+        formListErrors.add('no such test');
 
         next({
             status: BAD_REQUEST,
             errors: formListErrors.data.errors
         });
-    }
-
-    if (test.userId === userId) {
-        await Test.destroy({
-            where: {
-                id: testId
-            }
-        });
-
-        res.sendStatus(OK);
     } else {
-        formListErrors.addDefault();
+        if (test.userId === userId) {
+            await Test.destroy({
+                where: {
+                    id: testId
+                }
+            });
 
-        next({
-            status: FORBIDDEN,
-            errors: formListErrors.data.errors
-        });
+            res.sendStatus(OK);
+        } else {
+            formListErrors.addDefault();
+
+            next({
+                status: FORBIDDEN,
+                errors: formListErrors.data.errors
+            });
+        }
     }
 };
 
