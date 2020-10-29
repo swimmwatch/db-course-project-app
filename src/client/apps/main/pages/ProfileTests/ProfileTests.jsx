@@ -4,6 +4,8 @@ import ListTestCards from "../../components/ListTestCards";
 import * as editTest from "../../../../services/editTest";
 
 import "./style.scss";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
+import {NO_CONTENT} from "http-status-codes";
 
 class ProfileTests extends React.Component {
     constructor(props) {
@@ -57,8 +59,15 @@ class ProfileTests extends React.Component {
 
         return (
             <Container className="p-3">
-                <ListTestCards tests={profileTests}
-                               onDeleteTestCard={this.handleDeleteTestCard}/>
+                {
+                    profileTests.length ? (
+                        <ListTestCards tests={profileTests}
+                                       onDeleteTestCard={this.handleDeleteTestCard}/>
+                    ) : (
+                        <HttpErrorInfo status={NO_CONTENT}
+                                       reason="You don't have tests." />
+                    )
+                }
             </Container>
         );
     }
