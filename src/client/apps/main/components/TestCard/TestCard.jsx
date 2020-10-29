@@ -69,17 +69,7 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                             }}>
                                 <FontAwesomeIcon icon={faTrash} /> Delete
                             </Dropdown.Item>
-                            <Dropdown.Item as="button" onClick={async () => {
-                                const link = `${location.origin}/test/pass?id=${testId}`;
-
-                                try {
-                                    await navigator.clipboard.writeText(link);
-
-                                    alert("Link has been copied!");
-                                } catch (err) {
-                                    alert('Could not copy link.');
-                                }
-                            }}>
+                            <Dropdown.Item as="button">
                                 <FontAwesomeIcon icon={faShareSquare} /> Share
                             </Dropdown.Item>
                         </Dropdown.Menu>

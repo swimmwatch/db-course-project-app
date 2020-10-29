@@ -24,7 +24,7 @@ const Profile = ({ user }) => {
             <Row>
                 <Col lg={3}>
                     <img className="profile__avatar"
-                         src="/static/default_avatar.png" alt="avatar"/>
+                         src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="avatar"/>
                     <p className="profile__username">{ user.login }</p>
                 </Col>
                 <Col lg={9}>
