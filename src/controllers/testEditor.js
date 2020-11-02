@@ -133,6 +133,8 @@ export const create = async (req, res, next) => {
             status: BAD_REQUEST,
             errors: formListErrors.data.errors
         });
+
+        return;
     }
 
     // create or find tags
