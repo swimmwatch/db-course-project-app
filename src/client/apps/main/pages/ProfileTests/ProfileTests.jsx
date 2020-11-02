@@ -2,10 +2,10 @@ import * as React from "react";
 import Container from "react-bootstrap/Container";
 import ListTestCards from "../../components/ListTestCards";
 import * as editTest from "../../../../services/editTest";
-
-import "./style.scss";
 import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NO_CONTENT} from "http-status-codes";
+
+import "./style.scss";
 
 class ProfileTests extends React.Component {
     constructor(props) {
