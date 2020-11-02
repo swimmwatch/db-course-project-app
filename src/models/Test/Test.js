@@ -15,7 +15,10 @@ const testScheme = {
     title: {
         type: "string",
         presence: true,
-        length: { minimum: 1 }
+        length: {
+            minimum: 1,
+            tooShort: "of question needs to be not empty"
+        }
     },
     typeAnswer: {
         type: "string",
@@ -36,7 +39,7 @@ const testScheme = {
 const answerScheme = {
     content: {
         type: "string",
-        length: { minimum: 1, tooShort: "needs to have not empty length" },
+        length: { minimum: 1, tooShort: "of answer needs to have not empty length" },
         presence: true
     },
     isRight: {
