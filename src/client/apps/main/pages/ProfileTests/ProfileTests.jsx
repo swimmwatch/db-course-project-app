@@ -8,6 +8,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import TagList from "../../components/TagList";
 
 import "./style.scss";
@@ -113,37 +115,41 @@ class ProfileTests extends React.Component {
 
         return (
             <Container className="p-3">
-                <Form>
-                    <Form.Group controlId="">
-                        <FormControl
-                            aria-label="test title"
-                            aria-describedby="basic-addon2"
-                            required
-                            placeholder="Enter test title"
-                            onChange={this.handleSearchTitleChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="">
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                aria-label="Recipient's username"
-                                aria-describedby="basic-addon2"
-                                required
-                                placeholder="Enter tag name"
-                                onChange={this.handleSearchTagValueChange}
-                            />
-                            <InputGroup.Append>
-                                <Button variant="primary"
-                                        onClick={this.handleAddingTag}>
-                                    Add
-                                </Button>
-                            </InputGroup.Append>
-                        </InputGroup>
-                    </Form.Group>
-                    <TagList tags={searchTags}
-                             canDelete={true}
-                             deleteTag={this.handleSearchTagDeleting} />
-                </Form>
+                <Row>
+                    <Col lg={12} style={{ padding: '0' }}>
+                        <Form>
+                            <Form.Group controlId="">
+                                <FormControl
+                                    aria-label="test title"
+                                    aria-describedby="basic-addon2"
+                                    required
+                                    placeholder="Enter test title"
+                                    onChange={this.handleSearchTitleChange}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="">
+                                <InputGroup className="mb-3">
+                                    <FormControl
+                                        aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2"
+                                        required
+                                        placeholder="Enter tag name"
+                                        onChange={this.handleSearchTagValueChange}
+                                    />
+                                    <InputGroup.Append>
+                                        <Button variant="primary"
+                                                onClick={this.handleAddingTag}>
+                                            Add
+                                        </Button>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </Form.Group>
+                            <TagList tags={searchTags}
+                                     canDelete={true}
+                                     deleteTag={this.handleSearchTagDeleting} />
+                        </Form>
+                    </Col>
+                </Row>
                 {
                     profileTests.length ? (
                         <ListTestCards tests={profileTests}
