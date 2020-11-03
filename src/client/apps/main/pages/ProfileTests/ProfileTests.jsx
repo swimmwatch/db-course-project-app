@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import TagList from "../../components/TagList";
 
 import "./style.scss";
 
@@ -25,6 +26,8 @@ class ProfileTests extends React.Component {
         this.handleDeleteTestCard = this.handleDeleteTestCard.bind(this);
         this.handleSearchTitleChange = this.handleSearchTitleChange.bind(this);
         this.handleSearchTagValueChange = this.handleSearchTagValueChange.bind(this);
+        this.handleAddingTag = this.handleAddingTag.bind(this);
+        this.handleSearchTagDeleting = this.handleSearchTagDeleting.bind(this);
     }
 
     async handleDeleteTestCard(testId) {
@@ -42,7 +45,20 @@ class ProfileTests extends React.Component {
                     ...profileTests.slice(0, delI),
                     ...profileTests.slice(delI + 1),
                 ]
-            }
+            };
+        });
+    }
+
+    handleSearchTagDeleting(tagId) {
+        this.setState(prev => {
+            const { searchTags } = prev;
+
+            return {
+                searchTags: [
+                    ...searchTags.slice(0, tagId),
+                    ...searchTags.slice(tagId + 1),
+                ]
+            };
         });
     }
 
@@ -58,6 +74,19 @@ class ProfileTests extends React.Component {
         this.setState({ searchTagValue: value })
     }
 
+    handleAddingTag() {
+        const { searchTagValue, searchTags } = this.state;
+        const tagIsNotIncluded = !searchTags.includes(searchTagValue);
+
+        if (searchTagValue && tagIsNotIncluded) {
+            this.setState(prev => {
+                return {
+                    searchTags: [...prev.searchTags, searchTagValue]
+                };
+            });
+        }
+    }
+
     async componentDidMount() {
         const responseJson = await editTest.getOwnTests();
 
@@ -65,18 +94,18 @@ class ProfileTests extends React.Component {
     }
 
     render() {
-        const { profileTests } = this.state;
+        const { profileTests, searchTags } = this.state;
 
         return (
             <Container className="p-3">
                 <Form>
                     <Form.Group controlId="">
-                        <Form.Label>Test title:</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 aria-label="test title"
                                 aria-describedby="basic-addon2"
                                 required
+                                placeholder="Enter test title"
                                 onChange={this.handleSearchTitleChange}
                             />
                             <InputGroup.Append>
@@ -85,20 +114,25 @@ class ProfileTests extends React.Component {
                         </InputGroup>
                     </Form.Group>
                     <Form.Group controlId="">
-                        <Form.Label>Tags:</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
                                 required
-                                onChange={this.handleTagInputChange}
+                                placeholder="Enter tag name"
+                                onChange={this.handleSearchTagValueChange}
                             />
                             <InputGroup.Append>
                                 <Button variant="primary"
-                                        onClick={()=>{}}>Add</Button>
+                                        onClick={this.handleAddingTag}>
+                                    Add
+                                </Button>
                             </InputGroup.Append>
                         </InputGroup>
                     </Form.Group>
+                    <TagList tags={searchTags}
+                             canDelete={true}
+                             deleteTag={this.handleSearchTagDeleting} />
                 </Form>
                 {
                     profileTests.length ? (
