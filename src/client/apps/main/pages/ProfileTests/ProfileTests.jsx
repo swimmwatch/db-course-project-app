@@ -28,6 +28,7 @@ class ProfileTests extends React.Component {
         this.handleSearchTagValueChange = this.handleSearchTagValueChange.bind(this);
         this.handleAddingTag = this.handleAddingTag.bind(this);
         this.handleSearchTagDeleting = this.handleSearchTagDeleting.bind(this);
+        this.searchFilter = this.searchFilter.bind(this);
     }
 
     async handleDeleteTestCard(testId) {
@@ -93,25 +94,34 @@ class ProfileTests extends React.Component {
         this.setState({ profileTests: responseJson });
     }
 
+    searchFilter() {
+        const { profileTests, searchTags, searchTitle } = this.state;
+
+        return profileTests.filter(({ tags, title }) => {
+            const containAllTags = tags.some(tag => searchTags.includes(tag));
+            const lowerTitle = title.toLowerCase();
+            const lowerSearchTitle = searchTitle.toLowerCase();
+            const likeTitle = lowerTitle.indexOf(lowerSearchTitle) !== -1;
+
+            return (searchTags.length > 0 ? containAllTags : true) && (searchTitle ? likeTitle : true);
+        });
+    }
+
     render() {
-        const { profileTests, searchTags } = this.state;
+        const { searchTags } = this.state;
+        const profileTests = this.searchFilter();
 
         return (
             <Container className="p-3">
                 <Form>
                     <Form.Group controlId="">
-                        <InputGroup className="mb-3">
-                            <FormControl
-                                aria-label="test title"
-                                aria-describedby="basic-addon2"
-                                required
-                                placeholder="Enter test title"
-                                onChange={this.handleSearchTitleChange}
-                            />
-                            <InputGroup.Append>
-                                <Button variant="primary">Find</Button>
-                            </InputGroup.Append>
-                        </InputGroup>
+                        <FormControl
+                            aria-label="test title"
+                            aria-describedby="basic-addon2"
+                            required
+                            placeholder="Enter test title"
+                            onChange={this.handleSearchTitleChange}
+                        />
                     </Form.Group>
                     <Form.Group controlId="">
                         <InputGroup className="mb-3">
