@@ -28,26 +28,23 @@ export const getOwnAttempts = async (req, res) => {
 };
 
 export const getOwnTestAttempts = async (req, res) => {
-    const { userId } = req;
     let { id } = req.query;
     const testId = parseInt(id);
 
     const ownAttempts = await Attempt.findAll({
-        where: { userId, testId },
-        include: [Test, User]
+        where: { testId },
+        include: [User]
     });
 
     // collect response
     const response = [];
     for (let attempt of ownAttempts) {
         const { createdAt, result, id } = attempt;
-        const { id: testId } = attempt.test;
         const { login } = attempt.user;
 
         response.push({
             login,
             result,
-            testId,
             attemptId: id,
             date: createdAt,
         });
