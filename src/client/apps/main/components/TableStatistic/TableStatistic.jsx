@@ -10,22 +10,18 @@ const TableStatistic = ({rows}) => {
             {
                 label: 'Attempt ID',
                 field: 'attemptId',
-                sort: 'asc',
             },
             {
                 label: 'User',
                 field: 'login',
-                sort: 'asc',
             },
             {
                 label: 'Result',
                 field: 'result',
-                sort: 'asc',
             },
             {
                 label: 'Date',
                 field: 'date',
-                sort: 'asc',
             }
         ],
         rows: rows
@@ -37,6 +33,7 @@ const TableStatistic = ({rows}) => {
                 striped
                 bordered
                 small
+                sortable
                 data={data}
             />
         </Container>
