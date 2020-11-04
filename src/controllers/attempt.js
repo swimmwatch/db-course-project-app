@@ -40,7 +40,7 @@ export const getOwnTestAttempts = async (req, res) => {
     // collect response
     const response = [];
     for (let attempt of ownAttempts) {
-        const { createdAt, result } = attempt;
+        const { createdAt, result, id } = attempt;
         const { id: testId } = attempt.test;
         const { login } = attempt.user;
 
@@ -48,6 +48,7 @@ export const getOwnTestAttempts = async (req, res) => {
             login,
             result,
             testId,
+            attemptId: id,
             date: createdAt,
         });
     }
