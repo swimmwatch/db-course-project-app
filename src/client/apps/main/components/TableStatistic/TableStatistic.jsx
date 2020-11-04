@@ -14,7 +14,7 @@ const TableStatistic = ({rows}) => {
             },
             {
                 label: 'User',
-                field: 'user',
+                field: 'login',
                 sort: 'asc',
             },
             {
@@ -47,7 +47,7 @@ TableStatistic.propTypes = {
     rows: PropTypes.arrayOf(
         PropTypes.exact({
             attemptId: PropTypes.number,
-            user: PropTypes.string,
+            login: PropTypes.string,
             result: PropTypes.number,
             date: PropTypes.string
         })
