@@ -7,7 +7,8 @@ import {
     faTags,
     faTrash,
     faEdit,
-    faShareSquare
+    faShareSquare,
+    faPollH
 } from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -81,6 +82,12 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                                 }
                             }}>
                                 <FontAwesomeIcon icon={faShareSquare} /> Share
+                            </Dropdown.Item>
+                            <Dropdown.Item as="button"
+                                           onClick={() => {
+                                               history.push(`/test/statistic?id=${testId}`);
+                                           }}>
+                                <FontAwesomeIcon icon={faPollH} /> Show results
                             </Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
