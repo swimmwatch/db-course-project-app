@@ -1,5 +1,6 @@
 import Attempt from "../models/Attempt";
 import Test from "../models/Test";
+import User from "../models/User";
 
 export const getOwnAttempts = async (req, res) => {
     const { userId } = req;
@@ -17,6 +18,34 @@ export const getOwnAttempts = async (req, res) => {
 
         response.push({
             title,
+            result,
+            testId,
+            date: createdAt,
+        });
+    }
+
+    res.json(response);
+};
+
+export const getOwnTestAttempts = async (req, res) => {
+    const { userId } = req;
+    let { id } = req.query;
+    const testId = parseInt(id);
+
+    const ownAttempts = await Attempt.findAll({
+        where: { userId, testId },
+        include: [Test, User]
+    });
+
+    // collect response
+    const response = [];
+    for (let attempt of ownAttempts) {
+        const { createdAt, result } = attempt;
+        const { id: testId } = attempt.test;
+        const { login } = attempt.user;
+
+        response.push({
+            login,
             result,
             testId,
             date: createdAt,
