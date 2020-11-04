@@ -36,9 +36,8 @@ class TestEditor extends React.Component {
             testId: testId ? testId : -1,
             tagValue: '',
             listErrors: [],
+            isLoading: false
         };
-
-        // TODO: add loading state
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -47,6 +46,7 @@ class TestEditor extends React.Component {
         this.handleAppendQuestion = this.handleAppendQuestion.bind(this);
         this.hideErrorAlert = this.hideErrorAlert.bind(this);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.toggleLoadingState = this.toggleLoadingState.bind(this);
     }
 
     async componentDidMount() {
@@ -65,6 +65,14 @@ class TestEditor extends React.Component {
         } else {
             dispatch(testEditorActions.reset());
         }
+    }
+
+    toggleLoadingState() {
+        this.setState(prev => {
+            return {
+                isLoading: !prev.isLoading
+            }
+        });
     }
 
     handleTitleChange({ target: { value } }) {
@@ -99,9 +107,7 @@ class TestEditor extends React.Component {
     }
 
     hideErrorAlert() {
-        this.setState({
-            listErrors: []
-        });
+        this.setState({ listErrors: [] });
     }
 
     async handleFormSubmit(event) {
@@ -109,6 +115,8 @@ class TestEditor extends React.Component {
 
         const { history, testEditor } = this.props;
         const { isEditing, testId } = this.state;
+
+        this.toggleLoadingState();
 
         try {
             if (!isEditing) {
@@ -119,6 +127,8 @@ class TestEditor extends React.Component {
 
             history.push('/profile/tests');
         } catch ({ errors }) {
+            this.toggleLoadingState();
+
             this.setState({
                 listErrors: errors
             });
@@ -126,7 +136,7 @@ class TestEditor extends React.Component {
     }
 
     render() {
-        const { listErrors } = this.state;
+        const { listErrors, isLoading } = this.state;
         const { testEditor: { info } } = this.props;
 
         return (
@@ -207,8 +217,10 @@ class TestEditor extends React.Component {
                                         <div className="test-editor__submit-section-row">
                                             <Button className="test-editor__submit-btn"
                                                     type="primary"
-                                                    size="lg" onClick={this.handleFormSubmit}>
-                                                Publish
+                                                    size="lg"
+                                                    disabled={isLoading}
+                                                    onClick={this.handleFormSubmit}>
+                                                {isLoading ? 'Loading...' : 'Publish'}
                                             </Button>
                                         </div>
                                     </div>

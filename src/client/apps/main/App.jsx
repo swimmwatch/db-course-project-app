@@ -17,6 +17,7 @@ import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import HttpErrorInfo from "./components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
+import TestStatistic from "./pages/TestStatistic";
 
 class App extends React.Component {
     render() {
@@ -32,6 +33,7 @@ class App extends React.Component {
                     <PrivateRoute exact path='/test/edit' component={TestEditor} />
                     <PrivateRoute exact path='/test/result' component={TestResult} />
                     <PrivateRoute exact path='/test/pass' component={Test} />
+                    <PrivateRoute exact path='/test/statistic' component={TestStatistic} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 

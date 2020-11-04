@@ -25,7 +25,7 @@ class TestResult extends React.Component {
     async componentDidMount() {
         const { attemptId } = this.state;
 
-        let userAnswers = null;
+        let userAnswers = [];
         try {
             userAnswers = await testResultService.init(attemptId);
         } catch (err) {
@@ -49,16 +49,22 @@ class TestResult extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            userAnswers.map((answer, i) => {
-                                const { isCorrect } = answer;
+                            userAnswers.length ? (
+                                userAnswers.map((answer, i) => {
+                                    const { isCorrect } = answer;
 
-                                return (
-                                    <tr key={i}>
-                                        <td>{i + 1}</td>
-                                        <td><ResultStatus isCorrect={isCorrect} /></td>
-                                    </tr>
-                                );
-                            })
+                                    return (
+                                        <tr key={i}>
+                                            <td>{i + 1}</td>
+                                            <td><ResultStatus isCorrect={isCorrect} /></td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                <tr>
+                                    <td>None</td>
+                                </tr>
+                            )
                         }
                     </tbody>
                 </Table>
