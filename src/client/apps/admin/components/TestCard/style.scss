@@ -1,0 +1,18 @@
+.test-card {
+  margin: 0 0 15px;
+  width: 100%;
+
+  &__title {
+    font-size: 1.1rem;
+  }
+
+  &__label-info {
+    font-weight: bold;
+    padding-right: 5px;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-between;
+  }
+}
