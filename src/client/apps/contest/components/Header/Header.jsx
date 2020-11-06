@@ -10,6 +10,7 @@ import {
     faSignOutAlt,
     faSignInAlt,
     faUserPlus,
+    faClipboardList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "react-bootstrap/Navbar";
@@ -38,6 +39,11 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
 
     return (
         <Navbar bg="dark" variant="dark">
+            <LinkContainer to="/contest">
+                <Navbar.Brand>
+                    <FontAwesomeIcon icon={faClipboardList} /> PassQuiz Contest
+                </Navbar.Brand>
+            </LinkContainer>
             <Nav className="mr-auto">
                 { !isLoggedIn ? (
                     <>

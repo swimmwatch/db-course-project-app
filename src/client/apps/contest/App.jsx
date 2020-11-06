@@ -24,7 +24,7 @@ class App extends React.Component {
                 <Header />
 
                 <Switch>
-                    <Route exact path='/' component={Home} />
+                    <Route exact path='/contest' component={Home} />
                     <PrivateRoute path='/contest/tests' component={ProfileTests} />
                     <PrivateRoute exact path='/test/pass' component={Test} />
                     <NotIsLoggedInRoute path='/login' component={Login}/>
