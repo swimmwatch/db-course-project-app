@@ -34,12 +34,12 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
 
         setModalShow(false);
 
-        history.push("/contest");
+        history.push("/");
     };
 
     return (
         <Navbar bg="dark" variant="dark">
-            <LinkContainer to="/contest">
+            <LinkContainer to="/">
                 <Navbar.Brand>
                     <FontAwesomeIcon icon={faClipboardList} /> PassQuiz Contest
                 </Navbar.Brand>
@@ -71,7 +71,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             {
                 isLoggedIn && (
                     <Nav>
-                        <LinkContainer to="/contest/tests">
+                        <LinkContainer to="/tests">
                             <Button variant="primary">Tests</Button>
                         </LinkContainer>
                     </Nav>
