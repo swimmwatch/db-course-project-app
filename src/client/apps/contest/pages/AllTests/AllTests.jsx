@@ -14,42 +14,22 @@ import TagList from "../../../../components/TagList";
 
 import "./style.scss";
 
-class ProfileTests extends React.Component {
+class AllTests extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            profileTests: [],
+            tests: [],
             searchTitle: '',
             searchTagValue: '',
             searchTags: []
         };
 
-        this.handleDeleteTestCard = this.handleDeleteTestCard.bind(this);
         this.handleSearchTitleChange = this.handleSearchTitleChange.bind(this);
         this.handleSearchTagValueChange = this.handleSearchTagValueChange.bind(this);
         this.handleAddingTag = this.handleAddingTag.bind(this);
         this.handleSearchTagDeleting = this.handleSearchTagDeleting.bind(this);
         this.searchFilter = this.searchFilter.bind(this);
-    }
-
-    async handleDeleteTestCard(testId) {
-        await editTest.deleteTest(testId);
-
-        // delete test card from list
-        this.setState(prev => {
-            const { profileTests } = prev;
-
-            const delI = profileTests.map(test => test.testId)
-                                     .indexOf(testId);
-
-            return {
-                profileTests: [
-                    ...profileTests.slice(0, delI),
-                    ...profileTests.slice(delI + 1),
-                ]
-            };
-        });
     }
 
     handleSearchTagDeleting(tagId) {
@@ -91,27 +71,28 @@ class ProfileTests extends React.Component {
     }
 
     async componentDidMount() {
-        const responseJson = await editTest.getOwnTests();
+        const responseJson = await editTest.getAllTests();
 
-        this.setState({ profileTests: responseJson });
+        this.setState({ tests: responseJson });
     }
 
     searchFilter() {
-        const { profileTests, searchTags, searchTitle } = this.state;
+        const { tests, searchTags, searchTitle } = this.state;
 
-        return profileTests.filter(({ tags, title }) => {
+        return tests.filter(({ tags, title }) => {
             const containAllTags = tags.some(tag => searchTags.includes(tag));
             const lowerTitle = title.toLowerCase();
             const lowerSearchTitle = searchTitle.toLowerCase();
             const likeTitle = lowerTitle.indexOf(lowerSearchTitle) !== -1;
 
-            return (searchTags.length > 0 ? containAllTags : true) && (searchTitle ? likeTitle : true);
+            return (searchTags.length > 0 ? containAllTags : true) &&
+                (searchTitle ? likeTitle : true);
         });
     }
 
     render() {
         const { searchTags } = this.state;
-        const profileTests = this.searchFilter();
+        const tests = this.searchFilter();
 
         return (
             <Container className="p-3">
@@ -151,9 +132,9 @@ class ProfileTests extends React.Component {
                     </Col>
                 </Row>
                 {
-                    profileTests.length ? (
-                        <ListTestCards tests={profileTests}
-                                       onDeleteTestCard={this.handleDeleteTestCard}/>
+                    tests.length ? (
+                        <ListTestCards tests={tests}
+                                       editMenu={false} />
                     ) : (
                         <HttpErrorInfo status={NO_CONTENT}
                                        reason="You don't have tests." />
@@ -164,4 +145,4 @@ class ProfileTests extends React.Component {
     }
 }
 
-export default ProfileTests;
+export default AllTests;

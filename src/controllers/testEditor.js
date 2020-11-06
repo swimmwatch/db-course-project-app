@@ -197,6 +197,29 @@ export const getOwnTests = async (req, res) => {
     res.json(response);
 };
 
+export const getAllTests = async (req, res) => {
+    const tests = await Test.findAll({
+        include: [User, Tag]
+    });
+
+    const response = [];
+    for (let test of tests) {
+        const { title, description, id } = test;
+        const { login } = test.user;
+        const tags = await test.getTags();
+
+        response.push({
+            title,
+            description,
+            tags: tags.map((tag => tag.name)),
+            author: login,
+            testId: id
+        });
+    }
+
+    res.json(response);
+};
+
 export const deleteTest = async (req, res, next) => {
     const { testId } = req.body;
     const { userId } = req;

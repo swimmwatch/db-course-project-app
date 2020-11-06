@@ -18,7 +18,7 @@ import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId}) => {
+const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId, editMenu=true}) => {
     return (
         <Card className="test-card">
             <Card.Body>
@@ -46,48 +46,52 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId})
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
-                <div className="test-card__control">
-                    <LinkContainer to={`/test/pass?id=${testId}`}>
-                        <Button className="test-card__pass-btn"
-                                variant="primary">Pass test</Button>
-                    </LinkContainer>
+                {
+                    editMenu && (
+                        <div className="test-card__control">
+                            <LinkContainer to={`/test/pass?id=${testId}`}>
+                                <Button className="test-card__pass-btn"
+                                        variant="primary">Pass test</Button>
+                            </LinkContainer>
 
-                    <Dropdown className="test-card__dropdown-menu">
-                        <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item as="button" onClick={() => {
-                                history.push(`/test/edit?id=${testId}`);
-                            }}>
-                                <FontAwesomeIcon icon={faEdit} /> Edit
-                            </Dropdown.Item>
-                            <Dropdown.Item as="button"
-                                           onClick={() => {
-                                               onDeleteTestCard(testId);
-                                           }}>
-                                <FontAwesomeIcon icon={faTrash} /> Delete
-                            </Dropdown.Item>
-                            <Dropdown.Item as="button" onClick={async () => {
-                                const link = `${location.origin}/test/pass?id=${testId}`;
+                            <Dropdown className="test-card__dropdown-menu">
+                                <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item as="button" onClick={() => {
+                                        history.push(`/test/edit?id=${testId}`);
+                                    }}>
+                                        <FontAwesomeIcon icon={faEdit} /> Edit
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as="button"
+                                                   onClick={() => {
+                                                       onDeleteTestCard(testId);
+                                                   }}>
+                                        <FontAwesomeIcon icon={faTrash} /> Delete
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as="button" onClick={async () => {
+                                        const link = `${location.origin}/test/pass?id=${testId}`;
 
-                                try {
-                                    await navigator.clipboard.writeText(link);
+                                        try {
+                                            await navigator.clipboard.writeText(link);
 
-                                    alert("Link has been copied!");
-                                } catch (err) {
-                                    alert('Could not copy link.');
-                                }
-                            }}>
-                                <FontAwesomeIcon icon={faShareSquare} /> Share
-                            </Dropdown.Item>
-                            <Dropdown.Item as="button"
-                                           onClick={() => {
-                                               history.push(`/test/statistic?id=${testId}`);
-                                           }}>
-                                <FontAwesomeIcon icon={faPollH} /> Show results
-                            </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
+                                            alert("Link has been copied!");
+                                        } catch (err) {
+                                            alert('Could not copy link.');
+                                        }
+                                    }}>
+                                        <FontAwesomeIcon icon={faShareSquare} /> Share
+                                    </Dropdown.Item>
+                                    <Dropdown.Item as="button"
+                                                   onClick={() => {
+                                                       history.push(`/test/statistic?id=${testId}`);
+                                                   }}>
+                                        <FontAwesomeIcon icon={faPollH} /> Show results
+                                    </Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+                    )
+                }
             </Card.Body>
         </Card>
     );
@@ -99,7 +103,8 @@ TestCard.propTypes = {
     author: PropType.string.isRequired,
     tags: PropType.arrayOf(PropType.string).isRequired,
     testId: PropType.number.isRequired,
-    onDeleteTestCard: PropType.func
+    onDeleteTestCard: PropType.func,
+    editMenu: PropType.bool
 };
 
 export default TestCard;

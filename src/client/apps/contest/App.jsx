@@ -13,7 +13,7 @@ import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
 import Header from "./components/Header";
-import ProfileTests from "./pages/ProfileTests";
+import AllTests from "./pages/AllTests";
 import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
 
@@ -25,7 +25,7 @@ class App extends React.Component {
 
                 <Switch>
                     <Route exact path='/contest' component={Home} />
-                    <PrivateRoute path='/contest/tests' component={ProfileTests} />
+                    <PrivateRoute path='/contest/tests' component={AllTests} />
                     <PrivateRoute exact path='/test/pass' component={Test} />
                     <NotIsLoggedInRoute path='/login' component={Login}/>
                     <NotIsLoggedInRoute path='/signup' component={SignUp} />
