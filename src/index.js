@@ -12,6 +12,7 @@ import mainRouter from "./routes/main";
 import authRouter from "./routes/auth";
 import testEditorRouter from "./routes/testEditor";
 import profileModify from "./routes/profileModify";
+import attemptsRouter from "./routes/attempt";
 import errorHandler from "./middlewares/errorHandler";
 
 import models from "./models";
@@ -43,6 +44,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
 app.use("/api", authRouter);
 app.use("/api/profile", profileModify);
+app.use("/api/attempt", attemptsRouter);
 app.use("/api/test", testEditorRouter);
 
 app.use("*", mainRouter);
