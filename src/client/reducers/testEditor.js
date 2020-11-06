@@ -1,6 +1,6 @@
 import * as testEditorActions from "../actions/testEditor";
 import {createQuestion, createAnswer} from "../helpers/question";
-import {ANSWER_TYPE} from "../apps/main/components/AnswerEditList/config";
+import {ANSWER_TYPE} from "../../models/Test/config";
 
 let initState = {
     info: {

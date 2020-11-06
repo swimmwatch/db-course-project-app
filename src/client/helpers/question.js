@@ -1,4 +1,4 @@
-import {ANSWER_TYPE} from "../apps/main/components/AnswerEditList/config";
+import {ANSWER_TYPE} from "../../models/Test/config";
 
 /**
  * Create answer

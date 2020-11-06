@@ -11,6 +11,7 @@ router.get("/pass", checkToken, testEditor.getTestForPassing);
 router.get("/result", checkToken, testEditor.getAttemptResults);
 router.post("/check", checkToken, testEditor.check);
 router.get("/profile", checkToken, testEditor.getOwnTests);
+router.get("/all", checkToken, testEditor.getAllTests);
 router.delete("/delete", checkToken, testEditor.deleteTest);
 
 export default router;

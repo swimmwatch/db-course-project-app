@@ -6,7 +6,7 @@ import * as attemptsService from "../../../../services/attempt";
 import {NO_CONTENT, OK} from "http-status-codes";
 
 import "./style.scss";
-import HttpErrorInfo from "../../components/HttpErrorInfo";
+import HttpErrorInfo from "../../../../components/HttpErrorInfo";
 
 class ProfileAttempts extends React.Component {
     constructor(props) {

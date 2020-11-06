@@ -7,11 +7,13 @@
   "scripts": {
     "test": "jest",
     "start-dev": "nodemon --config \"./util/nodemon.json\"/",
-    "build": "rm -rf ./build/* && babel src -d build && webpack --config src/webpack.config.js --mode=\"production\"",
+    "build": "rm -rf ./build/* ./src/public/contest.bundle.js ./src/public/main.bundle.js && babel src -d build && webpack --config src/webpack.config.js --mode=\"production\"",
     "start": "node -r dotenv/config build/index.js",
     "es-lint": "eslint . -c src/.eslintrc.js --ext \"jsx,js\"",
     "style-lint": "stylelint --ignore-pattern src/client/tests --config src/.stylelintrc src/client/*",
-    "watch": "webpack --config src/webpack.config.js --watch"
+    "watch": "webpack --config src/webpack.config.js --watch",
+    "desktop-dev": "electron ./src/main.js",
+    "desktop-start" : "electron ./build/main.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -76,6 +78,7 @@
     "@types/serve-favicon": "^2.5.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
+    "electron": "^10.1.5",
     "eslint": "^7.9.0",
     "eslint-plugin-jest": "^24.0.1",
     "eslint-plugin-react": "^7.20.6",

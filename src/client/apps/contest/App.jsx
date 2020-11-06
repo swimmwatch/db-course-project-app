@@ -5,19 +5,17 @@ import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 
 import Container from "react-bootstrap/Container";
 
+import Home from './pages/Home';
 import Login from "../../pages/Login";
-import Home from "./pages/Home"
 import SignUp from "../../pages/SignUp";
-import TestEditor from "./pages/TestEditor";
 import Test from "../../containers/Test";
 import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
 import Header from "./components/Header";
-import Profile from "./pages/Profile";
+import AllTests from "./pages/AllTests";
 import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
-import TestStatistic from "./pages/TestStatistic";
 
 class App extends React.Component {
     render() {
@@ -26,14 +24,12 @@ class App extends React.Component {
                 <Header />
 
                 <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <NotIsLoggedInRoute path='/login' component={Login}/>
-                    <NotIsLoggedInRoute path='/signup' component={SignUp}/>
-                    <PrivateRoute path='/profile' component={Profile}/>
-                    <PrivateRoute exact path='/test/edit' component={TestEditor} />
-                    <PrivateRoute exact path='/test/result' component={TestResult} />
+                    <Route exact path='/contest' component={Home} />
+                    <PrivateRoute path='/contest/tests' component={AllTests} />
                     <PrivateRoute exact path='/test/pass' component={Test} />
-                    <PrivateRoute exact path='/test/statistic' component={TestStatistic} />
+                    <NotIsLoggedInRoute path='/login' component={Login}/>
+                    <NotIsLoggedInRoute path='/signup' component={SignUp} />
+                    <PrivateRoute exact path='/test/result' component={TestResult} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 

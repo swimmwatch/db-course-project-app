@@ -2,7 +2,7 @@ import * as DataTypes from "sequelize";
 import { Sequelize } from "sequelize";
 import config from "../../config";
 import validate from "validate.js";
-import {ANSWER_TYPE} from "../../client/apps/main/components/AnswerEditList/config";
+import {ANSWER_TYPE} from "./config";
 
 import {
     MIN_TITLE_LENGTH,
