@@ -52,7 +52,7 @@ class Test extends React.Component {
             console.error(err);
         }
 
-        history.push(`/test/result?id=${attemptId}`);
+        history.push(`/admin/test/result?id=${attemptId}`);
     }
 
     render() {

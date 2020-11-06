@@ -26,10 +26,10 @@ class App extends React.Component {
                 <Switch>
                     <Route exact path='/admin' component={Home}/>
                     <PrivateRoute path='/admin/tests' component={ProfileTests} />
+                    <PrivateRoute exact path='/admin/test/pass' component={Test} />
                     <NotIsLoggedInRoute path='/admin/login' component={Login}/>
                     <NotIsLoggedInRoute path='/admin/signup' component={SignUp}/>
                     <PrivateRoute exact path='/admin/test/result' component={TestResult} />
-                    <PrivateRoute exact path='/admin/test/pass' component={Test} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
 
