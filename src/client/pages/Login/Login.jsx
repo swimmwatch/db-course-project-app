@@ -8,11 +8,11 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
-import ErrorFormAlert from "../../../../components/ErrorFormAlert";
+import ErrorFormAlert from "../../components/ErrorFormAlert";
 
-import authService from "../../../../services/auth";
-import * as authActions from "../../../../actions/auth";
-import userConstraints from "../../../../../models/User/constraints";
+import authService from "../../services/auth";
+import * as authActions from "../../actions/auth";
+import userConstraints from "../../../models/User/constraints";
 
 import "./style.scss";
 

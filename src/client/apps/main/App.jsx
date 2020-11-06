@@ -5,12 +5,12 @@ import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 
 import Container from "react-bootstrap/Container";
 
-import Login from "./pages/Login";
+import Login from "../../pages/Login";
 import Home from "./pages/Home"
-import SignUp from "./pages/SignUp";
+import SignUp from "../../pages/SignUp";
 import TestEditor from "./pages/TestEditor";
 import Test from "../../containers/Test";
-import TestResult from "./pages/TestResult";
+import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
 import Header from "./components/Header";

@@ -6,10 +6,10 @@ import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
 import Container from "react-bootstrap/Container";
 
 import Home from './pages/Home';
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Login from "../../pages/Login";
+import SignUp from "../../pages/SignUp";
 import Test from "../../containers/Test";
-import TestResult from "./pages/TestResult";
+import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
 import Header from "./components/Header";
@@ -24,11 +24,11 @@ class App extends React.Component {
                 <Header />
 
                 <Switch>
-                    <Route exact path='/' component={Home}/>
+                    <Route exact path='/' component={Home} />
                     <PrivateRoute path='/contest/tests' component={ProfileTests} />
                     <PrivateRoute exact path='/test/pass' component={Test} />
                     <NotIsLoggedInRoute path='/login' component={Login}/>
-                    <NotIsLoggedInRoute path='/signup' component={SignUp}/>
+                    <NotIsLoggedInRoute path='/signup' component={SignUp} />
                     <PrivateRoute exact path='/test/result' component={TestResult} />
                     <Route component={() => <HttpErrorInfo status={NOT_FOUND} />} />
                 </Switch>
