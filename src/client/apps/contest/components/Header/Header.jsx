@@ -33,7 +33,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
 
         setModalShow(false);
 
-        history.push("/admin");
+        history.push("/contest");
     };
 
     return (
@@ -65,7 +65,7 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             {
                 isLoggedIn && (
                     <Nav>
-                        <LinkContainer to="/admin/tests">
+                        <LinkContainer to="/contest/tests">
                             <Button variant="primary">Tests</Button>
                         </LinkContainer>
                     </Nav>

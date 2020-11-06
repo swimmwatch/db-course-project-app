@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { toggleLoader } from "./helpers/loader";
 
-import App from "./apps/admin/App";
+import App from "./apps/contest/App";
 import { store, initAuthStore } from "./store";
 import history from "./history";
 
