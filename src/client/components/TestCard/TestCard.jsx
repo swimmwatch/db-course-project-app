@@ -18,7 +18,14 @@ import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId, editMenu=true}) => {
+const TestCard = ({
+      title,
+      description,
+      author, tags,
+      onDeleteTestCard,
+      testId,
+      editMenu=true
+}) => {
     return (
         <Card className="test-card">
             <Card.Body>
@@ -45,15 +52,14 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId, 
                 </div>
 
                 <Card.Text className="test-card__description">{description}</Card.Text>
+                    <div className="test-card__control">
+                        <LinkContainer to={`/test/pass?id=${testId}`}>
+                            <Button className="test-card__pass-btn"
+                                    variant="primary">Pass test</Button>
+                        </LinkContainer>
 
-                {
-                    editMenu && (
-                        <div className="test-card__control">
-                            <LinkContainer to={`/test/pass?id=${testId}`}>
-                                <Button className="test-card__pass-btn"
-                                        variant="primary">Pass test</Button>
-                            </LinkContainer>
-
+                    {
+                        editMenu && (
                             <Dropdown className="test-card__dropdown-menu">
                                 <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
                                 <Dropdown.Menu>
@@ -89,9 +95,9 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId, 
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
+                            )
+                        }
                         </div>
-                    )
-                }
             </Card.Body>
         </Card>
     );
