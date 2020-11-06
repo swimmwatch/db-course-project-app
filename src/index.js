@@ -41,9 +41,9 @@ const PORT = process.env.PORT || 3000;
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, config.db.options);
 
-// app.get("/admin", (req, res) => {
-//     res.render("admin");
-// });
+app.get("/contest", (req, res) => {
+    res.render("contest");
+});
 
 app.use("/api", authRouter);
 app.use("/api/profile", profileModify);

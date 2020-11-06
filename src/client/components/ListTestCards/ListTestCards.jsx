@@ -6,7 +6,7 @@ import TestCard from "../TestCard";
 
 import "./style.scss";
 
-const ListTestCards = ({ tests, onDeleteTestCard }) => {
+const ListTestCards = ({ tests, editMenu=true, onDeleteTestCard }) => {
     return (
         <Row>
             {
@@ -26,6 +26,7 @@ const ListTestCards = ({ tests, onDeleteTestCard }) => {
                                   tags={tags}
                                   key={testId}
                                   testId={testId}
+                                  editMenu={editMenu}
                                   onDeleteTestCard={onDeleteTestCard} />
                     );
                 })
@@ -35,8 +36,9 @@ const ListTestCards = ({ tests, onDeleteTestCard }) => {
 };
 
 ListTestCards.propTypes = {
-    tests: PropTypes.array,
-    onDeleteTestCard: PropTypes.func
+    tests: PropTypes.array.isRequired,
+    onDeleteTestCard: PropTypes.func,
+    editMenu: PropTypes.bool
 };
 
 export default ListTestCards;

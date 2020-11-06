@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import TagList from "../../../client/apps/main/components/TagList";
+import TagList from "../../../client/components/TagList";
 import * as testEditorActions from "../../actions/testEditor";
 
 function mapStateToProps(state) {

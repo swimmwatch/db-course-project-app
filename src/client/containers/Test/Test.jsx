@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import * as testPassingActions from "../../actions/testPassing";
-import Test from "../../apps/main/pages/Test";
+import Test from "../../pages/Test";
 
 function mapStateToProps(state) {
     const { questions } = state.testPassing;

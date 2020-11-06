@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Form from "react-bootstrap/Form";
-import {ANSWER_TYPE} from "../AnswerEditList/config";
+import {ANSWER_TYPE} from "../../../models/Test/config";
 
 import "./style.scss";
 

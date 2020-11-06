@@ -4,7 +4,7 @@ import ReactRouterPropTypes from "react-router-prop-types";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import ResultStatus from "../../components/ResultStatus";
-import * as testResultService from "../../../../services/testResult";
+import * as testResultService from "../../services/testResult";
 
 class TestResult extends React.Component {
     constructor(props) {

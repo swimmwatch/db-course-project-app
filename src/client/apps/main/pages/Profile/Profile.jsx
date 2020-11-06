@@ -13,7 +13,7 @@ import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
 import ProfileSettings from "../ProfileSettings";
 import ProfileAttempts from "../ProfileAttempts";
-import HttpErrorInfo from "../../components/HttpErrorInfo";
+import HttpErrorInfo from "../../../../components/HttpErrorInfo";
 import ProfileTests from "../ProfileTests";
 
 import "./style.scss";

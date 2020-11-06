@@ -107,3 +107,23 @@ export const getTestForEdit = async testId => {
         return Promise.reject();
     }
 };
+
+/**
+ * Get all tests
+ * @return {Promise<Object[]>}
+ */
+export const getAllTests = async () => {
+    const token = getToken();
+    const headers = new Headers();
+
+    appendAuth(headers, token);
+
+    const response  = await fetch('/api/test/all', {
+        method: 'GET',
+        headers
+    });
+
+    const responseJson = await response.json();
+
+    return Promise.resolve(responseJson);
+};
