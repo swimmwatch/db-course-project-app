@@ -9,7 +9,6 @@ import {
     faShareSquare,
     faPollH
 } from "@fortawesome/free-solid-svg-icons";
-import history from "../../history";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
@@ -63,11 +62,11 @@ const TestCard = ({
                             <Dropdown className="test-card__dropdown-menu">
                                 <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
                                 <Dropdown.Menu>
-                                    <Dropdown.Item as="button" onClick={() => {
-                                        history.push(`/test/edit?id=${testId}`);
-                                    }}>
-                                        <FontAwesomeIcon icon={faEdit} /> Edit
-                                    </Dropdown.Item>
+                                    <LinkContainer to={`/test/edit?id=${testId}`}>
+                                        <Dropdown.Item as="button">
+                                            <FontAwesomeIcon icon={faEdit} /> Edit
+                                        </Dropdown.Item>
+                                    </LinkContainer>
                                     <Dropdown.Item as="button"
                                                    onClick={() => {
                                                        onDeleteTestCard(testId);
@@ -87,12 +86,11 @@ const TestCard = ({
                                     }}>
                                         <FontAwesomeIcon icon={faShareSquare} /> Share
                                     </Dropdown.Item>
-                                    <Dropdown.Item as="button"
-                                                   onClick={() => {
-                                                       history.push(`/test/statistic?id=${testId}`);
-                                                   }}>
-                                        <FontAwesomeIcon icon={faPollH} /> Show results
-                                    </Dropdown.Item>
+                                    <LinkContainer to={`/test/statistic?id=${testId}`}>
+                                        <Dropdown.Item as="button">
+                                            <FontAwesomeIcon icon={faPollH} /> Show results
+                                        </Dropdown.Item>
+                                    </LinkContainer>
                                 </Dropdown.Menu>
                             </Dropdown>
                             )
