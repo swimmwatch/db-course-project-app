@@ -1,11 +1,6 @@
 import {appendAuth, appendJSON} from "../helpers/header";
 import {getToken} from "../helpers/token";
 
-/**
- *
- * @param {number} testId - Test ID
- * @return {Promise<void>}
- */
 export const deleteTest = async testId => {
     const token = getToken();
     const headers = new Headers();
@@ -13,17 +8,20 @@ export const deleteTest = async testId => {
     appendAuth(headers, token);
     appendJSON(headers);
 
-    await fetch(`/api/test/delete`, {
+    const response = await fetch(`/api/test/delete`, {
         method: 'DELETE',
         headers,
         body: JSON.stringify({ testId })
     });
+
+    if (response.ok) {
+        return Promise.resolve();
+    } else {
+        // TODO: handle if something went wrong
+        return Promise.reject();
+    }
 };
 
-/**
- * Get own tests for profile viewing
- * @return {Promise<Object[]>}
- */
 export const getOwnTests = async () => {
     const token = getToken();
     const headers = new Headers();
@@ -35,25 +33,16 @@ export const getOwnTests = async () => {
         headers
     });
 
-    const responseJson = await response.json();
+    if (response.ok) {
+        const responseJson = await response.json();
 
-    return Promise.resolve(responseJson);
+        return Promise.resolve(responseJson);
+    } else {
+        // TODO: handle if something wrong
+        return Promise.reject();
+    }
 };
 
-/**
- * Create test
- * @param {Object} testData - Test data
- * @param {Object} testData.info - Test title
- * @param {string} testData.info.title - Test title
- * @param {string} testData.info.description - Test description
- * @param {Object[]} testData.questions - Questions
- * @param {string} testData.questions[].title - Question title
- * @param {string} testData.questions[].typeAnswer - Question type
- * @param {Object[]} testData.questions[].answers - Answers
- * @param {string} testData.questions[].answers[].content - Answer content
- * @param {boolean} testData.questions[].answers[].isRight - Answer status
- * @return Promise<Object|void>
- */
 export const create = async (testData) => {
     const token = getToken();
     const headers = new Headers();
@@ -98,11 +87,6 @@ export const update = async (testData, testId) => {
     }
 };
 
-/**
- *
- * @param {number} testId - Test ID
- * @return {Promise<Object[]>}
- */
 export const getTestForEdit = async testId => {
     const token = getToken();
     const headers = new Headers();

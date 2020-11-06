@@ -7,7 +7,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
-import LinkContainer from "react-router-bootstrap/lib/LinkContainer";
 import ErrorFormAlert from "../../components/ErrorFormAlert";
 
 import authService from "../../services/auth";
@@ -130,12 +129,6 @@ class Login extends React.Component {
                                           required
                                           onChange={this.handleInputChange}/>
                         </Form.Group>
-                        <Form.Group controlId="main-login-form__checkbox">
-                            <Form.Check type="checkbox"
-                                        label="Remember me"
-                                        name="readMeChecked"
-                                        onChange={this.handleCheckboxChange} />
-                        </Form.Group>
                         <Button variant="primary"
                                 type="submit"
                                 block
@@ -143,9 +136,6 @@ class Login extends React.Component {
                                 onClick={this.handleFormSubmit}>
                             { isLoading ? 'Loading...' : 'Submit' }
                         </Button>
-                        <LinkContainer to="#">
-                            <a className="main-login-form__forgot-password">Forgot password?</a>
-                        </LinkContainer>
                     </Form>
                 </Col>
             </Container>

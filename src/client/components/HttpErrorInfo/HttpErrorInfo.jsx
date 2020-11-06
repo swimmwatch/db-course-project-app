@@ -18,7 +18,7 @@ const HttpErrorInfo = ({ status, reason }) => {
 };
 
 HttpErrorInfo.propTypes = {
-    status: PropTypes.number,
+    status: PropTypes.number.isRequired,
     reason: PropTypes.string
 }
 

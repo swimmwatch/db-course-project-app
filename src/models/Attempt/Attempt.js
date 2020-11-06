@@ -21,7 +21,6 @@ const Attempt = sequelize.define("attempt", {
     },
     answers: {
         type: DataTypes.JSON,
-        // TODO: make validation
     }
 });
 
