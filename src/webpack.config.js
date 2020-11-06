@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     entry: {
         main: './src/client/main.jsx',
-        admin: './src/client/contest.jsx'
+        contest: './src/client/contest.jsx'
     },
     devtool: 'source-map',
     module: {
