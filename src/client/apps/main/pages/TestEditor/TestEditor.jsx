@@ -14,8 +14,8 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import TestEditorTagList from "../../../../containers/TestEditorTagList";
 import TestEditorQuestionList from "../../../../containers/TestEditorQuestionList";
-import ErrorFormAlert from "../../components/ErrorFormAlert";
-import {ANSWER_TYPE} from "../../components/AnswerEditList/config";
+import ErrorFormAlert from "../../../../components/ErrorFormAlert";
+import {ANSWER_TYPE} from "../../../../../models/Test/config";
 import * as editTest from "../../../../services/editTest";
 
 import "./style.scss";

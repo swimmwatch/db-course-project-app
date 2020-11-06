@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
-import {ANSWER_TYPE} from "./config";
+import {ANSWER_TYPE} from "../../../../../models/Test/config";
 import * as testEditorActions from "../../../../actions/testEditor";
 
 class AnswerEditList extends React.Component {

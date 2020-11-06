@@ -6,9 +6,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Question from "../../components/Question";
+import Question from "../../../../components/Question";
 import * as testPassingService from "../../../../services/testPassing";
-import {ANSWER_TYPE} from "../../components/AnswerEditList/config";
+import {ANSWER_TYPE} from "../../../../../models/Test/config";
 
 class Test extends React.Component {
     constructor(props) {

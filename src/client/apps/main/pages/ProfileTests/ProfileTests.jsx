@@ -1,8 +1,8 @@
 import * as React from "react";
 import Container from "react-bootstrap/Container";
-import ListTestCards from "../../components/ListTestCards";
+import ListTestCards from "../../../../components/ListTestCards";
 import * as editTest from "../../../../services/editTest";
-import HttpErrorInfo from "../../components/HttpErrorInfo";
+import HttpErrorInfo from "../../../../components/HttpErrorInfo";
 import {NO_CONTENT} from "http-status-codes";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -10,7 +10,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import TagList from "../../components/TagList";
+import TagList from "../../../../components/TagList";
 
 import "./style.scss";
 

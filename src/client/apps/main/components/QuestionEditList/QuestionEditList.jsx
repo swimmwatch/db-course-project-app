@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ANSWER_TYPE} from "../AnswerEditList/config";
+import {ANSWER_TYPE} from "../../../../../models/Test/config";
 import PropTypes from "prop-types";
 
 import QuestionEditItem from "../QuestionEditItem";

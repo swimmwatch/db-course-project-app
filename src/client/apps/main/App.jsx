@@ -12,10 +12,10 @@ import TestEditor from "./pages/TestEditor";
 import Test from "../../containers/Test";
 import TestResult from "./pages/TestResult";
 
-import Footer from "./components/Footer";
+import Footer from "../../components/Footer";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
-import HttpErrorInfo from "./components/HttpErrorInfo";
+import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
 import TestStatistic from "./pages/TestStatistic";
 

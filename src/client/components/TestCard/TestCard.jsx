@@ -1,7 +1,6 @@
 import * as React from "react";
 import PropType from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useHistory } from "react-router-dom";
 import {
     faUser,
     faTags,
@@ -10,16 +9,16 @@ import {
     faShareSquare,
     faPollH
 } from "@fortawesome/free-solid-svg-icons";
+import history from "../../history";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { LinkContainer } from "react-router-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 import TagList from "../TagList";
 
 import "./style.scss";
 
-const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }) => {
-    const history = useHistory();
-
+const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId}) => {
     return (
         <Card className="test-card">
             <Card.Body>
@@ -48,13 +47,10 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                 <Card.Text className="test-card__description">{description}</Card.Text>
 
                 <div className="test-card__control">
-                    <Button className="test-card__pass-btn"
-                            variant="primary"
-                            onClick={() => {
-                        history.push(`/test/pass?id=${testId}`);
-                    }}>
-                        Pass test
-                    </Button>
+                    <LinkContainer to={`/test/pass?id=${testId}`}>
+                        <Button className="test-card__pass-btn"
+                                variant="primary">Pass test</Button>
+                    </LinkContainer>
 
                     <Dropdown className="test-card__dropdown-menu">
                         <Dropdown.Toggle variant="primary">Menu</Dropdown.Toggle>
@@ -66,8 +62,8 @@ const TestCard = ({ title, description, author, tags, onDeleteTestCard, testId }
                             </Dropdown.Item>
                             <Dropdown.Item as="button"
                                            onClick={() => {
-                                onDeleteTestCard(testId);
-                            }}>
+                                               onDeleteTestCard(testId);
+                                           }}>
                                 <FontAwesomeIcon icon={faTrash} /> Delete
                             </Dropdown.Item>
                             <Dropdown.Item as="button" onClick={async () => {

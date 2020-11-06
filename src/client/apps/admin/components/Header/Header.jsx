@@ -41,10 +41,10 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
             <Nav className="mr-auto">
                 { !isLoggedIn ? (
                     <>
-                        <LinkContainer to="/admin/signup">
+                        <LinkContainer to="/signup">
                             <Nav.Link> <FontAwesomeIcon icon={faUserPlus} /> Sign Up</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/admin/login">
+                        <LinkContainer to="/login">
                             <Nav.Link> <FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link>
                         </LinkContainer>
                     </>

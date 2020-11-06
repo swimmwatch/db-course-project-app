@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Card from "react-bootstrap/Card";
 import AnswerList from "../AnswerList";
 import Answer from "../Answer";
-import {ANSWER_TYPE} from "../AnswerEditList/config";
+import {ANSWER_TYPE} from "../../../models/Test/config";
 
 import "./style.scss";
 

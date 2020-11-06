@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import authService from "../../../../services/auth";
 
-import ErrorFormAlert from "../../components/ErrorFormAlert";
+import ErrorFormAlert from "../../../../components/ErrorFormAlert";
 
 import userConstraints from "../../../../../models/User/constraints";
 
