@@ -26,16 +26,20 @@ class Test extends React.Component {
     }
 
     async componentDidMount() {
-        const { setInitData } = this.props;
+        const { setInitData, history } = this.props;
         const { testId } = this.state;
 
-        let initState = null;
+        let initState = [];
         try {
             initState = await testPassingService.init(testId);
         } catch (err) {
-            // TODO: handle errors
+            history.push('/');
 
             console.error(err);
+        }
+
+        if (!initState.length) {
+            history.push('/');
         }
 
         setInitData(initState);
