@@ -67,26 +67,18 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                                 <FontAwesomeIcon icon={faIdCard} /> My profile
                             </NavDropdown.Item>
                         </LinkContainer>
-                        <NavDropdown.Divider />
-                        <LinkContainer to="#">
-                            <NavDropdown.Item onClick={showModal}>
-                                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                        <LinkContainer to="/test/edit">
+                            <NavDropdown.Item>
+                                <FontAwesomeIcon icon={faPlus} /> Create test
                             </NavDropdown.Item>
                         </LinkContainer>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={showModal}>
+                            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                        </NavDropdown.Item>
                     </NavDropdown>
                 ) }
             </Nav>
-            {
-                isLoggedIn && (
-                    <Nav>
-                        <LinkContainer to="/test/edit">
-                            <Button variant="primary">
-                                Create test <FontAwesomeIcon icon={faPlus} />
-                            </Button>
-                        </LinkContainer>
-                    </Nav>
-                )
-            }
 
             <Modal
                 size="md"

@@ -11,6 +11,7 @@ import {
     faSignInAlt,
     faUserPlus,
     faClipboardList,
+    faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "react-bootstrap/Navbar";
@@ -60,23 +61,18 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                             <FontAwesomeIcon icon={faUser} />  {user.login}
                         </span>
                     } id="user-nav-dropdown">
-                        <LinkContainer to="#">
-                            <NavDropdown.Item onClick={showModal}>
-                                <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                        <LinkContainer to="/tests">
+                            <NavDropdown.Item>
+                                <FontAwesomeIcon icon={faList} /> Tests
                             </NavDropdown.Item>
                         </LinkContainer>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={showModal}>
+                            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                        </NavDropdown.Item>
                     </NavDropdown>
                 ) }
             </Nav>
-            {
-                isLoggedIn && (
-                    <Nav>
-                        <LinkContainer to="/tests">
-                            <Button variant="primary">Tests</Button>
-                        </LinkContainer>
-                    </Nav>
-                )
-            }
 
             <Modal
                 size="md"
