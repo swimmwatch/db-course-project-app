@@ -17,9 +17,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
+import LogOutModal from "../../../../components/LogOutModal";
 
 import "./style.scss";
 
@@ -27,7 +26,6 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
     const [modalShow, setModalShow] = React.useState(false);
 
     const showModal = () => setModalShow(true);
-
     const hideModal = () => setModalShow(false);
 
     const onLogOut = () => {
@@ -42,66 +40,52 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
         <Navbar bg="dark" variant="dark">
             <LinkContainer to="/">
                 <Navbar.Brand>
-                    <FontAwesomeIcon icon={faClipboardList} /> PassQuiz Contest
+                    <FontAwesomeIcon icon={faClipboardList}/> PassQuiz Contest
                 </Navbar.Brand>
             </LinkContainer>
             <Nav className="mr-auto">
-                { !isLoggedIn ? (
+                {!isLoggedIn ? (
                     <>
                         <LinkContainer to="/signup">
-                            <Nav.Link> <FontAwesomeIcon icon={faUserPlus} /> Sign Up</Nav.Link>
+                            <Nav.Link> <FontAwesomeIcon icon={faUserPlus}/> Sign Up</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/login">
-                            <Nav.Link> <FontAwesomeIcon icon={faSignInAlt} /> Login</Nav.Link>
+                            <Nav.Link> <FontAwesomeIcon icon={faSignInAlt}/> Login</Nav.Link>
                         </LinkContainer>
                     </>
                 ) : (
                     <NavDropdown title={
                         <span>
-                            <FontAwesomeIcon icon={faUser} />  {user.login}
+                            <FontAwesomeIcon icon={faUser}/> {user.login}
                         </span>
                     } id="user-nav-dropdown">
                         <LinkContainer to="/tests">
                             <NavDropdown.Item>
-                                <FontAwesomeIcon icon={faList} /> Tests
+                                <FontAwesomeIcon icon={faList}/> Tests
                             </NavDropdown.Item>
                         </LinkContainer>
-                        <NavDropdown.Divider />
+                        <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={showModal}>
-                            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+                            <FontAwesomeIcon icon={faSignOutAlt}/> Logout
                         </NavDropdown.Item>
                     </NavDropdown>
-                ) }
+                )}
             </Nav>
 
-            <Modal
-                size="md"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                onHide={hideModal}
-                show={modalShow}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">Log out</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>Are you sure you want to log-off?</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={onLogOut}>Yes</Button>
-                </Modal.Footer>
-            </Modal>
+            <LogOutModal onHide={hideModal}
+                         show={modalShow}
+                         onLogOut={onLogOut}/>
         </Navbar>
     );
 }
 
 Header.propTypes = {
-    history: ReactRouterPropTypes.history,
-    dispatch: PropTypes.func,
-    isLoggedIn: PropTypes.bool,
+    history: ReactRouterPropTypes.history.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
     user: PropTypes.shape({
         login: PropTypes.string
-    })
+    }).isRequired
 };
 
 function mapStateToProps(state) {

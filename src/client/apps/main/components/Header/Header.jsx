@@ -18,9 +18,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
+import LogOutModal from "../../../../components/LogOutModal";
 
 import "./style.scss";
 
@@ -80,23 +79,9 @@ const Header = ({ isLoggedIn, user, dispatch, history }) => {
                 ) }
             </Nav>
 
-            <Modal
-                size="md"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                onHide={hideModal}
-                show={modalShow}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">Log out</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p>Are you sure you want to log-off?</p>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={onLogOut}>Yes</Button>
-                </Modal.Footer>
-            </Modal>
+            <LogOutModal onHide={hideModal}
+                         show={modalShow}
+                         onLogOut={onLogOut}/>
         </Navbar>
     );
 }
