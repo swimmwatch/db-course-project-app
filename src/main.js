@@ -1,8 +1,12 @@
 const electron = require('electron');
+const { session } = require('electron');
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+
+const isDevelopmentMode = process.env.APP_MODE === 'development';
+const PORT = process.env.PORT || 3000;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -16,7 +20,7 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL('http://localhost:3000');
+    mainWindow.loadURL(isDevelopmentMode ? `http://localhost:${PORT}` : 'http://passquiz.herokuapp.com');
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
@@ -40,6 +44,10 @@ app.on('window-all-closed', function() {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
+        session.defaultSession.clearStorageData({
+            storages: ['localstorage', 'caches', 'indexdb']
+        });
+
         app.quit();
     }
 });
