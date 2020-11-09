@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import PrivateRoute from "../../hoc/PrivateRoute";
-import NotIsLoggedInRoute from "../../hoc/NotIsLoggedInRoute";
+import PrivateRoute from "../../containers/PrivateRoute";
+import NotIsLoggedInRoute from "../../containers/NotIsLoggedInRoute";
 
 import Container from "react-bootstrap/Container";
 
