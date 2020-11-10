@@ -12,8 +12,8 @@
     "es-lint": "eslint . -c src/.eslintrc.js --ext \"jsx,js\"",
     "style-lint": "stylelint --ignore-pattern src/client/tests --config src/.stylelintrc src/client/*",
     "watch": "webpack --config src/webpack.config.js --watch",
-    "desktop-dev": "electron ./src/main.js",
-    "desktop-start" : "electron ./build/main.js"
+    "desktop-dev": "APP_MODE=development electron ./src/main.js",
+    "desktop-start": "APP_MODE=production electron ./src/main.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -79,6 +79,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
     "electron": "^10.1.5",
+    "electron-packager": "^15.1.0",
     "eslint": "^7.9.0",
     "eslint-plugin-jest": "^24.0.1",
     "eslint-plugin-react": "^7.20.6",

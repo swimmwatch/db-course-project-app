@@ -1,6 +1,5 @@
 import * as React from "react";
 import PropType from "prop-types";
-import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 const NotIsLoggedInRoute = ({ component: Component, isLoggedIn, ...rest }) => {
@@ -16,14 +15,8 @@ const NotIsLoggedInRoute = ({ component: Component, isLoggedIn, ...rest }) => {
 };
 
 NotIsLoggedInRoute.propTypes = {
-    isLoggedIn: PropType.bool,
-    component: PropType.elementType,
+    isLoggedIn: PropType.bool.isRequired,
+    component: PropType.elementType.isRequired,
 };
 
-function mapStateToProps(state) {
-    const { isLoggedIn } = state.auth;
-
-    return { isLoggedIn };
-}
-
-export default connect(mapStateToProps)(NotIsLoggedInRoute);
+export default NotIsLoggedInRoute;
