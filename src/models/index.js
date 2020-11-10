@@ -5,8 +5,8 @@ import TestTag from "./TestTag";
 import Attempt from "./Attempt";
 
 const models = [
-    Test,
     User,
+    Test,
     Tag,
     TestTag,
     Attempt
