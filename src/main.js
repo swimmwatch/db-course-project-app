@@ -5,7 +5,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 
-const isDevelopmentMode = process.env.APP_MODE === 'development';
+const isDevelopmentMode = process.env.NODE_ENV === 'development';
 const PORT = process.env.PORT || 3000;
 
 // Keep a global reference of the window object, if you don't, the window will
