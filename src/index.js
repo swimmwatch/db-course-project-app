@@ -54,7 +54,7 @@ app.use(errorHandler);
 app.listen(PORT, async () => {
     try {
         await sequelize.authenticate();
-        await sequelize.sync({ force: true });
+        // await sequelize.sync({ force: true });
 
         for (let model of models) {
             await model.sync();
