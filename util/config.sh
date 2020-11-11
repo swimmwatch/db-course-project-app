@@ -1,5 +1,9 @@
 # constants
-export APP_NAME=passquiz
+export APP_NAME='passquiz'
+
+export PROD_DATABASE=dc14otek51lv0r
+export PROD_HOST=ec2-18-211-48-247.compute-1.amazonaws.com
+export PROD_USER=tzyfnndroydpme
 
 DEFAULT_ERR_MSG='something went wrong'
 
