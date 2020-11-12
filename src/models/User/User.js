@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import * as bcrypt from "bcrypt";
 
 import config from "../../config";
-import userConstraints from "./constraints";
+import { userConstraints } from "./constraints";
 import Test from "../Test";
 
 const {
@@ -61,6 +61,7 @@ const User = sequelize.define("user", {
     }
 );
 
+// model methods
 User.hashPassword = async (value) => {
     const salt = await bcrypt.genSalt(10);
 
@@ -79,6 +80,7 @@ User.prototype.initState = function() {
     }
 };
 
+// hooks
 User.beforeCreate(async user => {
     user.password = await User.hashPassword(user.password);
 });
