@@ -89,7 +89,31 @@ User.beforeUpdate(async user => {
     user.password = await User.hashPassword(user.password);
 });
 
+// relations
 User.hasMany(Test, { onDelete: 'cascade' });
 Test.belongsTo(User);
+
+// export const initConstraints = async () => {
+//     const {
+//         MIN_LOGIN_LENGTH,
+//         MAX_LOGIN_LENGTH,
+//         MIN_PASSWORD_LENGTH,
+//         MAX_PASSWORD_LENGTH
+//     } = userConstraints;
+//
+//     let query =
+// `
+// alter table users add constraint login
+//     check ( length(login) >= ${MIN_LOGIN_LENGTH} and length(login) <= ${MAX_LOGIN_LENGTH});
+//
+// alter table users add constraint password
+//     check ( length(password) >= ${MIN_PASSWORD_LENGTH} and length(password) <= ${MAX_PASSWORD_LENGTH});
+//
+// alter table users add constraint password
+//     check ( length(password) >= ${MIN_PASSWORD_LENGTH} and length(password) <= ${MAX_PASSWORD_LENGTH});
+// `
+//
+//     await sequelize.query(query);
+// };
 
 export default User;

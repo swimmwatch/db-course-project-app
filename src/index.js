@@ -17,10 +17,10 @@ import errorHandler from "./middlewares/errorHandler";
 
 import models from "./models"
 
-const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
 
 const configInitModel = {
-    force: isProduction
+    force: false
 };
 
 const app = express();
