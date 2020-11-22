@@ -20,7 +20,7 @@ import {NOT_FOUND} from "http-status-codes";
 class App extends React.Component {
     render() {
         return (
-            <div>
+            <>
                 <Header />
 
                 <Switch>
@@ -36,7 +36,7 @@ class App extends React.Component {
                 <Container className="p-3">
                     <Footer/>
                 </Container>
-            </div>
+            </>
         );
     }
 }
