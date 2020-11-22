@@ -1,8 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import ReactRouterPropTypes from "react-router-prop-types";
-import { connect } from "react-redux";
 import * as authActions from "../../../../actions/auth";
 
 import {
@@ -88,13 +86,4 @@ Header.propTypes = {
     }).isRequired
 };
 
-function mapStateToProps(state) {
-    const { isLoggedIn, user } = state.auth;
-
-    return { isLoggedIn, user };
-}
-
-const headerWithRouter = withRouter(Header);
-const connectedHeaderWithRouter = connect(mapStateToProps)(headerWithRouter);
-
-export { connectedHeaderWithRouter as Header };
+export default Header;

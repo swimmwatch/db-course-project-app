@@ -12,7 +12,7 @@ import Test from "../../containers/Test";
 import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
-import Header from "./components/Header";
+import Header from "../../containers/contest/Header";
 import AllTests from "./pages/AllTests";
 import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
