@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { ANSWER_TYPE } from "../../../../../models/Test/config";
-import { AnswerEditList } from "../AnswerEditList";
+import AnswerEditList from "../../../../containers/main/AnswerEditList";
 import Button from "react-bootstrap/Button";
 
 class QuestionEditItem extends React.Component {
