@@ -17,7 +17,6 @@ export const deleteTest = async testId => {
     if (response.ok) {
         return Promise.resolve();
     } else {
-        // TODO: handle if something went wrong
         return Promise.reject();
     }
 };
