@@ -21,12 +21,12 @@ class QuestionEditList extends React.Component {
         return (
             <>
                 {
-                    questions.map((el, i) => {
+                    questions.map((question, i) => {
                         const {
                             typeAnswer,
                             answers,
                             title
-                        } = el;
+                        } = question;
 
                         return (
                             <QuestionEditItem name={i}
