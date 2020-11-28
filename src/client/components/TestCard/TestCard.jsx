@@ -76,13 +76,7 @@ const TestCard = ({
                                     <Dropdown.Item as="button" onClick={async () => {
                                         const link = `${location.origin}/test/pass?id=${testId}`;
 
-                                        try {
-                                            await navigator.clipboard.writeText(link);
-
-                                            alert("Link has been copied!");
-                                        } catch (err) {
-                                            alert('Could not copy link.');
-                                        }
+                                        alert(link);
                                     }}>
                                         <FontAwesomeIcon icon={faShareSquare} /> Share
                                     </Dropdown.Item>

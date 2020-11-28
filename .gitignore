@@ -372,3 +372,4 @@ dist
 
 # backup directory
 /backups/
+/config/config.json

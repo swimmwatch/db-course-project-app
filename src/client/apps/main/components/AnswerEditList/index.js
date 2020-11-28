@@ -1,3 +1,3 @@
-import { AnswerEditList} from "./AnswerEditList";
+import AnswerEditList from "./AnswerEditList";
 
-export { AnswerEditList };
+export default AnswerEditList;

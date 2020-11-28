@@ -10,7 +10,7 @@ import authService from "../../services/auth";
 
 import ErrorFormAlert from "../../components/ErrorFormAlert";
 
-import userConstraints from "../../../models/User/constraints";
+import { userConstraints } from "../../../models/User/constraints";
 
 import "./style.scss";
 

@@ -12,7 +12,7 @@ import Test from "../../containers/Test";
 import TestResult from "../../pages/TestResult";
 
 import Footer from "../../components/Footer";
-import Header from "./components/Header";
+import Header from "../../containers/contest/Header";
 import AllTests from "./pages/AllTests";
 import HttpErrorInfo from "../../components/HttpErrorInfo";
 import {NOT_FOUND} from "http-status-codes";
@@ -20,7 +20,7 @@ import {NOT_FOUND} from "http-status-codes";
 class App extends React.Component {
     render() {
         return (
-            <div>
+            <>
                 <Header />
 
                 <Switch>
@@ -36,7 +36,7 @@ class App extends React.Component {
                 <Container className="p-3">
                     <Footer/>
                 </Container>
-            </div>
+            </>
         );
     }
 }

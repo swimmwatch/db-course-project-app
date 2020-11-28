@@ -12,8 +12,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TagList from "../../../../components/TagList";
 
-import "./style.scss";
-
 class AllTests extends React.Component {
     constructor(props) {
         super(props);
@@ -99,22 +97,20 @@ class AllTests extends React.Component {
                 <Row>
                     <Col lg={12} style={{ padding: '0' }}>
                         <Form>
-                            <Form.Group controlId="">
+                            <Form.Group controlId="test-search-title">
                                 <FormControl
-                                    aria-label="test title"
-                                    aria-describedby="basic-addon2"
-                                    required
+                                    aria-label="Test searching title field"
                                     placeholder="Enter test title"
+                                    required
                                     onChange={this.handleSearchTitleChange}
                                 />
                             </Form.Group>
-                            <Form.Group controlId="">
+                            <Form.Group controlId="test-search-tag-value">
                                 <InputGroup className="mb-3">
                                     <FormControl
-                                        aria-label="Recipient's username"
-                                        aria-describedby="basic-addon2"
-                                        required
+                                        aria-label="Test searching tag value"
                                         placeholder="Enter tag name"
+                                        required
                                         onChange={this.handleSearchTagValueChange}
                                     />
                                     <InputGroup.Append>
@@ -126,7 +122,7 @@ class AllTests extends React.Component {
                                 </InputGroup>
                             </Form.Group>
                             <TagList tags={searchTags}
-                                     canDelete={true}
+                                     canDelete={false}
                                      deleteTag={this.handleSearchTagDeleting} />
                         </Form>
                     </Col>

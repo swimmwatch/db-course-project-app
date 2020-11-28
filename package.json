@@ -6,14 +6,14 @@
   "author": "Dmitry Vasiliev",
   "scripts": {
     "test": "jest",
-    "start-dev": "nodemon --config \"./util/nodemon.json\"/",
+    "start-dev": "NODE_ENV=development nodemon --config \"./util/nodemon.json\"/",
     "build": "rm -rf ./build/* ./src/public/contest.bundle.js ./src/public/main.bundle.js && babel src -d build && webpack --config src/webpack.config.js --mode=\"production\"",
     "start": "node -r dotenv/config build/index.js",
     "es-lint": "eslint . -c src/.eslintrc.js --ext \"jsx,js\"",
     "style-lint": "stylelint --ignore-pattern src/client/tests --config src/.stylelintrc src/client/*",
     "watch": "webpack --config src/webpack.config.js --watch",
-    "desktop-dev": "APP_MODE=development electron ./src/main.js",
-    "desktop-start": "APP_MODE=production electron ./src/main.js"
+    "desktop-dev": "NODE_ENV=development electron ./src/main.js",
+    "desktop-start": "NODE_ENV=production electron ./src/main.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
@@ -90,6 +90,7 @@
     "nodemon": "^2.0.4",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
+    "sequelize-cli": "^6.2.0",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.1",
     "stylelint-config-sass-guidelines": "^7.0.0",
