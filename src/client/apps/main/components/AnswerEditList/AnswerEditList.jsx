@@ -1,11 +1,9 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AnswerEditItem from "../AnswerEditItem";
 import {ANSWER_TYPE} from "../../../../../models/Test/config";
-import * as testEditorActions from "../../../../actions/testEditor";
 
 class AnswerEditList extends React.Component {
     constructor(props) {
@@ -28,8 +26,8 @@ class AnswerEditList extends React.Component {
                 <p>Choose right answer:</p>
                 <Form.Group controlId="">
                     {
-                        answers.map((el, i) => {
-                            const { content, isRight } = el;
+                        answers.map((answer, i) => {
+                            const { content, isRight } = answer;
 
                             return (
                                 <AnswerEditItem key={i}
@@ -44,7 +42,8 @@ class AnswerEditList extends React.Component {
                         })
                     }
                 </Form.Group>
-                <Button variant="primary" onClick={onAppendAnswer}>
+                <Button variant="primary"
+                        onClick={onAppendAnswer}>
                     Add answer
                 </Button>
             </>
@@ -67,18 +66,4 @@ AnswerEditList.propTypes = {
     updateAnswers: PropTypes.func
 };
 
-function mapStateToProps() {
-    return {};
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        deleteAnswer: (questionId, answerId) => dispatch(testEditorActions.deleteAnswer(questionId, answerId)),
-        updateAnswerText: (questionId, answerId, value) => dispatch(testEditorActions.updateAnswerText(questionId, answerId, value)),
-        updateAnswers: (questionId, answerId, isRight, typeAnswer) => dispatch(testEditorActions.updateAnswers(questionId, answerId, isRight, typeAnswer))
-    };
-}
-
-const connectedAnswerEditList = connect(mapStateToProps, mapDispatchToProps)(AnswerEditList);
-
-export { connectedAnswerEditList as AnswerEditList };
+export default AnswerEditList;

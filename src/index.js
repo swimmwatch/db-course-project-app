@@ -15,7 +15,13 @@ import profileModify from "./routes/profileModify";
 import attemptsRouter from "./routes/attempt";
 import errorHandler from "./middlewares/errorHandler";
 
-import models from "./models";
+import models from "./models"
+
+// const isProduction = process.env.NODE_ENV === 'production';
+
+const configInitModel = {
+    force: false
+};
 
 const app = express();
 
@@ -54,10 +60,10 @@ app.use(errorHandler);
 app.listen(PORT, async () => {
     try {
         await sequelize.authenticate();
-        // await sequelize.sync({ force: true });
 
+        // init models. If it's running on production then all tables will be deleted.
         for (let model of models) {
-            await model.sync();
+            await model.sync(configInitModel);
         }
 
         console.log('Connection has been established successfully.');

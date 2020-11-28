@@ -14,6 +14,7 @@ const Tag = ({ content, onDelete, canDelete }) => {
                     <button className="tag__delete-btn"
                             onClick={event => {
                                 event.preventDefault();
+
                                 onDelete();
                             }}>
                         <FontAwesomeIcon icon={faTimes} />

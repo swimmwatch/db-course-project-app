@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import * as bcrypt from "bcrypt";
 
 import config from "../../config";
-import userConstraints from "./constraints";
+import { userConstraints } from "./constraints";
 import Test from "../Test";
 
 const {
@@ -61,6 +61,7 @@ const User = sequelize.define("user", {
     }
 );
 
+// model methods
 User.hashPassword = async (value) => {
     const salt = await bcrypt.genSalt(10);
 
@@ -79,6 +80,7 @@ User.prototype.initState = function() {
     }
 };
 
+// hooks
 User.beforeCreate(async user => {
     user.password = await User.hashPassword(user.password);
 });
@@ -87,7 +89,31 @@ User.beforeUpdate(async user => {
     user.password = await User.hashPassword(user.password);
 });
 
+// relations
 User.hasMany(Test, { onDelete: 'cascade' });
 Test.belongsTo(User);
+
+// export const initConstraints = async () => {
+//     const {
+//         MIN_LOGIN_LENGTH,
+//         MAX_LOGIN_LENGTH,
+//         MIN_PASSWORD_LENGTH,
+//         MAX_PASSWORD_LENGTH
+//     } = userConstraints;
+//
+//     let query =
+// `
+// alter table users add constraint login
+//     check ( length(login) >= ${MIN_LOGIN_LENGTH} and length(login) <= ${MAX_LOGIN_LENGTH});
+//
+// alter table users add constraint password
+//     check ( length(password) >= ${MIN_PASSWORD_LENGTH} and length(password) <= ${MAX_PASSWORD_LENGTH});
+//
+// alter table users add constraint password
+//     check ( length(password) >= ${MIN_PASSWORD_LENGTH} and length(password) <= ${MAX_PASSWORD_LENGTH});
+// `
+//
+//     await sequelize.query(query);
+// };
 
 export default User;
