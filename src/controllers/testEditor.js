@@ -240,11 +240,7 @@ export const deleteTest = async (req, res, next) => {
     }
 
     if (test.userId === userId) {
-        await Test.destroy({
-            where: {
-                id: testId
-            }
-        });
+        await test.destroy();
 
         res.sendStatus(OK);
     } else {
