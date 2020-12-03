@@ -17,7 +17,6 @@ export const deleteTest = async testId => {
     if (response.ok) {
         return Promise.resolve();
     } else {
-        // TODO: handle if something went wrong
         return Promise.reject();
     }
 };
@@ -38,7 +37,6 @@ export const getOwnTests = async () => {
 
         return Promise.resolve(responseJson);
     } else {
-        // TODO: handle if something wrong
         return Promise.reject();
     }
 };

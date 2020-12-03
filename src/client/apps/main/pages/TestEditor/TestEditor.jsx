@@ -50,7 +50,7 @@ class TestEditor extends React.Component {
     }
 
     async componentDidMount() {
-        const { dispatch } = this.props;
+        const { dispatch, history } = this.props;
         const { isEditing, testId } = this.state;
 
         if (isEditing) {
@@ -60,7 +60,7 @@ class TestEditor extends React.Component {
 
                 dispatch(testEditorActions.update(response));
             } catch (err) {
-                console.error(err);
+                history.push('/');
             }
         } else {
             dispatch(testEditorActions.reset());
