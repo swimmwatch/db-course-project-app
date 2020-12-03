@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ErrorFormAlert from "../../../../components/ErrorFormAlert";
 import UpdatePasswordForm from "./components/UpdatePasswordForm";
-import DeleteProfileForm from "./components/DeleteProfileForm";
+// import DeleteProfileForm from "./components/DeleteProfileForm";
 
 import "./style.scss";
 
@@ -43,11 +43,11 @@ class ProfileSettings extends React.Component {
                         <UpdatePasswordForm onSubmitError={this.updateListErrors} />
                     </Col>
                 </Row>
-                <Row>
-                    <Col lg={6}>
-                        <DeleteProfileForm onSubmitError={this.updateListErrors} />
-                    </Col>
-                </Row>
+                {/*<Row>*/}
+                {/*    <Col lg={6}>*/}
+                {/*        <DeleteProfileForm onSubmitError={this.updateListErrors} />*/}
+                {/*    </Col>*/}
+                {/*</Row>*/}
             </Container>
         );
     }

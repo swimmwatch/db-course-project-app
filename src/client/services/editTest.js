@@ -37,7 +37,6 @@ export const getOwnTests = async () => {
 
         return Promise.resolve(responseJson);
     } else {
-        // TODO: handle if something wrong
         return Promise.reject();
     }
 };
