@@ -17,7 +17,7 @@ export const signUp = async (req, res, next) => {
     const formListErrors = new FormListErrors();
 
     if (repeatPassword !== password) {
-        formListErrors.add("passwords doesn't equal.");
+        formListErrors.add("passwords aren't equal.");
 
         next({
             status: BAD_REQUEST,
