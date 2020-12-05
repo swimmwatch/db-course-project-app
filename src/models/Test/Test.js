@@ -100,6 +100,15 @@ const Test = sequelize.define("test", {
             },
             isValidAnswers: function (value) {
                 for (let currQuestion of value) {
+                    // check case if answer type is 'one' and no one checked variants
+                    if (currQuestion.typeAnswer === ANSWER_TYPE.ONE) {
+                        const thereIsOneRightAnswer = currQuestion.answers.some(answer => answer.isRight);
+
+                        if (!thereIsOneRightAnswer) {
+                            throw new Error('No one checked variants.');
+                        }
+                    }
+
                     for (let currAnswer of currQuestion.answers) {
                         const resultCheck = validate(currAnswer, answerScheme);
 
