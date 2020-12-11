@@ -240,11 +240,7 @@ export const deleteTest = async (req, res, next) => {
     }
 
     if (test.userId === userId) {
-        await Test.destroy({
-            where: {
-                id: testId
-            }
-        });
+        await test.destroy();
 
         res.sendStatus(OK);
     } else {
@@ -379,9 +375,12 @@ export const check = async (req, res, next) => {
             include: [User, Test]
         });
     } catch (err) {
-        // TODO: handle case if data is invalid
+        formListErrors.addFromModelErrors(err.errors);
 
-        console.error(err);
+        next({
+            status: BAD_REQUEST,
+            errors: formListErrors.data.errors
+        });
     }
 
     res.json({ attemptId: newAttempt.id });

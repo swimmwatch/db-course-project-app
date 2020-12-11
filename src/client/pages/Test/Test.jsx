@@ -34,8 +34,6 @@ class Test extends React.Component {
             initState = await testPassingService.init(testId);
         } catch (err) {
             history.push('/');
-
-            console.error(err);
         }
 
         if (!initState.length) {

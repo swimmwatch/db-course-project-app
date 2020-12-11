@@ -25,13 +25,13 @@ Test.afterDestroy(async () => {
 
     // delete tags that not exist
     for (let tag of allTags) {
-        const testTag = await TestTag.find({
+        const testTag = await TestTag.findAll({
             where: {
                 tagId: tag.id
             }
         });
 
-        if (!testTag) {
+        if (!testTag.length) {
             await tag.destroy();
         }
     }

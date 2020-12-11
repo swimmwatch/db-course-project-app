@@ -43,9 +43,7 @@ export const init = async testId => {
                 };
             }
             default: {
-                // TODO: handle default case
-
-                console.log('something went wrong');
+                console.error('something went wrong');
             }
         }
     }
