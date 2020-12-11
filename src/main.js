@@ -16,8 +16,15 @@ function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 800,
-        height: 600
+        height: 600,
+        webPreferences: {
+            devTools: isDevelopmentMode,
+        }
     });
+
+    if (!isDevelopmentMode) {
+        mainWindow.setMenu(null);
+    }
 
     // and load the index.html of the app.
     mainWindow.loadURL(isDevelopmentMode ? `http://localhost:${PORT}` : 'http://passquiz.herokuapp.com');

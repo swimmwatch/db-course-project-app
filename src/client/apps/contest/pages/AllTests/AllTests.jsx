@@ -78,12 +78,12 @@ class AllTests extends React.Component {
         const { tests, searchTags, searchTitle } = this.state;
 
         return tests.filter(({ tags, title }) => {
-            const containAllTags = tags.some(tag => searchTags.includes(tag));
+            const containSomeTags = tags.some(tag => searchTags.includes(tag));
             const lowerTitle = title.toLowerCase();
             const lowerSearchTitle = searchTitle.toLowerCase();
             const likeTitle = lowerTitle.indexOf(lowerSearchTitle) !== -1;
 
-            return (searchTags.length > 0 ? containAllTags : true) &&
+            return (searchTags.length > 0 ? containSomeTags : true) &&
                 (searchTitle ? likeTitle : true);
         });
     }
@@ -122,7 +122,7 @@ class AllTests extends React.Component {
                                 </InputGroup>
                             </Form.Group>
                             <TagList tags={searchTags}
-                                     canDelete={false}
+                                     canDelete={true}
                                      deleteTag={this.handleSearchTagDeleting} />
                         </Form>
                     </Col>
