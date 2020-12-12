@@ -34,6 +34,8 @@ const TableStatistic = ({rows}) => {
                 bordered
                 small
                 sortable
+                searching={false}
+                paging={false}
                 data={data}
             />
         </Container>
